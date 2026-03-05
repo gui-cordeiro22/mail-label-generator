@@ -1,0 +1,18 @@
+export const space = {
+    quarck: "2px",
+    nano: "4px",
+    micro: "6px",
+    xxxxs: "8px",
+    xxxs: "10px",
+    xxs: "12px",
+    xs: "16px",
+    sm: "20px",
+    md: "24px",
+    lg: "28px",
+    xl: "32px",
+    xxl: "40px",
+    xxxl: "48px",
+    xxxxl: "64px",
+    huge: "80px",
+    immense: "160px",
+};
