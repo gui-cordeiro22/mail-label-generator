@@ -22,7 +22,7 @@ export const Home: FunctionComponent = () => {
                         <li>Teste</li>
                     </ul>
                 }
-                footerMenusCompositions
+                footerMenusCompositions={<p>Todos os direitos reservados</p>}
             />
         </div>
     );
