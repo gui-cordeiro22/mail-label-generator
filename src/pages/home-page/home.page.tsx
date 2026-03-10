@@ -53,8 +53,6 @@ export const Home: FunctionComponent = () => {
         return clearState;
     }, [clearState]);
 
-    console.log("chartData", chartData.data);
-
     const sidebarStatus =
         windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
 
