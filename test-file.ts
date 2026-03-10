@@ -3,7 +3,7 @@ import { db } from "./src/database";
 
 export const handleCreateRegister = async () => {
     // await db.clients.add({
-    //     name: "Sebastição da Ponte Cordeiro",
+    //     name: "Guilherme Cordeiro Silva",
     //     address: "Estrada União e Indústria nº 1667",
     //     city: "Petrópolis",
     //     neighborhood: "Corrêas",

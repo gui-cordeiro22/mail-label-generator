@@ -5,10 +5,11 @@ import {
     Bar,
     XAxis,
     YAxis,
-    CartesianGrid,
     ResponsiveContainer,
     LabelList,
 } from "recharts";
+
+import { theme } from "@/styles/theme";
 
 // Types
 import { CustomerChartProps } from "./customer-chart.types";
@@ -16,18 +17,22 @@ import { CustomerChartProps } from "./customer-chart.types";
 export const CustomerChart: FunctionComponent<CustomerChartProps> = ({
     data,
 }) => {
+    const formattedData = [...data].sort((a, b) => b.clients - a.clients);
+
     return (
-        <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
+        <ResponsiveContainer width="100%" height={300} debounce={50}>
+            <BarChart data={formattedData} layout="vertical">
+                <XAxis type="number" hide />
+                <YAxis dataKey="uf" type="category" fontWeight="bold" />
 
-                <XAxis dataKey="uf" />
-                <YAxis />
-
-                <Bar dataKey="clients">
+                <Bar
+                    dataKey="clients"
+                    fill={theme.palette.colors["warning100"]}
+                    isAnimationActive={false}
+                >
                     <LabelList
                         dataKey="clients"
-                        position="top"
+                        position="right"
                         formatter={(value) =>
                             !!value && Number(value) > 1
                                 ? `${value} clientes`
