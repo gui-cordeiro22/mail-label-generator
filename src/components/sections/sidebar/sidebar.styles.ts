@@ -103,5 +103,5 @@ export const FooterContent = styled.div`
     display: flex;
     flex-direction: column;
     border-top: ${({ theme }) =>
-        `${theme.system.borders.thin} solid ${theme.palette.colors.gray100}`};
+        `${theme.system.borders.thin} solid ${theme.palette.colors["gray100"]}`};
 `;

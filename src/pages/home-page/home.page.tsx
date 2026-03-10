@@ -1,39 +1,114 @@
 // Dependencies
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Components
-import { DefaultLayout } from "@/components/layout";
+import { DefaultLayout } from "@/components/layout/default-layout";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
 
 // Assets
-import logo from "@/assets/png/brand-logo.png";
+import { images, icons } from "@/assets";
+
+// Utils
+import { data } from "./home.mocks";
+
+// Stores
+import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
+
+// Hooks
+import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 export const Home: FunctionComponent = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const { state, actions } = useDefaultLayoutStore();
+
+    const { width: windowWidth } = useWindowDimensions();
+
+    const { sidebarIsOpened, sidebarIsExpanded } = state;
+    const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+
+    useEffect(() => {
+        return clearState;
+    }, [clearState]);
+
+    const sidebarStatus =
+        windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
+
+    const handleMenuClick = (path: string) => {
+        if (windowWidth < 1280) {
+            setSidebarIsOpened(false);
+        }
+
+        navigate(path);
+    };
+
+    const handleSidebarStatus = () => {
+        if (windowWidth < 1280) {
+            setSidebarIsOpened(!sidebarIsOpened);
+        } else {
+            setSidebarIsExpanded(!sidebarIsExpanded);
+        }
+    };
+
     return (
         <DefaultLayout
-            isSidebarOpened
+            isSidebarOpened={sidebarStatus}
             headerSection={<p>Header</p>}
             sidebarSection={
                 <Sidebar
-                    isOpened
-                    logoImageElement={<img style={{ width: 200 }} src={logo} />}
-                    statusIconElement={"<"}
+                    isOpened={sidebarStatus}
+                    logoImageElement={
+                        <img style={{ width: 200 }} src={images.brandLogo} />
+                    }
+                    statusIconElement={
+                        sidebarStatus ? (
+                            <img style={{ width: 16 }} src={icons.caretLeft} />
+                        ) : (
+                            <img style={{ width: 16 }} src={icons.caretRight} />
+                        )
+                    }
                     menusCompositions={
                         <Menu
-                            isSidebarOpened
+                            isSidebarOpened={sidebarStatus}
                             label="Menu"
-                            menuItemCompositions={
-                                <MenuItem isSidebarOpened label="Teste" />
-                            }
+                            menuItemCompositions={data.menus.map(
+                                (item, index) => (
+                                    <MenuItem
+                                        key={`menu-item-${index}`}
+                                        isSidebarOpened={sidebarStatus}
+                                        label={item.label}
+                                        isComingSoon={item.isComingSoon}
+                                        navigationSource={item.path}
+                                        isSelected={
+                                            location.pathname === item.path
+                                        }
+                                        {...(windowWidth < 1280 &&
+                                            !item.isComingSoon && {
+                                            handleClick: () =>
+                                                handleMenuClick(item.path),
+                                        })}
+                                        {...(windowWidth >= 1280 &&
+                                            !item.isComingSoon &&
+                                            !item.isExpandable && {
+                                            navigationSource: item.path,
+                                        })}
+                                    />
+                                ),
+                            )}
                         />
                     }
                     footerMenusCompositions={
-                        <p>Todos os direitos reservados</p>
+                        <MenuItem
+                            isSidebarOpened={sidebarStatus}
+                            label="Capas de Gaiola | Vera Brito"
+                        />
                     }
                 />
             }
-            handleSidebarOutsideClick={() => console.log("Click")}
+            handleSidebarOutsideClick={handleSidebarStatus}
             pageContent={<p>Content Page</p>}
         />
     );

@@ -16,3 +16,19 @@ export type DefaultActions = {
 };
 
 export type DefaultLayoutProps = DefaultData & DefaultElements & DefaultActions;
+
+export type DefaultLayoutState = {
+    sidebarIsOpened: boolean;
+    sidebarIsExpanded: boolean;
+};
+
+export type DefaultLayoutActions = {
+    clearState: () => void;
+    setSidebarIsOpened: (isOpened: boolean) => void;
+    setSidebarIsExpanded: (isExpanded: boolean) => void;
+};
+
+export type DefaultLayoutStore = {
+    state: DefaultLayoutState;
+    actions: DefaultLayoutActions;
+};

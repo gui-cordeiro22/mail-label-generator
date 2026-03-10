@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 html { scroll-behavior: smooth; }
 
 html, body, #root, #__next {
-    background-color: #fffce6;
+    background-color: #eeeeee;
   }
 
   body, div {
