@@ -10,6 +10,8 @@ import { HomePage } from "@/components/pages/home-page";
 import { Header } from "@/components/sections/header";
 import { Typography } from "@/components/utilities/typography";
 import { MobileHeader } from "@/components/sections/mobile-header";
+import { DashboardSection } from "@/components/sections/dashboard";
+import { CustomerChart } from "@/components/compositions/customer-chart";
 
 // Assets
 import { images, icons } from "@/assets";
@@ -19,11 +21,10 @@ import { data } from "./home.mocks";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
+import { useCustomersChartDataStores } from "./home.stores";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
-import { DashboardSection } from "@/components/sections/dashboard";
-import { CustomerChart } from "@/components/compositions/customer-chart";
 
 export const Home: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -31,14 +32,28 @@ export const Home: FunctionComponent = () => {
 
     const { state, actions } = useDefaultLayoutStore();
 
+    const {
+        state: customersChartDataState,
+        actions: customersChartDataActions,
+    } = useCustomersChartDataStores();
+
     const { width: windowWidth } = useWindowDimensions();
 
     const { sidebarIsOpened, sidebarIsExpanded } = state;
     const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
+    const { chartData } = customersChartDataState;
+    const { fetchCustomersData } = customersChartDataActions;
+
+    useEffect(() => {
+        fetchCustomersData();
+    }, []);
+
     useEffect(() => {
         return clearState;
     }, [clearState]);
+
+    console.log("chartData", chartData.data);
 
     const sidebarStatus =
         windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
@@ -163,7 +178,7 @@ export const Home: FunctionComponent = () => {
                     dashboardSectionCompositions={
                         <DashboardSection
                             customersChartCompositions={
-                                <CustomerChart data={data.clients.report} />
+                                <CustomerChart data={chartData?.data ?? []} />
                             }
                         />
                     }

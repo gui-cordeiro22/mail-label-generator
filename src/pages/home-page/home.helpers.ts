@@ -1,5 +1,5 @@
 // Types
-import { CustomerChartHelpersData } from "./customer-chart.types";
+import { CustomerChartHelpersData } from "@/components/compositions/customer-chart/customer-chart.types";
 
 export const customersReportBuilder = (clients: CustomerChartHelpersData[]) => {
     const map: Record<string, number> = {};
