@@ -52,7 +52,7 @@ export const Menu: FunctionComponent<MenuProps> = ({
                     content={
                         <Typography
                             variant="labelMedium"
-                            color="info200"
+                            color="warning400"
                             text={label}
                         />
                     }

@@ -33,7 +33,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                         renderingWidth={1280}
                         actionAfterRenderingWidth="show"
                         content={
-                            <ImageElementsWrapper>
+                            <ImageElementsWrapper isOpened={isOpened}>
                                 <StatusIconWrapper>
                                     {statusIconElement}
                                 </StatusIconWrapper>

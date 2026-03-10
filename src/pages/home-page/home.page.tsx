@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { DefaultLayout } from "@/components/layout/default-layout";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
+import { HomePage } from "@/components/pages/home-page";
+import { Header } from "@/components/sections/header";
 
 // Assets
 import { images, icons } from "@/assets";
@@ -18,6 +20,7 @@ import { useDefaultLayoutStore } from "@/components/layout/default-layout/defaul
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
+import { Typography } from "@/components/utilities/typography";
 
 export const Home: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -56,23 +59,22 @@ export const Home: FunctionComponent = () => {
     return (
         <DefaultLayout
             isSidebarOpened={sidebarStatus}
-            headerSection={<p>Header</p>}
             sidebarSection={
                 <Sidebar
                     isOpened={sidebarStatus}
                     logoImageElement={
-                        <img style={{ width: 200 }} src={images.brandLogo} />
+                        <img className="pdg-logo" src={images.brandLogo} />
                     }
                     statusIconElement={
                         sidebarStatus ? (
                             <img
-                                style={{ width: 16 }}
+                                className="pdg-status-icon"
                                 src={icons.caretLeft}
                                 onClick={handleSidebarStatus}
                             />
                         ) : (
                             <img
-                                style={{ width: 16 }}
+                                className="pdg-status-icon"
                                 src={icons.caretRight}
                                 onClick={handleSidebarStatus}
                             />
@@ -111,13 +113,35 @@ export const Home: FunctionComponent = () => {
                     footerMenusCompositions={
                         <MenuItem
                             isSidebarOpened={sidebarStatus}
-                            label="Capas de Gaiola | Vera Brito"
+                            label="Gerador de Etiquetas"
                         />
                     }
                 />
             }
             handleSidebarOutsideClick={handleSidebarStatus}
-            pageContent={<p>Content Page</p>}
+            pageContent={
+                <HomePage
+                    headerSectionCompositions={
+                        <Header
+                            titleElement={
+                                <Typography
+                                    text="Página inicial"
+                                    color="black"
+                                    variant="titleLarge"
+                                />
+                            }
+                            subtitleElement={
+                                <Typography
+                                    text="Confira abaixo um relatório de todos os seus clientes cadastrados"
+                                    color="black"
+                                    variant="bodyMedium"
+                                />
+                            }
+                        />
+                    }
+                    dashboardSectionCompositions={<p>Dashboard</p>}
+                />
+            }
         />
     );
 };
