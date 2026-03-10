@@ -65,9 +65,17 @@ export const Home: FunctionComponent = () => {
                     }
                     statusIconElement={
                         sidebarStatus ? (
-                            <img style={{ width: 16 }} src={icons.caretLeft} />
+                            <img
+                                style={{ width: 16 }}
+                                src={icons.caretLeft}
+                                onClick={handleSidebarStatus}
+                            />
                         ) : (
-                            <img style={{ width: 16 }} src={icons.caretRight} />
+                            <img
+                                style={{ width: 16 }}
+                                src={icons.caretRight}
+                                onClick={handleSidebarStatus}
+                            />
                         )
                     }
                     menusCompositions={
