@@ -7,7 +7,7 @@ export type DefaultData = {
 
 export type DefaultElements = {
     sidebarSection: ReactNode;
-    headerSection?: ReactNode;
+    mobileHeaderSection?: ReactNode;
     pageContent: ReactNode;
 };
 

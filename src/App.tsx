@@ -7,10 +7,7 @@ import { GlobalStyle } from "./styles/global";
 // Routes
 import { ApplicationRoutes } from "./routes";
 
-import { handleCreateRegister } from "../test-file";
-
 function App() {
-    handleCreateRegister();
     return (
         <Fragment>
             <GlobalStyle />

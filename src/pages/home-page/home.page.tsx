@@ -8,6 +8,8 @@ import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
 import { HomePage } from "@/components/pages/home-page";
 import { Header } from "@/components/sections/header";
+import { Typography } from "@/components/utilities/typography";
+import { MobileHeader } from "@/components/sections/mobile-header";
 
 // Assets
 import { images, icons } from "@/assets";
@@ -20,7 +22,8 @@ import { useDefaultLayoutStore } from "@/components/layout/default-layout/defaul
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
-import { Typography } from "@/components/utilities/typography";
+import { DashboardSection } from "@/components/sections/dashboard";
+import { CustomerChart } from "@/components/compositions/customer-chart";
 
 export const Home: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -59,6 +62,23 @@ export const Home: FunctionComponent = () => {
     return (
         <DefaultLayout
             isSidebarOpened={sidebarStatus}
+            mobileHeaderSection={
+                <MobileHeader
+                    logoElement={
+                        <img className="pdg-logo" src={images.brandLogo} />
+                    }
+                    navigationLinksCompositions={data.menus.links.map(
+                        (item, index) => (
+                            <Typography
+                                key={`navigation-link-${index}`}
+                                text={item.label}
+                                color="black"
+                                variant="bodyMedium"
+                            />
+                        ),
+                    )}
+                />
+            }
             sidebarSection={
                 <Sidebar
                     isOpened={sidebarStatus}
@@ -83,8 +103,8 @@ export const Home: FunctionComponent = () => {
                     menusCompositions={
                         <Menu
                             isSidebarOpened={sidebarStatus}
-                            label="Menu"
-                            menuItemCompositions={data.menus.map(
+                            label={data.menus.label}
+                            menuItemCompositions={data.menus.links.map(
                                 (item, index) => (
                                     <MenuItem
                                         key={`menu-item-${index}`}
@@ -111,9 +131,10 @@ export const Home: FunctionComponent = () => {
                         />
                     }
                     footerMenusCompositions={
-                        <MenuItem
-                            isSidebarOpened={sidebarStatus}
-                            label="Gerador de Etiquetas"
+                        <Typography
+                            text={data.footer.message}
+                            color="black"
+                            variant="bodySmall"
                         />
                     }
                 />
@@ -139,7 +160,13 @@ export const Home: FunctionComponent = () => {
                             }
                         />
                     }
-                    dashboardSectionCompositions={<p>Dashboard</p>}
+                    dashboardSectionCompositions={
+                        <DashboardSection
+                            customersChartCompositions={
+                                <CustomerChart data={data.clients.report} />
+                            }
+                        />
+                    }
                 />
             }
         />

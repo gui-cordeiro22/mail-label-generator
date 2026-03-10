@@ -19,13 +19,17 @@ import {
 export const DefaultLayout: FunctionComponent<DefaultLayoutProps> = ({
     isSidebarOpened,
     sidebarSection,
-    headerSection,
+    mobileHeaderSection,
     pageContent,
     handleSidebarOutsideClick,
 }) => {
     return (
         <Container>
-            {headerSection}
+            <ScreenWidthRender
+                renderingWidth={1280}
+                actionAfterRenderingWidth="hide"
+                content={mobileHeaderSection}
+            />
 
             <SidebarAndPageWrapper>
                 {sidebarSection}

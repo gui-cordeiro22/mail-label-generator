@@ -126,6 +126,7 @@ export const StatusIconWrapper = styled.div`
 export const FooterContent = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 12px 16px 12px 12px;
     border-top: ${({ theme }) =>
         `${theme.system.borders.thin} solid ${theme.palette.colors["gray100"]}`};
 `;
