@@ -52,7 +52,7 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
                 border-left: ${theme.system.space.xxxxs} solid;
                 background-color: ${theme.palette.colors.gray100};
 
-                border-left-color: ${theme.palette.colors.primary300};
+                border-left-color: ${theme.palette.colors.info300};
             `;
         }
 
@@ -69,7 +69,7 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
 
                 ${!isExpandable &&
                 css`
-                    border-left-color: ${theme.palette.colors.primary300};
+                    border-left-color: ${theme.palette.colors.info300};
                 `}
             }
         `;
@@ -130,7 +130,7 @@ export const IndicatorIconWrapper = styled.div<IndicatorIconWrapperStyleProps>`
     border-radius: ${({ theme }) => theme.system.radii.full};
     background-color: ${({ isSelected, theme }) =>
         isSelected
-            ? theme.palette.colors.primary200
+            ? theme.palette.colors.info200
             : theme.palette.colors.gray100};
 
     ${({ theme }) => css`
@@ -227,8 +227,8 @@ export const ExpandableMenuItemEllipseIndicator = styled.div<ExpandableMenuItemE
     ${({ isSelected, theme }) =>
         !!isSelected &&
         css`
-            border-color: ${theme.palette.colors.primary200};
-            background-color: ${theme.palette.colors.primary200};
+            border-color: ${theme.palette.colors.info200};
+            background-color: ${theme.palette.colors.info200};
         `}
 
     ${({ isSelected, theme }) =>
@@ -277,8 +277,8 @@ export const ExpandableMenuItemContainer = styled.div<ExpandableMenuItemContaine
         css`
             :hover {
                 ${ExpandableMenuItemEllipseIndicator} {
-                    border-color: ${theme.palette.colors.primary200};
-                    background-color: ${theme.palette.colors.primary200};
+                    border-color: ${theme.palette.colors.info200};
+                    background-color: ${theme.palette.colors.info200};
                 }
             }
         `}

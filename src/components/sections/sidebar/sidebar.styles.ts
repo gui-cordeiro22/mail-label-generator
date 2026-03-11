@@ -76,9 +76,28 @@ export const TopContent = styled.div`
 export const MenusCompostionsWrapper = styled.div`
     width: 100%;
 `;
+type ImageElementsWrapperStyleProps = {
+    isOpened: boolean;
+};
 
-export const ImageElementsWrapper = styled.div`
+export const ImageElementsWrapper = styled.div<ImageElementsWrapperStyleProps>`
     margin-top: ${({ theme }) => theme.system.space.md};
+
+    ${({ isOpened }) =>
+        !!isOpened &&
+        css`
+            .pdg-logo {
+                width: 200px;
+            }
+        `}
+
+    ${({ isOpened }) =>
+        !isOpened &&
+        css`
+            .pdg-logo {
+                width: 90px;
+            }
+        `}
 `;
 
 export const StatusIconWrapper = styled.div`
@@ -93,15 +112,19 @@ export const StatusIconWrapper = styled.div`
     width: 28px;
     height: 28px;
     border-radius: ${({ theme }) => theme.system.radii.md};
-    border: ${({ theme }) =>
-        `${theme.system.borders.hairline} solid ${theme.palette.colors["info100"]}`};
-    background-color: ${({ theme }) => theme.palette.colors["info200"]};
+    background-color: ${({ theme }) => theme.palette.colors["warning100"]};
     box-shadow: ${({ theme }) => theme.system.shadows.lv1};
+    cursor: pointer;
+
+    .pdg-status-icon {
+        width: 16px;
+    }
 `;
 
 export const FooterContent = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 12px 16px 12px 12px;
     border-top: ${({ theme }) =>
-        `${theme.system.borders.thin} solid ${theme.palette.colors.gray100}`};
+        `${theme.system.borders.thin} solid ${theme.palette.colors["gray100"]}`};
 `;

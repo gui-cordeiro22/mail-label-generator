@@ -17,6 +17,7 @@ import {
 
 // Types
 import { SidebarProps } from "./sidebar.types";
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 export const Sidebar: FunctionComponent<SidebarProps> = ({
     isOpened,
@@ -33,7 +34,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                         renderingWidth={1280}
                         actionAfterRenderingWidth="show"
                         content={
-                            <ImageElementsWrapper>
+                            <ImageElementsWrapper isOpened={isOpened}>
                                 <StatusIconWrapper>
                                     {statusIconElement}
                                 </StatusIconWrapper>
@@ -43,12 +44,22 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                         }
                     />
 
-                    <MenusCompostionsWrapper>
-                        {menusCompositions}
-                    </MenusCompostionsWrapper>
+                    <ConditionallyRender
+                        shouldRender={!!isOpened}
+                        content={
+                            <MenusCompostionsWrapper>
+                                {menusCompositions}
+                            </MenusCompostionsWrapper>
+                        }
+                    />
                 </TopContent>
 
-                <FooterContent>{footerMenusCompositions}</FooterContent>
+                <ConditionallyRender
+                    shouldRender={!!isOpened}
+                    content={
+                        <FooterContent>{footerMenusCompositions}</FooterContent>
+                    }
+                />
             </InnerContainer>
         </Container>
     );

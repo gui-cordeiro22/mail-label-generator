@@ -1,27 +1,65 @@
+// Dependenciess
+import { useCallback } from "react";
+import { useImmer } from "use-immer";
+
+// Database
+import { db } from "@/database";
+
 // Types
-import { FormResponseData } from "@/components/compositions/form";
+import {
+    CustomerChartState,
+    CustomerChartActions,
+    CustomerChartStore,
+} from "./home.types";
 
-// Service
-import { restApi } from "@/services/rest-api";
+// Helpers
+import { customersReportBuilder } from "./home.helpers";
 
-export const contractGenerate = async (data: FormResponseData) => {
-    const response = await restApi.post("/criar-contrato", data, {
-        responseType: "blob",
-    });
+const defaultState = {
+    chartData: {
+        data: undefined,
+        isLoading: true,
+    },
+};
 
-    const blob = new Blob([response.data], {
-        type: "application/pdf",
-    });
+export const useCustomersChartDataStores = (): CustomerChartStore => {
+    const [state, setState] = useImmer<CustomerChartState>(defaultState);
 
-    const url = window.URL.createObjectURL(blob);
+    const clearState: CustomerChartActions["clearState"] = useCallback(() => {
+        setState(defaultState);
+    }, [setState]);
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "contrato-de-locacao.pdf";
+    const fetchCustomersData: CustomerChartActions["fetchCustomersData"] =
+        useCallback(async () => {
+            try {
+                setState((draft: CustomerChartState) => {
+                    draft.chartData.isLoading = true;
+                });
 
-    document.body.appendChild(a);
-    a.click();
+                const response = await db.clients.toArray();
 
-    a.remove();
-    window.URL.revokeObjectURL(url);
+                const formattedData = customersReportBuilder(response);
+
+                setState((draft: CustomerChartState) => {
+                    draft.chartData.data = formattedData;
+                });
+
+                return true;
+            } catch (error) {
+                console.error(error);
+
+                setState((draft: CustomerChartState) => {
+                    draft.chartData.isLoading = false;
+                });
+                return false;
+            }
+        }, [setState]);
+
+    return {
+        state,
+        actions: {
+            clearState,
+            fetchCustomersData,
+        },
+    };
 };
