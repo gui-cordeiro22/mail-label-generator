@@ -16,9 +16,9 @@ export const Headline: FunctionComponent<HeadlineProps> = ({
         <Container>
             <ContentWrapper>
                 <TextWraper>
-                    <h2>{titleElement}</h2>
+                    {titleElement}
 
-                    <p>{subtitleElement}</p>
+                    {subtitleElement}
                 </TextWraper>
 
                 {networkSectionCompositions}
