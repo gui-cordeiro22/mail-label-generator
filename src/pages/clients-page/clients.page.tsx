@@ -8,8 +8,9 @@ import { ConditionallyRender } from "@/components/utilities/conditionally-render
 import { Typography } from "@/components/utilities/typography";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
-import { MobileHeader } from "@/components/sections/mobile-header";
 import { ClientsPage } from "@/components/pages/clients-page";
+import { MobileHeader } from "@/components/sections/mobile-header";
+import { Headline } from "@/components/sections/headline";
 
 // Assets
 import { images, icons } from "@/assets";
@@ -21,7 +22,6 @@ import { data } from "../home-page/home.mocks";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
-import { Headline } from "@/components/sections/headline";
 
 export const Clients: FunctionComponent = () => {
     const navigate = useNavigate();
