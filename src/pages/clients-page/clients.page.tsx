@@ -150,7 +150,7 @@ export const Clients: FunctionComponent = () => {
                         <Headline
                             titleElement={
                                 <Typography
-                                    text="Clientes"
+                                    text="Lista de Clientes"
                                     color="black"
                                     variant="titleLarge"
                                 />
