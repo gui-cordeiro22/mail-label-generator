@@ -112,9 +112,7 @@ export const StatusIconWrapper = styled.div`
     width: 28px;
     height: 28px;
     border-radius: ${({ theme }) => theme.system.radii.md};
-    border: ${({ theme }) =>
-        `${theme.system.borders.hairline} solid ${theme.palette.colors["info100"]}`};
-    background-color: ${({ theme }) => theme.palette.colors["info200"]};
+    background-color: ${({ theme }) => theme.palette.colors["warning100"]};
     box-shadow: ${({ theme }) => theme.system.shadows.lv1};
     cursor: pointer;
 

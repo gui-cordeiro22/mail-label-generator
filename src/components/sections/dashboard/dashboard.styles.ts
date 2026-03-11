@@ -17,7 +17,6 @@ export const ContentWrapper = styled.div`
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    width: 100%;
 
     ${pageGutter}
 `;

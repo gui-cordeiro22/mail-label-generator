@@ -13,6 +13,7 @@ import { Typography } from "@/components/utilities/typography";
 import { MobileHeader } from "@/components/sections/mobile-header";
 import { DashboardSection } from "@/components/sections/dashboard";
 import { CustomerChart } from "@/components/compositions/customer-chart";
+import { CustomerChartEmptyState } from "@/components/compositions/customer-chart-empty-state";
 
 // Assets
 import { images, icons } from "@/assets";
@@ -81,16 +82,26 @@ export const Home: FunctionComponent = () => {
                     logoElement={
                         <img className="pdg-logo" src={images.brandLogo} />
                     }
-                    navigationLinksCompositions={data.menus.links.map(
-                        (item, index) => (
-                            <Typography
-                                key={`navigation-link-${index}`}
-                                text={item.label}
-                                color="black"
-                                variant="bodyMedium"
+                    navigationLinksCompositions={
+                        <Fragment>
+                            <ConditionallyRender
+                                shouldRender={windowWidth > 768}
+                                content={data.menus.links.map((item, index) => (
+                                    <Typography
+                                        key={`navigation-link-${index}`}
+                                        text={item.label}
+                                        color="black"
+                                        variant="bodyMedium"
+                                    />
+                                ))}
                             />
-                        ),
-                    )}
+
+                            <ConditionallyRender
+                                shouldRender={windowWidth <= 768}
+                                content={<img src={icons.mobileMenuIcon} />}
+                            />
+                        </Fragment>
+                    }
                 />
             }
             sidebarSection={
@@ -186,10 +197,29 @@ export const Home: FunctionComponent = () => {
                                         }
                                     />
 
-                                    {/* TODO: Desenvolver componente de Empty State */}
                                     <ConditionallyRender
                                         shouldRender={!chartData?.data}
-                                        content={<p>Empty State</p>}
+                                        content={
+                                            <CustomerChartEmptyState
+                                                illustrationSource={
+                                                    images.searchingOnFolders
+                                                }
+                                                titleElement={
+                                                    <Typography
+                                                        text="Nenhum resultado encontrado por aqui..."
+                                                        color="info300"
+                                                        variant="labelLarge"
+                                                    />
+                                                }
+                                                descriptionElement={
+                                                    <Typography
+                                                        text="Ao cadastrar clientes, será exibido um dashboard nesta seção."
+                                                        color="info300"
+                                                        variant="bodySmall"
+                                                    />
+                                                }
+                                            />
+                                        }
                                     />
                                 </Fragment>
                             }
