@@ -1,8 +1,9 @@
 // Dependencies
-import { FunctionComponent, useEffect } from "react";
+import { Fragment, FunctionComponent, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Components
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 import { DefaultLayout } from "@/components/layout/default-layout";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
@@ -152,7 +153,6 @@ export const Home: FunctionComponent = () => {
                     }
                 />
             }
-            handleSidebarOutsideClick={handleSidebarStatus}
             pageContent={
                 <HomePage
                     headerSectionCompositions={
@@ -176,12 +176,28 @@ export const Home: FunctionComponent = () => {
                     dashboardSectionCompositions={
                         <DashboardSection
                             customersChartCompositions={
-                                <CustomerChart data={chartData?.data ?? []} />
+                                <Fragment>
+                                    <ConditionallyRender
+                                        shouldRender={!!chartData?.data}
+                                        content={
+                                            <CustomerChart
+                                                data={chartData?.data ?? []}
+                                            />
+                                        }
+                                    />
+
+                                    {/* TODO: Desenvolver componente de Empty State */}
+                                    <ConditionallyRender
+                                        shouldRender={!chartData?.data}
+                                        content={<p>Empty State</p>}
+                                    />
+                                </Fragment>
                             }
                         />
                     }
                 />
             }
+            handleSidebarOutsideClick={handleSidebarStatus}
         />
     );
 };
