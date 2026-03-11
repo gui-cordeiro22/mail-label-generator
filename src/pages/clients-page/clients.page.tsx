@@ -1,0 +1,168 @@
+// Dependencies
+import { Fragment, FunctionComponent, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+// Components
+import { DefaultLayout } from "@/components/layout/default-layout";
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
+import { Typography } from "@/components/utilities/typography";
+import { Sidebar } from "@/components/sections/sidebar";
+import { Menu, MenuItem } from "@/components/compositions/menu";
+import { MobileHeader } from "@/components/sections/mobile-header";
+import { ClientsPage } from "@/components/pages/clients-page";
+
+// Assets
+import { images, icons } from "@/assets";
+
+// Stores
+import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
+
+import { data } from "../home-page/home.mocks";
+
+// Hooks
+import { useWindowDimensions } from "@/hooks/window-dimensions";
+
+export const Clients: FunctionComponent = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const { state, actions } = useDefaultLayoutStore();
+    const { width: windowWidth } = useWindowDimensions();
+
+    const { sidebarIsOpened, sidebarIsExpanded } = state;
+    const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+
+    useEffect(() => {
+        return clearState;
+    }, [clearState]);
+
+    const sidebarStatus =
+        windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
+    const handleMenuClick = (path: string) => {
+        if (windowWidth < 1280) {
+            setSidebarIsOpened(false);
+        }
+
+        navigate(path);
+    };
+
+    const handleSidebarStatus = () => {
+        if (windowWidth < 1280) {
+            setSidebarIsOpened(!sidebarIsOpened);
+        } else {
+            setSidebarIsExpanded(!sidebarIsExpanded);
+        }
+    };
+    return (
+        <DefaultLayout
+            isSidebarOpened={sidebarStatus}
+            mobileHeaderSection={
+                <MobileHeader
+                    logoElement={
+                        <img className="pdg-logo" src={images.brandLogo} />
+                    }
+                    navigationLinksCompositions={
+                        <Fragment>
+                            <ConditionallyRender
+                                shouldRender={windowWidth > 768}
+                                content={data.menus.links.map((item, index) => (
+                                    <Typography
+                                        key={`navigation-link-${index}`}
+                                        text={item.label}
+                                        color="black"
+                                        variant="bodyMedium"
+                                    />
+                                ))}
+                            />
+
+                            <ConditionallyRender
+                                shouldRender={windowWidth <= 768}
+                                content={<img src={icons.mobileMenuIcon} />}
+                            />
+                        </Fragment>
+                    }
+                />
+            }
+            sidebarSection={
+                <Sidebar
+                    isOpened={sidebarStatus}
+                    logoImageElement={
+                        <img className="pdg-logo" src={images.brandLogo} />
+                    }
+                    statusIconElement={
+                        sidebarStatus ? (
+                            <img
+                                className="pdg-status-icon"
+                                src={icons.caretLeft}
+                                onClick={handleSidebarStatus}
+                            />
+                        ) : (
+                            <img
+                                className="pdg-status-icon"
+                                src={icons.caretRight}
+                                onClick={handleSidebarStatus}
+                            />
+                        )
+                    }
+                    menusCompositions={
+                        <Menu
+                            isSidebarOpened={sidebarStatus}
+                            label={data.menus.label}
+                            menuItemCompositions={data.menus.links.map(
+                                (item, index) => (
+                                    <MenuItem
+                                        key={`menu-item-${index}`}
+                                        isSidebarOpened={sidebarStatus}
+                                        label={item.label}
+                                        isComingSoon={item.isComingSoon}
+                                        navigationSource={item.path}
+                                        isSelected={
+                                            location.pathname === item.path
+                                        }
+                                        {...(windowWidth < 1280 &&
+                                            !item.isComingSoon && {
+                                            handleClick: () =>
+                                                handleMenuClick(item.path),
+                                        })}
+                                        {...(windowWidth >= 1280 &&
+                                            !item.isComingSoon &&
+                                            !item.isExpandable && {
+                                            navigationSource: item.path,
+                                        })}
+                                    />
+                                ),
+                            )}
+                        />
+                    }
+                    footerMenusCompositions={
+                        <Typography
+                            text={data.footer.message}
+                            color="black"
+                            variant="bodySmall"
+                        />
+                    }
+                />
+            }
+            pageContent={
+                <ClientsPage
+                    titleElement={
+                        <Typography
+                            text="Clientes"
+                            color="black"
+                            variant="titleLarge"
+                        />
+                    }
+                    descriptionElement={
+                        <Typography
+                            text="Confira abaixo a lista de todos os seus clientes cadastrados"
+                            color="black"
+                            variant="bodyMedium"
+                        />
+                    }
+                    clientsListSection={<p>Listagem de clientes</p>}
+                />
+            }
+            handleSidebarOutsideClick={handleSidebarStatus}
+        />
+    );
+};
