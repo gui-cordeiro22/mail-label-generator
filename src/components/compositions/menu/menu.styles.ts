@@ -52,7 +52,7 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
                 border-left: ${theme.system.space.xxxxs} solid;
                 background-color: ${theme.palette.colors.gray100};
 
-                border-left-color: ${theme.palette.colors.info300};
+                border-left-color: ${theme.palette.colors.warning300};
             `;
         }
 
@@ -130,7 +130,7 @@ export const IndicatorIconWrapper = styled.div<IndicatorIconWrapperStyleProps>`
     border-radius: ${({ theme }) => theme.system.radii.full};
     background-color: ${({ isSelected, theme }) =>
         isSelected
-            ? theme.palette.colors.info200
+            ? theme.palette.colors.warning200
             : theme.palette.colors.gray100};
 
     ${({ theme }) => css`

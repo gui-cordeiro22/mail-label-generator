@@ -8,7 +8,7 @@ import { DefaultLayout } from "@/components/layout/default-layout";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
 import { HomePage } from "@/components/pages/home-page";
-import { Header } from "@/components/sections/header";
+import { Headline } from "@/components/sections/headline";
 import { Typography } from "@/components/utilities/typography";
 import { MobileHeader } from "@/components/sections/mobile-header";
 import { DashboardSection } from "@/components/sections/dashboard";
@@ -167,7 +167,7 @@ export const Home: FunctionComponent = () => {
             pageContent={
                 <HomePage
                     headerSectionCompositions={
-                        <Header
+                        <Headline
                             titleElement={
                                 <Typography
                                     text="Página inicial"

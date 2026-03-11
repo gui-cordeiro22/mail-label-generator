@@ -2,8 +2,7 @@
 import { ReactNode } from "react";
 
 export type ClientsPageElements = {
-    titleElement: ReactNode;
-    descriptionElement: ReactNode;
+    headlineCompositions: ReactNode;
     clientsListSection: ReactNode;
 };
 

@@ -21,6 +21,7 @@ import { data } from "../home-page/home.mocks";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
+import { Headline } from "@/components/sections/headline";
 
 export const Clients: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -145,18 +146,22 @@ export const Clients: FunctionComponent = () => {
             }
             pageContent={
                 <ClientsPage
-                    titleElement={
-                        <Typography
-                            text="Clientes"
-                            color="black"
-                            variant="titleLarge"
-                        />
-                    }
-                    descriptionElement={
-                        <Typography
-                            text="Confira abaixo a lista de todos os seus clientes cadastrados"
-                            color="black"
-                            variant="bodyMedium"
+                    headlineCompositions={
+                        <Headline
+                            titleElement={
+                                <Typography
+                                    text="Clientes"
+                                    color="black"
+                                    variant="titleLarge"
+                                />
+                            }
+                            subtitleElement={
+                                <Typography
+                                    text="Confira abaixo uma listagem com todos os seus clientes cadastrados"
+                                    color="black"
+                                    variant="bodyMedium"
+                                />
+                            }
                         />
                     }
                     clientsListSection={<p>Listagem de clientes</p>}

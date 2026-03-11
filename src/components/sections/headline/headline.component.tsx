@@ -2,23 +2,23 @@
 import { FunctionComponent } from "react";
 
 // Styles
-import { Container, ContentWrapper, TextWraper } from "./header.styles";
+import { Container, ContentWrapper, TextWraper } from "./headline.styles";
 
 // Types
-import { HeaderProps } from "./header.types";
+import { HeadlineProps } from "./headline.types";
 
-export const Header: FunctionComponent<HeaderProps> = ({
-    titleElement: title,
-    subtitleElement: subtitle,
+export const Headline: FunctionComponent<HeadlineProps> = ({
+    titleElement,
+    subtitleElement,
     networkSectionCompositions,
 }) => {
     return (
         <Container>
             <ContentWrapper>
                 <TextWraper>
-                    <h2>{title}</h2>
+                    <h2>{titleElement}</h2>
 
-                    <p>{subtitle}</p>
+                    <p>{subtitleElement}</p>
                 </TextWraper>
 
                 {networkSectionCompositions}
