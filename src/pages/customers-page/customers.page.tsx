@@ -14,16 +14,19 @@ import { Headline } from "@/components/sections/headline";
 
 // Assets
 import { images, icons } from "@/assets";
+import { CustomersList } from "@/components/compositions/customers-list";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
 
-import { data } from "../home-page/home.mocks";
+// Utils
+import { data } from "@/components/compositions/menu/menu.data";
+import { customersPageData } from "./customers.mock";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
 
-export const Clients: FunctionComponent = () => {
+export const Customers: FunctionComponent = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -164,7 +167,19 @@ export const Clients: FunctionComponent = () => {
                             }
                         />
                     }
-                    clientsListSection={<p>Listagem de clientes</p>}
+                    clientsListSection={
+                        <CustomersList
+                            customersListItemComposition={customersPageData.mock.customers.map(
+                                (item, index) => (
+                                    <div key={`list-item-${index}`}>
+                                        <p>{item.name}</p>
+
+                                        <small>{`| Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, ${item.cep}`}</small>
+                                    </div>
+                                ),
+                            )}
+                        />
+                    }
                 />
             }
             handleSidebarOutsideClick={handleSidebarStatus}

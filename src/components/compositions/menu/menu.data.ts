@@ -29,17 +29,6 @@ export const data = {
         ],
     },
 
-    clients: {
-        report: [
-            { uf: "RJ", clients: 50 },
-            { uf: "SP", clients: 35 },
-            { uf: "MG", clients: 15 },
-            { uf: "RS", clients: 10 },
-            { uf: "MS", clients: 6 },
-            { uf: "AC", clients: 1 },
-        ],
-    },
-
     footer: {
         message: "Capas de Gaiola | Vera Brito",
     },

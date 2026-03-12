@@ -8,7 +8,7 @@ import { RouteValidator } from "./route-validator";
 
 // Pages
 const Home = lazy(() => import("../pages/home-page"));
-const Clients = lazy(() => import("../pages/clients-page"));
+const Customers = lazy(() => import("../pages/customers-page"));
 
 export const ApplicationRoutes: FunctionComponent = () => {
     return (
@@ -18,7 +18,7 @@ export const ApplicationRoutes: FunctionComponent = () => {
 
                 <Route
                     path="/clientes"
-                    element={<RouteValidator component={Clients} />}
+                    element={<RouteValidator component={Customers} />}
                 />
 
                 <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />

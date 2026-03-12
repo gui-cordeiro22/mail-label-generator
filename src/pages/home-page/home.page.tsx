@@ -19,7 +19,7 @@ import { CustomerChartEmptyState } from "@/components/compositions/customer-char
 import { images, icons } from "@/assets";
 
 // Utils
-import { data } from "./home.mocks";
+import { data } from "@/components/compositions/menu/menu.data";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
