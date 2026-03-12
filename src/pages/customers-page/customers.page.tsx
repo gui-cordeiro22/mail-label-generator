@@ -191,13 +191,6 @@ export const Customers: FunctionComponent = () => {
                                                 }
                                             />
                                         }
-                                        iconElement={
-                                            <Icon
-                                                variant="mapPin"
-                                                color="black"
-                                                size={16}
-                                            />
-                                        }
                                         customerAddressElement={
                                             <Typography
                                                 element="p"
