@@ -42,9 +42,9 @@ export const ContentWrapper = styled.div`
 
 export const CustomerListItemContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     cursor: pointer;
 `;

@@ -11,6 +11,7 @@ import spinner from "./svg/spinner.svg";
 import caretLeft from "./svg/caret-left.svg";
 import caretRight from "./svg/caret-right.svg";
 import mobileMenuIcon from "./svg/menu-icon.svg";
+import dotsThreeVertical from "./svg/dots-three-vertical.svg";
 
 export const images: Images = {
     brandLogo: logo,
@@ -23,4 +24,5 @@ export const icons: Icons = {
     caretLeft: caretLeft,
     caretRight: caretRight,
     mobileMenuIcon: mobileMenuIcon,
+    dotsThreeVertical: dotsThreeVertical,
 };

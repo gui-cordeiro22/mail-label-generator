@@ -9,7 +9,8 @@ export type IconVariants =
     | "spinner"
     | "caretLeft"
     | "caretRight"
-    | "mobileMenuIcon";
+    | "mobileMenuIcon"
+    | "dotsThreeVertical";
 
 export type Icons = {
     [key in IconVariants]: string;

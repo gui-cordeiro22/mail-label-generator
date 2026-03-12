@@ -182,8 +182,12 @@ export const Customers: FunctionComponent = () => {
                                 (item, index) => (
                                     <CustomersListItem
                                         key={`customer-list-item-${index}`}
+                                        handleClick={() =>
+                                            navigate(`/${item.id}`)
+                                        }
                                         customerNameElement={
                                             <Typography
+                                                element="p"
                                                 text={item.name}
                                                 color="black"
                                                 variant="labelMedium"
@@ -191,7 +195,8 @@ export const Customers: FunctionComponent = () => {
                                         }
                                         customerAddressElement={
                                             <Typography
-                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, CEP: ${formattedCepBuilder(item.cep)}`}
+                                                element="p"
+                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf.toUpperCase()}, CEP: ${formattedCepBuilder(item.cep)}`}
                                                 color="black"
                                                 variant="microcopy"
                                             />
