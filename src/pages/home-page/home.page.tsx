@@ -107,6 +107,7 @@ export const Home: FunctionComponent = () => {
             sidebarSection={
                 <Sidebar
                     isOpened={sidebarStatus}
+                    handleClick={handleSidebarStatus}
                     logoImageElement={
                         <img className="pdg-logo" src={images.brandLogo} />
                     }
@@ -115,13 +116,11 @@ export const Home: FunctionComponent = () => {
                             <img
                                 className="pdg-status-icon"
                                 src={icons.caretLeft}
-                                onClick={handleSidebarStatus}
                             />
                         ) : (
                             <img
                                 className="pdg-status-icon"
                                 src={icons.caretRight}
-                                onClick={handleSidebarStatus}
                             />
                         )
                     }
@@ -177,7 +176,7 @@ export const Home: FunctionComponent = () => {
                             }
                             subtitleElement={
                                 <Typography
-                                    text="Confira abaixo um relatório de todos os seus clientes cadastrados"
+                                    text="Confira abaixo um relatório completo com todos os clientes cadastrados em seu sistema,nesta seção você poderá visualizar de forma organizada as informações registradas, facilitando a análise, o acompanhamento e o controle dos dados dos seus clientes."
                                     color="black"
                                     variant="bodyMedium"
                                 />

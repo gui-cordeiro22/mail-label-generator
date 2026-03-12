@@ -1,8 +1,11 @@
 // Component
-import { CustomersList } from "./customers-list.component";
+import { CustomersList, CustomersListItem } from "./customers-list.component";
 
 // Types
-import { CustomersListProps } from "./customers-list.types";
+import {
+    CustomersListProps,
+    CustomersListItemProps,
+} from "./customers-list.types";
 
-export { CustomersList };
-export type { CustomersListProps };
+export { CustomersList, CustomersListItem };
+export type { CustomersListProps, CustomersListItemProps };

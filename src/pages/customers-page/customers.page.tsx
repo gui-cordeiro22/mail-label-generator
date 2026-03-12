@@ -14,7 +14,10 @@ import { Headline } from "@/components/sections/headline";
 
 // Assets
 import { images, icons } from "@/assets";
-import { CustomersList } from "@/components/compositions/customers-list";
+import {
+    CustomersList,
+    CustomersListItem,
+} from "@/components/compositions/customers-list";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
@@ -160,7 +163,8 @@ export const Customers: FunctionComponent = () => {
                             }
                             subtitleElement={
                                 <Typography
-                                    text="Confira abaixo uma listagem com todos os seus clientes cadastrados"
+                                    element="p"
+                                    text="Confira abaixo a listagem completa com todos os clientes cadastrados em seu sistema, utilize esta seção para visualizar, consultar e gerenciar as informações de cada cliente de forma prática e organizada."
                                     color="black"
                                     variant="bodyMedium"
                                 />
@@ -171,11 +175,23 @@ export const Customers: FunctionComponent = () => {
                         <CustomersList
                             customersListItemComposition={customersPageData.mock.customers.map(
                                 (item, index) => (
-                                    <div key={`list-item-${index}`}>
-                                        <p>{item.name}</p>
-
-                                        <small>{`| Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, ${item.cep}`}</small>
-                                    </div>
+                                    <CustomersListItem
+                                        key={`customer-list-item-${index}`}
+                                        customerNameElement={
+                                            <Typography
+                                                text={item.name}
+                                                color="black"
+                                                variant="bodyMedium"
+                                            />
+                                        }
+                                        customerAddressElement={
+                                            <Typography
+                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, ${item.cep}`}
+                                                color="black"
+                                                variant="microcopy"
+                                            />
+                                        }
+                                    />
                                 ),
                             )}
                         />

@@ -12,4 +12,8 @@ export type SidebarElements = {
     footerMenusCompositions: ReactNode;
 };
 
-export type SidebarProps = SidebarData & SidebarElements;
+export type SidebarActions = {
+    handleClick?: () => void;
+};
+
+export type SidebarProps = SidebarData & SidebarElements & SidebarActions;

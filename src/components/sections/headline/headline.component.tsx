@@ -18,7 +18,15 @@ export const Headline: FunctionComponent<HeadlineProps> = ({
                 <TextWraper>
                     {titleElement}
 
-                    {subtitleElement}
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "6px",
+                        }}
+                    >
+                        {subtitleElement}
+                    </div>
                 </TextWraper>
 
                 {networkSectionCompositions}
