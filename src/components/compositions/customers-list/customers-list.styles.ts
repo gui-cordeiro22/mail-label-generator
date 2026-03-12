@@ -66,5 +66,5 @@ export const AddressWrapper = styled.div`
     align-items: flex-end;
     justify-content: flex-start;
     width: 100%;
-    gap: 6px;
+    gap: ${({ theme }) => theme.system.space["nano"]};
 `;
