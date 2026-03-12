@@ -7,6 +7,7 @@ import {
     ContentWrapper,
     CustomerListItemContainer,
     CustomerListItemContentWrapper,
+    AddressWrapper,
 } from "./customers-list.styles";
 
 // Types
@@ -14,6 +15,7 @@ import {
     CustomersListItemProps,
     CustomersListProps,
 } from "./customers-list.types";
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 export const CustomersList: FunctionComponent<CustomersListProps> = ({
     customersListItemComposition,
@@ -28,13 +30,21 @@ export const CustomersList: FunctionComponent<CustomersListProps> = ({
 export const CustomersListItem: FunctionComponent<CustomersListItemProps> = ({
     customerNameElement,
     customerAddressElement,
+    iconElement,
 }) => {
     return (
         <CustomerListItemContainer>
             <CustomerListItemContentWrapper>
                 {customerNameElement}
 
-                {customerAddressElement}
+                <AddressWrapper>
+                    <ConditionallyRender
+                        shouldRender={!!iconElement}
+                        content={iconElement}
+                    />
+
+                    {customerAddressElement}
+                </AddressWrapper>
             </CustomerListItemContentWrapper>
         </CustomerListItemContainer>
     );

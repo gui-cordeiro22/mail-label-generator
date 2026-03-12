@@ -107,9 +107,7 @@ export const Customers: FunctionComponent = () => {
                     }
                     statusIconElement={
                         <Icon
-                            variant={
-                                sidebarStatus ? "caretLeft" : "caretRight"
-                            }
+                            variant={sidebarStatus ? "caretLeft" : "caretRight"}
                             color="warning500"
                             size={16}
                         />
@@ -191,6 +189,13 @@ export const Customers: FunctionComponent = () => {
                                                         `/clientes/${item.id}`,
                                                     )
                                                 }
+                                            />
+                                        }
+                                        iconElement={
+                                            <Icon
+                                                variant="mapPin"
+                                                color="black"
+                                                size={16}
                                             />
                                         }
                                         customerAddressElement={

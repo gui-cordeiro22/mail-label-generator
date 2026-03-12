@@ -12,6 +12,7 @@ import { ReactComponent as dotsThreeVertical } from "./icons/dots-three-vertical
 import { ReactComponent as mobileMenu } from "./icons/menu";
 import { ReactComponent as spinner } from "./icons/spinner";
 import { ReactComponent as whatsappIcon } from "./icons/whatsapp";
+import { ReactComponent as mapPin } from "./icons/map-pin";
 
 export const images: Images = {
     brandLogo: logo,
@@ -25,4 +26,5 @@ export const icons: Icons = {
     caretRight: { source: caretRight, type: "fill" },
     mobileMenu: { source: mobileMenu, type: "stroke" },
     dotsThreeVertical: { source: dotsThreeVertical, type: "stroke" },
+    mapPin: { source: mapPin, type: "fill" },
 };

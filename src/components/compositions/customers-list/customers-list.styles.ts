@@ -59,3 +59,12 @@ export const CustomerListItemContentWrapper = styled.div`
     gap: 6px;
     user-select: none;
 `;
+
+export const AddressWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 6px;
+`;

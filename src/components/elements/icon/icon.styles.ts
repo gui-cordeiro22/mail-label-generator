@@ -3,12 +3,13 @@ import styled, { css } from "styled-components";
 
 // Types
 import { IconSpinType, IconType } from "@/assets/index";
+import { Theme, theme } from "@/styles/theme";
 
 export type ContainerStyleProps = {
     isActive?: boolean;
     spinType?: IconSpinType;
     size: number;
-    color: string;
+    color: keyof Theme["palette"]["colors"];
     hasCursorPointer: boolean;
     type: IconType;
 };
@@ -36,7 +37,7 @@ export const Container = styled.div<ContainerStyleProps>`
         color &&
             css`
                 * {
-                    ${type}: ${color};
+                    ${type}: ${theme.palette.colors[color]};
                 }
             `}
     }

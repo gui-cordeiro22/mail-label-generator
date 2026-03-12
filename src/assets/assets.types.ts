@@ -13,7 +13,8 @@ export type IconVariants =
     | "caretLeft"
     | "caretRight"
     | "mobileMenu"
-    | "dotsThreeVertical";
+    | "dotsThreeVertical"
+    | "mapPin";
 export type Icon = {
     type: IconType;
     source: FunctionComponent<SVGProps<SVGSVGElement>>;
