@@ -16,6 +16,7 @@ export const Icon: FunctionComponent<IconProps> = ({
     color,
     isActive,
     spinType,
+    hasCursorPointer,
     handleClick,
 }) => {
     const Svg = iconsSource[variant].source;
@@ -25,7 +26,7 @@ export const Icon: FunctionComponent<IconProps> = ({
             className="sisu-icon"
             size={size}
             color={color}
-            hasCursorPointer={!!handleClick}
+            hasCursorPointer={!!handleClick || !!hasCursorPointer}
             isActive={!!isActive}
             spinType={spinType}
             type={iconsSource[variant].type}

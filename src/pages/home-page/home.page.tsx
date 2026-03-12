@@ -118,9 +118,8 @@ export const Home: FunctionComponent = () => {
                     }
                     statusIconElement={
                         <Icon
-                            variant={
-                                sidebarStatus ? "caretLeft" : "caretRight"
-                            }
+                            hasCursorPointer
+                            variant={sidebarStatus ? "caretLeft" : "caretRight"}
                             color="warning500"
                             size={16}
                         />

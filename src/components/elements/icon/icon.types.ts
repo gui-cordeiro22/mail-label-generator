@@ -7,6 +7,7 @@ export type IconData = {
     variant: IconVariants;
     color: keyof Theme["palette"]["colors"];
     isActive?: boolean;
+    hasCursorPointer?: boolean;
     spinType?: IconSpinType;
 };
 

@@ -107,6 +107,7 @@ export const Customers: FunctionComponent = () => {
                     }
                     statusIconElement={
                         <Icon
+                            hasCursorPointer
                             variant={sidebarStatus ? "caretLeft" : "caretRight"}
                             color="warning500"
                             size={16}
