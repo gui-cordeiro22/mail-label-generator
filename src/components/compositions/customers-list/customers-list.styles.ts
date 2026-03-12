@@ -46,7 +46,6 @@ export const CustomerListItemContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    cursor: pointer;
 `;
 
 export const CustomerListItemContentWrapper = styled.div`
@@ -58,4 +57,5 @@ export const CustomerListItemContentWrapper = styled.div`
     padding: 12px 0px;
     border-bottom: 1px solid #000;
     gap: 6px;
+    user-select: none;
 `;

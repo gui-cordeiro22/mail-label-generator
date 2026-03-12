@@ -182,15 +182,17 @@ export const Customers: FunctionComponent = () => {
                                 (item, index) => (
                                     <CustomersListItem
                                         key={`customer-list-item-${index}`}
-                                        handleClick={() =>
-                                            navigate(`/${item.id}`)
-                                        }
                                         customerNameElement={
                                             <Typography
                                                 element="p"
                                                 text={item.name}
                                                 color="black"
                                                 variant="labelMedium"
+                                                handleClick={() =>
+                                                    navigate(
+                                                        `/clientes/${item.id}`,
+                                                    )
+                                                }
                                             />
                                         }
                                         customerAddressElement={

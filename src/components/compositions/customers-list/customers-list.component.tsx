@@ -28,10 +28,9 @@ export const CustomersList: FunctionComponent<CustomersListProps> = ({
 export const CustomersListItem: FunctionComponent<CustomersListItemProps> = ({
     customerNameElement,
     customerAddressElement,
-    handleClick,
 }) => {
     return (
-        <CustomerListItemContainer onClick={handleClick}>
+        <CustomerListItemContainer>
             <CustomerListItemContentWrapper>
                 {customerNameElement}
 

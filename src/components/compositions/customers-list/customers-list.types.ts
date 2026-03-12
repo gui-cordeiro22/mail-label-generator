@@ -12,9 +12,4 @@ export type CustomersListItemElements = {
     customerAddressElement: ReactNode;
 };
 
-export type CustomersListAction = {
-    handleClick?: () => void;
-};
-
-export type CustomersListItemProps = CustomersListItemElements &
-    CustomersListAction;
+export type CustomersListItemProps = CustomersListItemElements;
