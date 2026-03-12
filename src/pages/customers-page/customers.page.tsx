@@ -3,54 +3,45 @@ import { Fragment, FunctionComponent, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Components
-import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 import { DefaultLayout } from "@/components/layout/default-layout";
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
+import { Typography } from "@/components/utilities/typography";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
-import { HomePage } from "@/components/pages/home-page";
-import { Headline } from "@/components/sections/headline";
-import { Typography } from "@/components/utilities/typography";
+import { ClientsPage } from "@/components/pages/clients-page";
 import { MobileHeader } from "@/components/sections/mobile-header";
-import { DashboardSection } from "@/components/sections/dashboard";
-import { CustomerChart } from "@/components/compositions/customer-chart";
-import { CustomerChartEmptyState } from "@/components/compositions/customer-chart-empty-state";
+import { Headline } from "@/components/sections/headline";
+import {
+    CustomersList,
+    CustomersListItem,
+} from "@/components/compositions/customers-list";
 import { Icon } from "@/components/elements/icon";
 
 // Assets
 import { images } from "@/assets";
 
-// Utils
-import { menuData } from "@/components/compositions/menu/menu.data";
-
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
-import { useCustomersChartDataStores } from "./home.stores";
+
+// Utils
+import { menuData } from "@/components/compositions/menu/menu.data";
+import { customersPageData } from "./customers.mock";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
 
-export const Home: FunctionComponent = () => {
+// Helpers
+import { formattedCepBuilder } from "./customers.helpers";
+
+export const Customers: FunctionComponent = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const { state, actions } = useDefaultLayoutStore();
-
-    const {
-        state: customersChartDataState,
-        actions: customersChartDataActions,
-    } = useCustomersChartDataStores();
-
     const { width: windowWidth } = useWindowDimensions();
 
     const { sidebarIsOpened, sidebarIsExpanded } = state;
     const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
-
-    const { chartData } = customersChartDataState;
-    const { fetchCustomersData } = customersChartDataActions;
-
-    useEffect(() => {
-        fetchCustomersData();
-    }, []);
 
     useEffect(() => {
         return clearState;
@@ -58,7 +49,6 @@ export const Home: FunctionComponent = () => {
 
     const sidebarStatus =
         windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
-
     const handleMenuClick = (path: string) => {
         if (windowWidth < 1280) {
             setSidebarIsOpened(false);
@@ -74,7 +64,6 @@ export const Home: FunctionComponent = () => {
             setSidebarIsExpanded(!sidebarIsExpanded);
         }
     };
-
     return (
         <DefaultLayout
             isSidebarOpened={sidebarStatus}
@@ -165,64 +154,56 @@ export const Home: FunctionComponent = () => {
                 />
             }
             pageContent={
-                <HomePage
-                    headerSectionCompositions={
+                <ClientsPage
+                    headlineCompositions={
                         <Headline
                             titleElement={
                                 <Typography
-                                    text="Página inicial"
+                                    text={customersPageData.title}
                                     color="black"
                                     variant="titleLarge"
                                 />
                             }
                             subtitleElement={
                                 <Typography
-                                    text="Confira abaixo um relatório completo com todos os clientes cadastrados em seu sistema,nesta seção você poderá visualizar de forma organizada as informações registradas, facilitando a análise, o acompanhamento e o controle dos dados dos seus clientes."
+                                    element="p"
+                                    text={customersPageData.description}
                                     color="black"
                                     variant="bodyMedium"
                                 />
                             }
                         />
                     }
-                    dashboardSectionCompositions={
-                        <DashboardSection
-                            customersChartCompositions={
-                                <Fragment>
-                                    <ConditionallyRender
-                                        shouldRender={!!chartData?.data?.length}
-                                        content={
-                                            <CustomerChart
-                                                data={chartData?.data ?? []}
-                                            />
-                                        }
-                                    />
-
-                                    <ConditionallyRender
-                                        shouldRender={!chartData?.data?.length}
-                                        content={
-                                            <CustomerChartEmptyState
-                                                illustrationSource={
-                                                    images.searchingOnFolders
-                                                }
-                                                titleElement={
-                                                    <Typography
-                                                        text="Nenhum resultado encontrado por aqui..."
-                                                        color="info300"
-                                                        variant="labelLarge"
-                                                    />
-                                                }
-                                                descriptionElement={
-                                                    <Typography
-                                                        text="Ao cadastrar clientes, será exibido um dashboard nesta seção."
-                                                        color="info300"
-                                                        variant="bodySmall"
-                                                    />
+                    clientsListSection={
+                        <CustomersList
+                            customersListItemComposition={customersPageData.mock.customers.map(
+                                (item, index) => (
+                                    <CustomersListItem
+                                        key={`customer-list-item-${index}`}
+                                        customerNameElement={
+                                            <Typography
+                                                element="p"
+                                                text={item.name}
+                                                color="black"
+                                                variant="labelMedium"
+                                                handleClick={() =>
+                                                    navigate(
+                                                        `/clientes/${item.id}`,
+                                                    )
                                                 }
                                             />
                                         }
+                                        customerAddressElement={
+                                            <Typography
+                                                element="p"
+                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf.toUpperCase()}, CEP: ${formattedCepBuilder(item.cep)}`}
+                                                color="black"
+                                                variant="microcopy"
+                                            />
+                                        }
                                     />
-                                </Fragment>
-                            }
+                                ),
+                            )}
                         />
                     }
                 />
