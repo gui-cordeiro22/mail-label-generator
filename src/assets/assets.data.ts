@@ -2,16 +2,16 @@
 import { Icons, Images } from "./assets.types";
 
 // Images
-import logo from "./png/brand-logo.png";
-import searchingOnFolders from "./svg/customers-chart-empty-state.svg";
+import logo from "./images/png/brand-logo.png";
+import searchingOnFolders from "./images/svg/customers-chart-empty-state.svg";
 
 // Icons
-import whatsappIcon from "./svg/whatsapp.svg";
-import spinner from "./svg/spinner.svg";
-import caretLeft from "./svg/caret-left.svg";
-import caretRight from "./svg/caret-right.svg";
-import mobileMenuIcon from "./svg/menu-icon.svg";
-import dotsThreeVertical from "./svg/dots-three-vertical.svg";
+import { ReactComponent as caretLeft } from "./icons/caret-left";
+import { ReactComponent as caretRight } from "./icons/caret-right";
+import { ReactComponent as dotsThreeVertical } from "./icons/dots-three-vertical";
+import { ReactComponent as mobileMenu } from "./icons/menu";
+import { ReactComponent as spinner } from "./icons/spinner";
+import { ReactComponent as whatsappIcon } from "./icons/whatsapp";
 
 export const images: Images = {
     brandLogo: logo,
@@ -19,10 +19,10 @@ export const images: Images = {
 };
 
 export const icons: Icons = {
-    whatsappIcon: whatsappIcon,
-    spinner: spinner,
-    caretLeft: caretLeft,
-    caretRight: caretRight,
-    mobileMenuIcon: mobileMenuIcon,
-    dotsThreeVertical: dotsThreeVertical,
+    whatsappIcon: { source: whatsappIcon, type: "fill" },
+    spinner: { source: spinner, type: "stroke" },
+    caretLeft: { source: caretLeft, type: "fill" },
+    caretRight: { source: caretRight, type: "fill" },
+    mobileMenu: { source: mobileMenu, type: "stroke" },
+    dotsThreeVertical: { source: dotsThreeVertical, type: "stroke" },
 };
