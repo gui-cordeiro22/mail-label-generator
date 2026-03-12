@@ -19,7 +19,7 @@ import { CustomerChartEmptyState } from "@/components/compositions/customer-char
 import { images, icons } from "@/assets";
 
 // Utils
-import { data } from "@/components/compositions/menu/menu.data";
+import { menuData } from "@/components/compositions/menu/menu.data";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
@@ -86,14 +86,16 @@ export const Home: FunctionComponent = () => {
                         <Fragment>
                             <ConditionallyRender
                                 shouldRender={windowWidth > 768}
-                                content={data.menus.links.map((item, index) => (
-                                    <Typography
-                                        key={`navigation-link-${index}`}
-                                        text={item.label}
-                                        color="black"
-                                        variant="bodyMedium"
-                                    />
-                                ))}
+                                content={menuData.menus.links.map(
+                                    (item, index) => (
+                                        <Typography
+                                            key={`navigation-link-${index}`}
+                                            text={item.label}
+                                            color="black"
+                                            variant="bodyMedium"
+                                        />
+                                    ),
+                                )}
                             />
 
                             <ConditionallyRender
@@ -127,8 +129,8 @@ export const Home: FunctionComponent = () => {
                     menusCompositions={
                         <Menu
                             isSidebarOpened={sidebarStatus}
-                            label={data.menus.label}
-                            menuItemCompositions={data.menus.links.map(
+                            label={menuData.menus.label}
+                            menuItemCompositions={menuData.menus.links.map(
                                 (item, index) => (
                                     <MenuItem
                                         key={`menu-item-${index}`}
@@ -156,7 +158,7 @@ export const Home: FunctionComponent = () => {
                     }
                     footerMenusCompositions={
                         <Typography
-                            text={data.footer.message}
+                            text={menuData.footer.message}
                             color="black"
                             variant="bodySmall"
                         />

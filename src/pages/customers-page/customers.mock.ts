@@ -1,4 +1,8 @@
 export const customersPageData = {
+    title: "Lista de Clientes",
+    description:
+        "Confira abaixo a listagem completa com todos os clientes cadastrados em seu sistema, utilize esta seção para visualizar, consultar e gerenciar as informações de cada cliente de forma prática e organizada.",
+
     mock: {
         customers: [
             {

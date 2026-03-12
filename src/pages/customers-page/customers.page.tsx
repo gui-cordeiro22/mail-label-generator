@@ -11,23 +11,26 @@ import { Menu, MenuItem } from "@/components/compositions/menu";
 import { ClientsPage } from "@/components/pages/clients-page";
 import { MobileHeader } from "@/components/sections/mobile-header";
 import { Headline } from "@/components/sections/headline";
-
-// Assets
-import { images, icons } from "@/assets";
 import {
     CustomersList,
     CustomersListItem,
 } from "@/components/compositions/customers-list";
 
+// Assets
+import { images, icons } from "@/assets";
+
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
 
 // Utils
-import { data } from "@/components/compositions/menu/menu.data";
+import { menuData } from "@/components/compositions/menu/menu.data";
 import { customersPageData } from "./customers.mock";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
+
+// Helpers
+import { formattedCepBuilder } from "./customers.helpers";
 
 export const Customers: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -72,14 +75,16 @@ export const Customers: FunctionComponent = () => {
                         <Fragment>
                             <ConditionallyRender
                                 shouldRender={windowWidth > 768}
-                                content={data.menus.links.map((item, index) => (
-                                    <Typography
-                                        key={`navigation-link-${index}`}
-                                        text={item.label}
-                                        color="black"
-                                        variant="bodyMedium"
-                                    />
-                                ))}
+                                content={menuData.menus.links.map(
+                                    (item, index) => (
+                                        <Typography
+                                            key={`navigation-link-${index}`}
+                                            text={item.label}
+                                            color="black"
+                                            variant="bodyMedium"
+                                        />
+                                    ),
+                                )}
                             />
 
                             <ConditionallyRender
@@ -114,8 +119,8 @@ export const Customers: FunctionComponent = () => {
                     menusCompositions={
                         <Menu
                             isSidebarOpened={sidebarStatus}
-                            label={data.menus.label}
-                            menuItemCompositions={data.menus.links.map(
+                            label={menuData.menus.label}
+                            menuItemCompositions={menuData.menus.links.map(
                                 (item, index) => (
                                     <MenuItem
                                         key={`menu-item-${index}`}
@@ -143,7 +148,7 @@ export const Customers: FunctionComponent = () => {
                     }
                     footerMenusCompositions={
                         <Typography
-                            text={data.footer.message}
+                            text={menuData.footer.message}
                             color="black"
                             variant="bodySmall"
                         />
@@ -156,7 +161,7 @@ export const Customers: FunctionComponent = () => {
                         <Headline
                             titleElement={
                                 <Typography
-                                    text="Lista de Clientes"
+                                    text={customersPageData.title}
                                     color="black"
                                     variant="titleLarge"
                                 />
@@ -164,7 +169,7 @@ export const Customers: FunctionComponent = () => {
                             subtitleElement={
                                 <Typography
                                     element="p"
-                                    text="Confira abaixo a listagem completa com todos os clientes cadastrados em seu sistema, utilize esta seção para visualizar, consultar e gerenciar as informações de cada cliente de forma prática e organizada."
+                                    text={customersPageData.description}
                                     color="black"
                                     variant="bodyMedium"
                                 />
@@ -181,12 +186,12 @@ export const Customers: FunctionComponent = () => {
                                             <Typography
                                                 text={item.name}
                                                 color="black"
-                                                variant="bodyMedium"
+                                                variant="labelMedium"
                                             />
                                         }
                                         customerAddressElement={
                                             <Typography
-                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, ${item.cep}`}
+                                                text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf}, CEP: ${formattedCepBuilder(item.cep)}`}
                                                 color="black"
                                                 variant="microcopy"
                                             />
