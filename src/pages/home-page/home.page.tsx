@@ -189,7 +189,7 @@ export const Home: FunctionComponent = () => {
                             customersChartCompositions={
                                 <Fragment>
                                     <ConditionallyRender
-                                        shouldRender={!!chartData?.data}
+                                        shouldRender={!!chartData?.data?.length}
                                         content={
                                             <CustomerChart
                                                 data={chartData?.data ?? []}
@@ -198,7 +198,7 @@ export const Home: FunctionComponent = () => {
                                     />
 
                                     <ConditionallyRender
-                                        shouldRender={!chartData?.data}
+                                        shouldRender={!chartData?.data?.length}
                                         content={
                                             <CustomerChartEmptyState
                                                 illustrationSource={
