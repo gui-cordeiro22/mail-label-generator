@@ -1,30 +1,58 @@
 // Dependencies
-import { FunctionComponent } from "react";
+import { Fragment, FunctionComponent } from "react";
+
+// Components
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 // Styles
 import { Container, ContentWrapper } from "./card.styles";
 
 // Types
 import { CardProps } from "./card.types";
-import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 export const Card: FunctionComponent<CardProps> = ({
-    valueElement,
+    content,
     labelElement,
     iconElement,
+    variant,
 }) => {
     return (
-        <Container>
-            <ContentWrapper>
-                {valueElement}
+        <Fragment>
+            <ConditionallyRender
+                shouldRender={variant === "report"}
+                content={
+                    <Container>
+                        <ContentWrapper>
+                            {content}
 
-                {labelElement}
-            </ContentWrapper>
+                            {labelElement}
+                        </ContentWrapper>
+
+                        <ConditionallyRender
+                            shouldRender={!!iconElement}
+                            content={iconElement}
+                        />
+                    </Container>
+                }
+            />
 
             <ConditionallyRender
-                shouldRender={!!iconElement}
-                content={iconElement}
+                shouldRender={variant === "input"}
+                content={
+                    <Container>
+                        <ContentWrapper>
+                            {labelElement}
+
+                            {content}
+                        </ContentWrapper>
+
+                        <ConditionallyRender
+                            shouldRender={!!iconElement}
+                            content={iconElement}
+                        />
+                    </Container>
+                }
             />
-        </Container>
+        </Fragment>
     );
 };

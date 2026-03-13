@@ -1,3 +1,6 @@
+// Dependencies
+import { MouseEvent } from "react";
+
 // Types
 import { Theme } from "@/styles/theme";
 import { IconVariants, IconSpinType } from "@/assets";
@@ -12,7 +15,7 @@ export type IconData = {
 };
 
 export type IconActions = {
-    handleClick?: () => void;
+    handleClick?: (event?: MouseEvent<HTMLDivElement>) => void;
 };
 
 export type IconProps = IconData & IconActions;

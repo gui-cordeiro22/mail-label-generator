@@ -41,12 +41,13 @@ export const ContentWrapper = styled.div`
 `;
 
 export const CardsReportCompositionsWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     gap: ${({ theme }) => theme.system.space["xxxs"]};
 
     @media (min-width: 1024px) {
+        display: grid;
         grid-template-columns: 0.5fr 1fr;
         gap: ${({ theme }) => theme.system.space["sm"]};
     }
@@ -54,7 +55,7 @@ export const CardsReportCompositionsWrapper = styled.div`
 
 export const CustomerListItemContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -62,15 +63,31 @@ export const CustomerListItemContainer = styled.div`
 
 export const CustomerListItemContentWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     padding: ${({ theme }) => theme.system.space["sm"]};
     background-color: ${({ theme }) => theme.palette.colors["white"]};
     gap: ${({ theme }) => theme.system.space["micro"]};
     border-radius: ${({ theme }) => theme.system.radii["md"]};
     user-select: none;
+    transition: ${({ theme }) => theme.system.durations["fast"]};
+
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: ${({ theme }) => theme.system.shadows["lv2"]};
+    }
+`;
+
+export const CustomerInformationWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    gap: ${({ theme }) => theme.system.space["micro"]};
 `;
 
 export const AddressWrapper = styled.div`

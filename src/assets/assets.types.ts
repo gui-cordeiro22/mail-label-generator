@@ -15,7 +15,8 @@ export type IconVariants =
     | "mobileMenu"
     | "dotsThreeVertical"
     | "mapPin"
-    | "customersList";
+    | "customersList"
+    | "searchIcon";
 export type Icon = {
     type: IconType;
     source: FunctionComponent<SVGProps<SVGSVGElement>>;

@@ -1,6 +1,9 @@
 // Dependencies
 import { FunctionComponent } from "react";
 
+// Components
+import { ConditionallyRender } from "@/components/utilities/conditionally-render";
+
 // Styles
 import {
     CustomerListContainer,
@@ -9,6 +12,7 @@ import {
     CustomerListItemContentWrapper,
     AddressWrapper,
     CardsReportCompositionsWrapper,
+    CustomerInformationWrapper,
 } from "./customers-list.styles";
 
 // Types
@@ -16,7 +20,6 @@ import {
     CustomersListItemProps,
     CustomersListProps,
 } from "./customers-list.types";
-import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 export const CustomersList: FunctionComponent<CustomersListProps> = ({
     cardsReportCompositions,
@@ -39,20 +42,26 @@ export const CustomersListItem: FunctionComponent<CustomersListItemProps> = ({
     customerNameElement,
     customerAddressElement,
     iconElement,
+    contextMenuIconElement,
+    handleClick,
 }) => {
     return (
-        <CustomerListItemContainer>
+        <CustomerListItemContainer onClick={handleClick}>
             <CustomerListItemContentWrapper>
-                {customerNameElement}
+                <CustomerInformationWrapper>
+                    {customerNameElement}
 
-                <AddressWrapper>
-                    <ConditionallyRender
-                        shouldRender={!!iconElement}
-                        content={iconElement}
-                    />
+                    <AddressWrapper>
+                        <ConditionallyRender
+                            shouldRender={!!iconElement}
+                            content={iconElement}
+                        />
 
-                    {customerAddressElement}
-                </AddressWrapper>
+                        {customerAddressElement}
+                    </AddressWrapper>
+                </CustomerInformationWrapper>
+
+                {contextMenuIconElement}
             </CustomerListItemContentWrapper>
         </CustomerListItemContainer>
     );

@@ -180,7 +180,8 @@ export const Customers: FunctionComponent = () => {
                             cardsReportCompositions={
                                 <Fragment>
                                     <Card
-                                        valueElement={
+                                        variant="report"
+                                        content={
                                             <Typography
                                                 text={`${
                                                     customersPageData.mock
@@ -215,32 +216,23 @@ export const Customers: FunctionComponent = () => {
                                     />
 
                                     <Card
-                                        valueElement={
-                                            <Typography
-                                                text={`${
-                                                    customersPageData.mock
-                                                        .customers.length
-                                                }
-                                                `}
-                                                color="black"
-                                                variant="display"
+                                        variant="input"
+                                        content={
+                                            <input
+                                                type="text"
+                                                placeholder="Digite o nome"
                                             />
                                         }
                                         labelElement={
                                             <Typography
-                                                text={
-                                                    customersPageData.mock
-                                                        .customers.length > 1
-                                                        ? "Clientes cadastrados"
-                                                        : "Cliente cadastrado"
-                                                }
+                                                text="Pesquise seus clientes pelo nome"
                                                 color="black"
                                                 variant="bodyMedium"
                                             />
                                         }
                                         iconElement={
                                             <Icon
-                                                variant="customersList"
+                                                variant="searchIcon"
                                                 color="black"
                                                 size={
                                                     windowWidth >= 768 ? 40 : 32
@@ -257,6 +249,9 @@ export const Customers: FunctionComponent = () => {
                                 .map((item, index) => (
                                     <CustomersListItem
                                         key={`customer-list-item-${index}`}
+                                        handleClick={() =>
+                                            navigate(`/clientes/${item.id}`)
+                                        }
                                         customerNameElement={
                                             <Typography
                                                 element="p"
@@ -276,6 +271,18 @@ export const Customers: FunctionComponent = () => {
                                                 text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf.toUpperCase()}, CEP: ${formattedCepBuilder(item.cep)}`}
                                                 color="black"
                                                 variant="microcopy"
+                                            />
+                                        }
+                                        contextMenuIconElement={
+                                            <Icon
+                                                variant="dotsThreeVertical"
+                                                color="black"
+                                                size={32}
+                                                handleClick={(event) => {
+                                                    event?.stopPropagation();
+
+                                                    console.log("teste");
+                                                }}
                                             />
                                         }
                                     />

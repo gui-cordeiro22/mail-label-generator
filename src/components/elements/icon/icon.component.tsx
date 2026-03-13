@@ -30,7 +30,7 @@ export const Icon: FunctionComponent<IconProps> = ({
             isActive={!!isActive}
             spinType={spinType}
             type={iconsSource[variant].type}
-            onClick={() => !!handleClick && handleClick()}
+            onClick={(event) => !!handleClick && handleClick(event)}
         >
             <Svg />
         </Container>

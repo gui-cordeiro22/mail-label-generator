@@ -14,6 +14,7 @@ import { ReactComponent as spinner } from "./icons/spinner";
 import { ReactComponent as whatsappIcon } from "./icons/whatsapp";
 import { ReactComponent as mapPin } from "./icons/map-pin";
 import { ReactComponent as customersList } from "./icons/customers-list";
+import { ReactComponent as searchIcon } from "./icons/list-magnifying-glass";
 
 export const images: Images = {
     brandLogo: logo,
@@ -29,4 +30,5 @@ export const icons: Icons = {
     dotsThreeVertical: { source: dotsThreeVertical, type: "stroke" },
     mapPin: { source: mapPin, type: "fill" },
     customersList: { source: customersList, type: "fill" },
+    searchIcon: { source: searchIcon, type: "fill" },
 };

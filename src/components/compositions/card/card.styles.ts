@@ -16,5 +16,6 @@ export const Container = styled.div`
 export const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: ${({ theme }) => theme.system.space["xxxxs"]};
 `;

@@ -12,6 +12,12 @@ export type CustomersListItemElements = {
     customerNameElement: ReactNode;
     customerAddressElement: ReactNode;
     iconElement?: ReactNode;
+    contextMenuIconElement?: ReactNode;
 };
 
-export type CustomersListItemProps = CustomersListItemElements;
+export type CustomersListItemAction = {
+    handleClick?: () => void;
+};
+
+export type CustomersListItemProps = CustomersListItemElements &
+    CustomersListItemAction;
