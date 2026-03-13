@@ -1,5 +1,11 @@
 // Dependencies
-import { Fragment, FunctionComponent, useEffect, useState } from "react";
+import {
+    Fragment,
+    FunctionComponent,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Components
@@ -38,6 +44,8 @@ import { Chip } from "@/components/elements/chip";
 
 export const Customers: FunctionComponent = () => {
     const [queryState, setQueryState] = useState("");
+
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const customersListLenght = (customersPageData.mock.customers ?? []).filter(
         (customer) =>
@@ -253,11 +261,21 @@ export const Customers: FunctionComponent = () => {
                                                 <Input
                                                     placeholder="Digite o nome..."
                                                     handleChange={(e) => {
-                                                        setTimeout(() => {
-                                                            setQueryState(
-                                                                e.target.value,
+                                                        if (
+                                                            timeoutRef.current
+                                                        ) {
+                                                            clearTimeout(
+                                                                timeoutRef.current,
                                                             );
-                                                        }, 1000);
+                                                        }
+
+                                                        timeoutRef.current =
+                                                            setTimeout(() => {
+                                                                setQueryState(
+                                                                    e.target
+                                                                        .value,
+                                                                );
+                                                            }, 800);
                                                     }}
                                                 />
 
