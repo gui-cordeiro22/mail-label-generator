@@ -1,5 +1,5 @@
 // Dependencies
-import { Fragment, FunctionComponent, useEffect } from "react";
+import { Fragment, FunctionComponent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Components
@@ -37,6 +37,13 @@ import { Input } from "@/components/elements/input";
 import { Chip } from "@/components/elements/chip";
 
 export const Customers: FunctionComponent = () => {
+    const [queryState, setQueryState] = useState("");
+
+    const customersListLenght = (customersPageData.mock.customers ?? []).filter(
+        (customer) =>
+            customer.name.toLowerCase().includes(queryState.toLowerCase()),
+    ).length;
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -242,7 +249,31 @@ export const Customers: FunctionComponent = () => {
                                             />
                                         }
                                         content={
-                                            <Input placeholder="Digite o nome..." />
+                                            <Fragment>
+                                                <Input
+                                                    placeholder="Digite o nome..."
+                                                    handleChange={(e) => {
+                                                        setTimeout(() => {
+                                                            setQueryState(
+                                                                e.target.value,
+                                                            );
+                                                        }, 1000);
+                                                    }}
+                                                />
+
+                                                <Typography
+                                                    text={
+                                                        customersListLenght <= 0
+                                                            ? "Nenhum resultado encontrado..."
+                                                            : customersListLenght >
+                                                                1
+                                                                ? `Exibindo ${customersListLenght} resultados.`
+                                                                : `Exibindo ${customersListLenght} resultado.`
+                                                    }
+                                                    variant="microcopy"
+                                                    color="gray300"
+                                                />
+                                            </Fragment>
                                         }
                                         iconElement={
                                             <Icon
@@ -259,6 +290,11 @@ export const Customers: FunctionComponent = () => {
                             customersListItemComposition={(
                                 customersPageData.mock.customers ?? []
                             )
+                                .filter((item) =>
+                                    item.name
+                                        .toLowerCase()
+                                        .includes(queryState.toLowerCase()),
+                                )
                                 .sort((a, b) => a.name.localeCompare(b.name))
                                 .map((item, index) => (
                                     <CustomersListItem

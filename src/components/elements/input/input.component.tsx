@@ -40,7 +40,14 @@ export const Input: FunctionComponent<InputProps> = ({
                     />
                 </InputElementWrapper>
 
-                <ErrorMessageWrapper>{errorMessageElement}</ErrorMessageWrapper>
+                <ConditionallyRender
+                    shouldRender={!!errorMessageElement}
+                    content={
+                        <ErrorMessageWrapper>
+                            {errorMessageElement}
+                        </ErrorMessageWrapper>
+                    }
+                />
             </ContentWrapper>
         </Container>
     );
