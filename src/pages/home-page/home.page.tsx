@@ -15,6 +15,7 @@ import { DashboardSection } from "@/components/sections/dashboard";
 import { CustomerChart } from "@/components/compositions/customer-chart";
 import { CustomerChartEmptyState } from "@/components/compositions/customer-chart-empty-state";
 import { Icon } from "@/components/elements/icon";
+import { Chip } from "@/components/elements/chip";
 
 // Assets
 import { images } from "@/assets";
@@ -135,9 +136,24 @@ export const Home: FunctionComponent = () => {
                                         isSidebarOpened={sidebarStatus}
                                         label={item.label}
                                         isComingSoon={item.isComingSoon}
-                                        navigationSource={item.path}
+                                        navigationSource={
+                                            !item.isComingSoon
+                                                ? item.path
+                                                : undefined
+                                        }
                                         isSelected={
                                             location.pathname === item.path
+                                        }
+                                        chipElement={
+                                            <Chip
+                                                labelElement={
+                                                    <Typography
+                                                        text="Em breve..."
+                                                        variant="microcopy"
+                                                        color="gray300"
+                                                    />
+                                                }
+                                            />
                                         }
                                         {...(windowWidth < 1280 &&
                                             !item.isComingSoon && {

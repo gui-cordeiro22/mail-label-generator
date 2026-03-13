@@ -69,10 +69,12 @@ export const MenuItem: FunctionComponent<MenuItemProps> = ({
     navigationSource,
     isSidebarOpened,
     isSelected,
+    isComingSoon,
     isExpandable = false,
     hasClampLines = false,
     indicatorIconElement,
     actionIconElement,
+    chipElement,
     menuExpandableItemCompositions,
     handleClick,
 }) => {
@@ -92,6 +94,7 @@ export const MenuItem: FunctionComponent<MenuItemProps> = ({
     return (
         <Fragment>
             <MenuItemContainer
+                isComingSoon={!!isComingSoon}
                 isSelected={!!isSelected}
                 isSidebarOpened={isSidebarOpened}
                 isExpandable={isExpandable}
@@ -133,15 +136,26 @@ export const MenuItem: FunctionComponent<MenuItemProps> = ({
                             actionAfterRenderingWidth="show"
                             renderingWidth={1280}
                             content={
-                                <Typography
-                                    variant={
-                                        isSelected
-                                            ? "labelMedium"
-                                            : "bodyMedium"
-                                    }
-                                    color="gray400"
-                                    text={label}
-                                />
+                                <Fragment>
+                                    <Typography
+                                        variant={
+                                            isSelected
+                                                ? "labelMedium"
+                                                : "bodyMedium"
+                                        }
+                                        color={
+                                            isComingSoon
+                                                ? "gray200"
+                                                : "gray400"
+                                        }
+                                        text={label}
+                                    />
+
+                                    <ConditionallyRender
+                                        shouldRender={!!isComingSoon}
+                                        content={chipElement}
+                                    />
+                                </Fragment>
                             }
                         />
 

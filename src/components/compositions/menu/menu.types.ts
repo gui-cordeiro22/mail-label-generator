@@ -26,6 +26,7 @@ export type MenuItemElements = {
     indicatorIconElement?: ReactNode;
     actionIconElement?: ReactNode;
     menuExpandableItemCompositions?: ReactNode;
+    chipElement?: ReactNode;
 };
 
 export type MenuItemActions = {

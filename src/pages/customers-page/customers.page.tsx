@@ -34,6 +34,7 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 // Helpers
 import { formattedCepBuilder } from "./customers.helpers";
 import { Input } from "@/components/elements/input";
+import { Chip } from "@/components/elements/chip";
 
 export const Customers: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -127,9 +128,24 @@ export const Customers: FunctionComponent = () => {
                                         isSidebarOpened={sidebarStatus}
                                         label={item.label}
                                         isComingSoon={item.isComingSoon}
-                                        navigationSource={item.path}
+                                        navigationSource={
+                                            !item.isComingSoon
+                                                ? item.path
+                                                : undefined
+                                        }
                                         isSelected={
                                             location.pathname === item.path
+                                        }
+                                        chipElement={
+                                            <Chip
+                                                labelElement={
+                                                    <Typography
+                                                        text="Em breve..."
+                                                        variant="microcopy"
+                                                        color="gray300"
+                                                    />
+                                                }
+                                            />
                                         }
                                         {...(windowWidth < 1280 &&
                                             !item.isComingSoon && {

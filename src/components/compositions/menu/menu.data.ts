@@ -17,7 +17,7 @@ export const menuData = {
             {
                 label: "Clientes",
                 path: "/clientes",
-                isComingSoon: true,
+                isComingSoon: false,
                 isExpandable: false,
             },
             {
