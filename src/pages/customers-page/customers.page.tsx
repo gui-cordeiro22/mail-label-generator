@@ -281,7 +281,9 @@ export const Customers: FunctionComponent = () => {
                                                 handleClick={(event) => {
                                                     event?.stopPropagation();
 
-                                                    console.log("teste");
+                                                    console.log(
+                                                        "Botão que abrirá o menu de contexto de um determinado cliente, onde oferecerá as opções de: Editar ou excluir esse cliente.",
+                                                    );
                                                 }}
                                             />
                                         }

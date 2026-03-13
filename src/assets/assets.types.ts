@@ -18,11 +18,8 @@ export type IconVariants =
     | "customersList"
     | "searchIcon";
 export type Icon = {
-    type: IconType;
     source: FunctionComponent<SVGProps<SVGSVGElement>>;
 };
-
-export type IconType = "stroke" | "fill";
 
 export type IconSpinType = "none" | "swivel";
 

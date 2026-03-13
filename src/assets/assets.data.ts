@@ -22,13 +22,13 @@ export const images: Images = {
 };
 
 export const icons: Icons = {
-    whatsappIcon: { source: whatsappIcon, type: "fill" },
-    spinner: { source: spinner, type: "stroke" },
-    caretLeft: { source: caretLeft, type: "fill" },
-    caretRight: { source: caretRight, type: "fill" },
-    mobileMenu: { source: mobileMenu, type: "stroke" },
-    dotsThreeVertical: { source: dotsThreeVertical, type: "stroke" },
-    mapPin: { source: mapPin, type: "fill" },
-    customersList: { source: customersList, type: "fill" },
-    searchIcon: { source: searchIcon, type: "fill" },
+    whatsappIcon: { source: whatsappIcon },
+    spinner: { source: spinner },
+    caretLeft: { source: caretLeft },
+    caretRight: { source: caretRight },
+    mobileMenu: { source: mobileMenu },
+    dotsThreeVertical: { source: dotsThreeVertical },
+    mapPin: { source: mapPin },
+    customersList: { source: customersList },
+    searchIcon: { source: searchIcon },
 };

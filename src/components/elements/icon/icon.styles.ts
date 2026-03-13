@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 
 // Types
-import { IconSpinType, IconType } from "@/assets/index";
+import { IconSpinType } from "@/assets/index";
 import { Theme, theme } from "@/styles/theme";
 
 export type ContainerStyleProps = {
@@ -11,7 +11,6 @@ export type ContainerStyleProps = {
     size: number;
     color: keyof Theme["palette"]["colors"];
     hasCursorPointer: boolean;
-    type: IconType;
 };
 
 export const Container = styled.div<ContainerStyleProps>`
@@ -33,11 +32,11 @@ export const Container = styled.div<ContainerStyleProps>`
         cursor: ${({ hasCursorPointer }) =>
         hasCursorPointer ? "pointer" : "default"};
 
-        ${({ type, color }) =>
+        ${({ color }) =>
         color &&
             css`
                 * {
-                    ${type}: ${theme.palette.colors[color]};
+                    color: ${theme.palette.colors[color]};
                 }
             `}
     }

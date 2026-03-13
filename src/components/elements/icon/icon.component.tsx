@@ -29,7 +29,6 @@ export const Icon: FunctionComponent<IconProps> = ({
             hasCursorPointer={!!handleClick || !!hasCursorPointer}
             isActive={!!isActive}
             spinType={spinType}
-            type={iconsSource[variant].type}
             onClick={(event) => !!handleClick && handleClick(event)}
         >
             <Svg />
