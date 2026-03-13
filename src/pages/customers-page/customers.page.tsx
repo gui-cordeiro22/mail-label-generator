@@ -8,7 +8,7 @@ import { ConditionallyRender } from "@/components/utilities/conditionally-render
 import { Typography } from "@/components/utilities/typography";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
-import { ClientsPage } from "@/components/pages/clients-page";
+import { CustomersPage } from "@/components/pages/customers-page";
 import { MobileHeader } from "@/components/sections/mobile-header";
 import { Headline } from "@/components/sections/headline";
 import {
@@ -16,6 +16,7 @@ import {
     CustomersListItem,
 } from "@/components/compositions/customers-list";
 import { Icon } from "@/components/elements/icon";
+import { Card } from "@/components/compositions/card";
 
 // Assets
 import { images } from "@/assets";
@@ -64,6 +65,7 @@ export const Customers: FunctionComponent = () => {
             setSidebarIsExpanded(!sidebarIsExpanded);
         }
     };
+
     return (
         <DefaultLayout
             isSidebarOpened={sidebarStatus}
@@ -153,7 +155,7 @@ export const Customers: FunctionComponent = () => {
                 />
             }
             pageContent={
-                <ClientsPage
+                <CustomersPage
                     headlineCompositions={
                         <Headline
                             titleElement={
@@ -175,8 +177,84 @@ export const Customers: FunctionComponent = () => {
                     }
                     clientsListSection={
                         <CustomersList
-                            customersListItemComposition={customersPageData.mock.customers.map(
-                                (item, index) => (
+                            cardsReportCompositions={
+                                <Fragment>
+                                    <Card
+                                        valueElement={
+                                            <Typography
+                                                text={`${
+                                                    customersPageData.mock
+                                                        .customers.length
+                                                }
+                                                `}
+                                                color="black"
+                                                variant="display"
+                                            />
+                                        }
+                                        labelElement={
+                                            <Typography
+                                                text={
+                                                    customersPageData.mock
+                                                        .customers.length > 1
+                                                        ? "Clientes cadastrados"
+                                                        : "Cliente cadastrado"
+                                                }
+                                                color="black"
+                                                variant="bodyMedium"
+                                            />
+                                        }
+                                        iconElement={
+                                            <Icon
+                                                variant="customersList"
+                                                color="black"
+                                                size={
+                                                    windowWidth >= 768 ? 40 : 32
+                                                }
+                                            />
+                                        }
+                                    />
+
+                                    <Card
+                                        valueElement={
+                                            <Typography
+                                                text={`${
+                                                    customersPageData.mock
+                                                        .customers.length
+                                                }
+                                                `}
+                                                color="black"
+                                                variant="display"
+                                            />
+                                        }
+                                        labelElement={
+                                            <Typography
+                                                text={
+                                                    customersPageData.mock
+                                                        .customers.length > 1
+                                                        ? "Clientes cadastrados"
+                                                        : "Cliente cadastrado"
+                                                }
+                                                color="black"
+                                                variant="bodyMedium"
+                                            />
+                                        }
+                                        iconElement={
+                                            <Icon
+                                                variant="customersList"
+                                                color="black"
+                                                size={
+                                                    windowWidth >= 768 ? 40 : 32
+                                                }
+                                            />
+                                        }
+                                    />
+                                </Fragment>
+                            }
+                            customersListItemComposition={(
+                                customersPageData.mock.customers ?? []
+                            )
+                                .sort((a, b) => a.name.localeCompare(b.name))
+                                .map((item, index) => (
                                     <CustomersListItem
                                         key={`customer-list-item-${index}`}
                                         customerNameElement={
@@ -201,8 +279,7 @@ export const Customers: FunctionComponent = () => {
                                             />
                                         }
                                     />
-                                ),
-                            )}
+                                ))}
                         />
                     }
                 />

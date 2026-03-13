@@ -2,9 +2,9 @@
 import { Fragment, FunctionComponent } from "react";
 
 // Types
-import { ClientsPageProps } from "./clients.types";
+import { CustomersPageProps } from "./customers.types";
 
-export const ClientsPage: FunctionComponent<ClientsPageProps> = ({
+export const CustomersPage: FunctionComponent<CustomersPageProps> = ({
     headlineCompositions,
     clientsListSection,
 }) => {

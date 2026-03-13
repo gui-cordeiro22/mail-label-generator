@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 
 export type CustomersListElement = {
+    cardsReportCompositions?: ReactNode;
     customersListItemComposition: ReactNode;
 };
 

@@ -40,6 +40,18 @@ export const ContentWrapper = styled.div`
     }
 `;
 
+export const CardsReportCompositionsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: ${({ theme }) => theme.system.space["xxxs"]};
+
+    @media (min-width: 1024px) {
+        grid-template-columns: 0.5fr 1fr;
+        gap: ${({ theme }) => theme.system.space["sm"]};
+    }
+`;
+
 export const CustomerListItemContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -54,9 +66,10 @@ export const CustomerListItemContentWrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    padding: 12px 0px;
-    border-bottom: 1px solid #000;
-    gap: 6px;
+    padding: ${({ theme }) => theme.system.space["sm"]};
+    background-color: ${({ theme }) => theme.palette.colors["white"]};
+    gap: ${({ theme }) => theme.system.space["micro"]};
+    border-radius: ${({ theme }) => theme.system.radii["md"]};
     user-select: none;
 `;
 

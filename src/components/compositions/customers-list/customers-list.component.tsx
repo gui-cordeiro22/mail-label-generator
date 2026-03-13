@@ -8,6 +8,7 @@ import {
     CustomerListItemContainer,
     CustomerListItemContentWrapper,
     AddressWrapper,
+    CardsReportCompositionsWrapper,
 } from "./customers-list.styles";
 
 // Types
@@ -18,11 +19,18 @@ import {
 import { ConditionallyRender } from "@/components/utilities/conditionally-render";
 
 export const CustomersList: FunctionComponent<CustomersListProps> = ({
+    cardsReportCompositions,
     customersListItemComposition,
 }) => {
     return (
         <CustomerListContainer>
-            <ContentWrapper>{customersListItemComposition}</ContentWrapper>
+            <ContentWrapper>
+                <CardsReportCompositionsWrapper>
+                    {cardsReportCompositions}
+                </CardsReportCompositionsWrapper>
+
+                {customersListItemComposition}
+            </ContentWrapper>
         </CustomerListContainer>
     );
 };

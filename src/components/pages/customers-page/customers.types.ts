@@ -1,9 +1,9 @@
 // Dependencies
 import { ReactNode } from "react";
 
-export type ClientsPageElements = {
+export type CustomersPageElements = {
     headlineCompositions: ReactNode;
     clientsListSection: ReactNode;
 };
 
-export type ClientsPageProps = ClientsPageElements;
+export type CustomersPageProps = CustomersPageElements;
