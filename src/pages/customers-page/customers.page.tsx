@@ -189,7 +189,7 @@ export const Customers: FunctionComponent = () => {
                                                         .customers.length
                                                 }
                                                 `}
-                                                color="black"
+                                                color="gray500"
                                                 variant="display"
                                             />
                                         }
@@ -201,14 +201,14 @@ export const Customers: FunctionComponent = () => {
                                                         ? "Clientes cadastrados"
                                                         : "Cliente cadastrado"
                                                 }
-                                                color="black"
+                                                color="gray300"
                                                 variant="bodyMedium"
                                             />
                                         }
                                         iconElement={
                                             <Icon
                                                 variant="customersList"
-                                                color="black"
+                                                color="gray200"
                                                 size={
                                                     windowWidth >= 768 ? 40 : 32
                                                 }
@@ -221,7 +221,7 @@ export const Customers: FunctionComponent = () => {
                                         labelElement={
                                             <Typography
                                                 text="Pesquise seus clientes pelo nome"
-                                                color="black"
+                                                color="gray500"
                                                 variant="bodyMedium"
                                             />
                                         }
@@ -231,7 +231,7 @@ export const Customers: FunctionComponent = () => {
                                         iconElement={
                                             <Icon
                                                 variant="searchIcon"
-                                                color="black"
+                                                color="gray200"
                                                 size={
                                                     windowWidth >= 768 ? 40 : 32
                                                 }
@@ -254,7 +254,7 @@ export const Customers: FunctionComponent = () => {
                                             <Typography
                                                 element="p"
                                                 text={item.name}
-                                                color="black"
+                                                color="gray500"
                                                 variant="labelMedium"
                                             />
                                         }
@@ -262,14 +262,14 @@ export const Customers: FunctionComponent = () => {
                                             <Typography
                                                 element="p"
                                                 text={`Endereço: ${item.address} - ${item.neighborhood}, ${item.city} - ${item.uf.toUpperCase()}, CEP: ${formattedCepBuilder(item.cep)}`}
-                                                color="black"
+                                                color="gray300"
                                                 variant="microcopy"
                                             />
                                         }
                                         contextMenuIconElement={
                                             <Icon
                                                 variant="dotsThreeVertical"
-                                                color="black"
+                                                color="gray300"
                                                 size={32}
                                                 handleClick={(event) => {
                                                     event?.stopPropagation();
