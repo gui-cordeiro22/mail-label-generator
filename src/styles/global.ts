@@ -24,7 +24,7 @@ html, body, #root, #__next {
     padding: 0;
     outline: 0;
     border: 0;
-    font-family: "Ubuntu", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
   }
 
   *:focus {

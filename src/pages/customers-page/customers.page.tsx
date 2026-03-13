@@ -33,6 +33,7 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 // Helpers
 import { formattedCepBuilder } from "./customers.helpers";
+import { Input } from "@/components/elements/input";
 
 export const Customers: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -217,18 +218,15 @@ export const Customers: FunctionComponent = () => {
 
                                     <Card
                                         variant="input"
-                                        content={
-                                            <input
-                                                type="text"
-                                                placeholder="Digite o nome"
-                                            />
-                                        }
                                         labelElement={
                                             <Typography
                                                 text="Pesquise seus clientes pelo nome"
                                                 color="black"
                                                 variant="bodyMedium"
                                             />
+                                        }
+                                        content={
+                                            <Input placeholder="Digite o nome..." />
                                         }
                                         iconElement={
                                             <Icon
@@ -258,11 +256,6 @@ export const Customers: FunctionComponent = () => {
                                                 text={item.name}
                                                 color="black"
                                                 variant="labelMedium"
-                                                handleClick={() =>
-                                                    navigate(
-                                                        `/clientes/${item.id}`,
-                                                    )
-                                                }
                                             />
                                         }
                                         customerAddressElement={

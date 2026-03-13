@@ -29,7 +29,7 @@ type InputElementWrapperStyleProps = {
 
 export const InputElementWrapper = styled.div<InputElementWrapperStyleProps>`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
     background-color: #fff;
@@ -62,8 +62,4 @@ export const ErrorMessageWrapper = styled.div`
     flex-wrap: wrap;
     width: 100%;
     min-height: 18px;
-`;
-
-export const IconElement = styled.img`
-    width: 18px;
 `;

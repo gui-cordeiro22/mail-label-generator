@@ -3,8 +3,11 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 export type InputData = Partial<InputHTMLAttributes<HTMLInputElement>> & {
     placeholder: string;
-    icon?: string;
-    errorMessage?: ReactNode;
+};
+
+export type InputElements = {
+    errorMessageElement?: ReactNode;
+    iconElement?: ReactNode;
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -12,4 +15,4 @@ export type InputAction = {
     handleChange?: (event: any) => void;
 };
 
-export type InputProps = InputData & InputAction;
+export type InputProps = InputData & InputElements & InputAction;

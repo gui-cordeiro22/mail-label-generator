@@ -9,7 +9,6 @@ import {
     Container,
     ContentWrapper,
     ErrorMessageWrapper,
-    IconElement,
     InputElement,
     InputElementWrapper,
 } from "./input.styles";
@@ -19,15 +18,15 @@ import type { InputProps } from "./input.types";
 
 export const Input: FunctionComponent<InputProps> = ({
     placeholder,
-    icon,
-    errorMessage,
+    iconElement,
+    errorMessageElement,
     handleChange,
     ...defaultProps
 }) => {
     return (
         <Container>
             <ContentWrapper>
-                <InputElementWrapper hasError={!!errorMessage}>
+                <InputElementWrapper hasError={!!errorMessageElement}>
                     <InputElement
                         type="text"
                         placeholder={placeholder}
@@ -36,12 +35,12 @@ export const Input: FunctionComponent<InputProps> = ({
                     />
 
                     <ConditionallyRender
-                        shouldRender={!!icon}
-                        content={<IconElement src={icon} />}
+                        shouldRender={!!iconElement}
+                        content={iconElement}
                     />
                 </InputElementWrapper>
 
-                <ErrorMessageWrapper>{errorMessage}</ErrorMessageWrapper>
+                <ErrorMessageWrapper>{errorMessageElement}</ErrorMessageWrapper>
             </ContentWrapper>
         </Container>
     );
