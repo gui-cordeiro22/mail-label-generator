@@ -11,6 +11,7 @@ export const Container = styled.div`
     padding: ${({ theme }) => theme.system.space["md"]};
     gap: ${({ theme }) => theme.system.space["xxxxs"]};
     border-radius: ${({ theme }) => theme.system.radii["md"]};
+    user-select: none;
 `;
 
 export const ContentWrapper = styled.div`
