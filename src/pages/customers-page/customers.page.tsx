@@ -23,12 +23,15 @@ import {
 } from "@/components/compositions/customers-list";
 import { Icon } from "@/components/elements/icon";
 import { Card } from "@/components/compositions/card";
+import { Input } from "@/components/elements/input";
+import { Chip } from "@/components/elements/chip";
 
 // Assets
 import { images } from "@/assets";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
+import { useCustomersListStores } from "./customers.stores";
 
 // Utils
 import { menuData } from "@/components/compositions/menu/menu.data";
@@ -39,18 +42,11 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 // Helpers
 import { formattedCepBuilder } from "./customers.helpers";
-import { Input } from "@/components/elements/input";
-import { Chip } from "@/components/elements/chip";
 
 export const Customers: FunctionComponent = () => {
     const [queryState, setQueryState] = useState("");
 
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    const customersListLenght = (customersPageData.mock.customers ?? []).filter(
-        (customer) =>
-            customer.name.toLowerCase().includes(queryState.toLowerCase()),
-    ).length;
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -58,8 +54,23 @@ export const Customers: FunctionComponent = () => {
     const { state, actions } = useDefaultLayoutStore();
     const { width: windowWidth } = useWindowDimensions();
 
+    const { state: customersListState, actions: customersListActions } =
+        useCustomersListStores();
+
+    const { customersListData } = customersListState;
+    const { fetchCustomers } = customersListActions;
+
+    const customersListLenght = (customersListData.data ?? []).filter(
+        (customer) =>
+            customer.name.toLowerCase().includes(queryState.toLowerCase()),
+    ).length;
+
     const { sidebarIsOpened, sidebarIsExpanded } = state;
     const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+
+    useEffect(() => {
+        fetchCustomers();
+    }, []);
 
     useEffect(() => {
         return clearState;
@@ -215,10 +226,7 @@ export const Customers: FunctionComponent = () => {
                                         variant="report"
                                         content={
                                             <Typography
-                                                text={`${
-                                                    customersPageData.mock
-                                                        .customers.length
-                                                }
+                                                text={`${customersListLenght}
                                                 `}
                                                 color="gray500"
                                                 variant="display"
@@ -227,8 +235,7 @@ export const Customers: FunctionComponent = () => {
                                         labelElement={
                                             <Typography
                                                 text={
-                                                    customersPageData.mock
-                                                        .customers.length > 1
+                                                    customersListLenght > 1
                                                         ? "Clientes cadastrados"
                                                         : "Cliente cadastrado"
                                                 }
@@ -285,8 +292,12 @@ export const Customers: FunctionComponent = () => {
                                                             ? "Nenhum resultado encontrado..."
                                                             : customersListLenght >
                                                                 1
-                                                                ? `Exibindo ${customersListLenght} resultados.`
-                                                                : `Exibindo ${customersListLenght} resultado.`
+                                                                ? `Exibindo ${
+                                                                    customersListLenght
+                                                                } resultados.`
+                                                                : `Exibindo ${
+                                                                    customersListLenght
+                                                                } resultado.`
                                                     }
                                                     variant="microcopy"
                                                     color="gray300"
@@ -306,7 +317,7 @@ export const Customers: FunctionComponent = () => {
                                 </Fragment>
                             }
                             customersListItemComposition={(
-                                customersPageData.mock.customers ?? []
+                                customersListData.data ?? []
                             )
                                 .filter((item) =>
                                     item.name
