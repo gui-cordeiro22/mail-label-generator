@@ -11,27 +11,27 @@ import { IconProps } from "./icon.types";
 import { iconsSource } from "./icon.data";
 
 export const Icon: FunctionComponent<IconProps> = ({
-    size = 16,
-    variant,
-    color,
-    isActive,
-    spinType,
-    hasCursorPointer,
-    handleClick,
+  size = 16,
+  variant,
+  color,
+  isActive,
+  spinType,
+  hasCursorPointer,
+  handleClick,
 }) => {
-    const Svg = iconsSource[variant].source;
+  const Svg = iconsSource[variant].source;
 
-    return (
-        <Container
-            className="sisu-icon"
-            size={size}
-            color={color}
-            hasCursorPointer={!!handleClick || !!hasCursorPointer}
-            isActive={!!isActive}
-            spinType={spinType}
-            onClick={(event) => !!handleClick && handleClick(event)}
-        >
-            <Svg />
-        </Container>
-    );
+  return (
+    <Container
+      className="sisu-icon"
+      size={size}
+      color={color}
+      hasCursorPointer={!!handleClick || !!hasCursorPointer}
+      isActive={!!isActive}
+      spinType={spinType}
+      onClick={(event) => !!handleClick && handleClick(event)}
+    >
+      <Svg />
+    </Container>
+  );
 };

@@ -8,14 +8,14 @@ import { Container, ContentWrapper } from "./form.styles";
 import { FormProps } from "./form.types";
 
 export const Form: FunctionComponent<FormProps> = ({
-    inputsElements,
-    submitButtonElement,
+  inputsElements,
+  submitButtonElement,
 }) => {
-    return (
-        <Container>
-            <ContentWrapper>{inputsElements}</ContentWrapper>
+  return (
+    <Container>
+      <ContentWrapper>{inputsElements}</ContentWrapper>
 
-            {submitButtonElement}
-        </Container>
-    );
+      {submitButtonElement}
+    </Container>
+  );
 };

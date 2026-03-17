@@ -8,24 +8,24 @@ import { Container } from "./button.styles";
 import { ButtonProps } from "./button.types";
 
 export const Button: FunctionComponent<ButtonProps> = ({
-    labelElement,
-    handleClick,
-    variant,
-    isActive,
-    isComingSoon,
-    hasHoverEffect,
-    ...defaultProps
+  labelElement,
+  handleClick,
+  variant,
+  isActive,
+  isComingSoon,
+  hasHoverEffect,
+  ...defaultProps
 }) => {
-    return (
-        <Container
-            {...(!isComingSoon && { onClick: handleClick })}
-            {...defaultProps}
-            variant={variant}
-            isActive={!!isActive}
-            isComingSoon={!!isComingSoon}
-            hasHoverEffect={!!hasHoverEffect}
-        >
-            {labelElement}
-        </Container>
-    );
+  return (
+    <Container
+      {...(!isComingSoon && { onClick: handleClick })}
+      {...defaultProps}
+      variant={variant}
+      isActive={!!isActive}
+      isComingSoon={!!isComingSoon}
+      hasHoverEffect={!!hasHoverEffect}
+    >
+      {labelElement}
+    </Container>
+  );
 };

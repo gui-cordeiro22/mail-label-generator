@@ -8,12 +8,12 @@ import { GlobalStyle } from "./styles/global";
 import { ApplicationRoutes } from "./routes";
 
 function App() {
-    return (
-        <Fragment>
-            <GlobalStyle />
-            <ApplicationRoutes />
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <GlobalStyle />
+      <ApplicationRoutes />
+    </Fragment>
+  );
 }
 
 export default App;

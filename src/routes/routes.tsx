@@ -12,23 +12,23 @@ const Customers = lazy(() => import("../pages/customers-page"));
 const CreateCustomers = lazy(() => import("../pages/create-customer-page"));
 
 export const ApplicationRoutes: FunctionComponent = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<RouteValidator component={Home} />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RouteValidator component={Home} />} />
 
-                <Route
-                    path="/clientes"
-                    element={<RouteValidator component={Customers} />}
-                />
+        <Route
+          path="/clientes"
+          element={<RouteValidator component={Customers} />}
+        />
 
-                <Route
-                    path="/cadastrar-cliente"
-                    element={<RouteValidator component={CreateCustomers} />}
-                />
+        <Route
+          path="/cadastrar-cliente"
+          element={<RouteValidator component={CreateCustomers} />}
+        />
 
-                <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
-            </Routes>
-        </BrowserRouter>
-    );
+        <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };

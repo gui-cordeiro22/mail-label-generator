@@ -2,15 +2,15 @@
 import { FunctionComponent, Suspense } from "react";
 
 type RouteValidatorProps = {
-    component: FunctionComponent;
+  component: FunctionComponent;
 };
 
 export const RouteValidator: FunctionComponent<RouteValidatorProps> = ({
-    component: Component,
+  component: Component,
 }) => {
-    return (
-        <Suspense>
-            <Component />
-        </Suspense>
-    );
+  return (
+    <Suspense>
+      <Component />
+    </Suspense>
+  );
 };

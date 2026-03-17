@@ -5,34 +5,34 @@ import { useEffect, useState } from "react";
 import { WindowDimensionsProps } from "./window-dimensions.types";
 
 export function useWindowDimensions(): WindowDimensionsProps {
-    function getWindowDimensions(): WindowDimensionsProps {
-        const { innerWidth: width, innerHeight: height } = window;
-        return { width, height };
-    }
+  function getWindowDimensions(): WindowDimensionsProps {
+    const { innerWidth: width, innerHeight: height } = window;
+    return { width, height };
+  }
 
-    const [windowDimensions, setWindowDimensions] =
-        useState<WindowDimensionsProps>(() => getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] =
+    useState<WindowDimensionsProps>(() => getWindowDimensions());
 
-    useEffect(() => {
-        function handleResize() {
-            const newDimensions = getWindowDimensions();
+  useEffect(() => {
+    function handleResize() {
+      const newDimensions = getWindowDimensions();
 
-            setWindowDimensions((prevDimensions) => {
-                if (
-                    prevDimensions.width !== newDimensions.width ||
-                    prevDimensions.height !== newDimensions.height
-                ) {
-                    return newDimensions;
-                }
-
-                return prevDimensions;
-            });
+      setWindowDimensions((prevDimensions) => {
+        if (
+          prevDimensions.width !== newDimensions.width ||
+          prevDimensions.height !== newDimensions.height
+        ) {
+          return newDimensions;
         }
 
-        window.addEventListener("resize", handleResize);
+        return prevDimensions;
+      });
+    }
 
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    window.addEventListener("resize", handleResize);
 
-    return windowDimensions;
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return windowDimensions;
 }

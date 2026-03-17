@@ -8,11 +8,11 @@ import { Container, ContentWrapper } from "./registration-form.styles";
 import { RegistrationFormProps } from "./registration-form.types";
 
 export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({
-    formCompositions,
+  formCompositions,
 }) => {
-    return (
-        <Container>
-            <ContentWrapper>{formCompositions}</ContentWrapper>
-        </Container>
-    );
+  return (
+    <Container>
+      <ContentWrapper>{formCompositions}</ContentWrapper>
+    </Container>
+  );
 };

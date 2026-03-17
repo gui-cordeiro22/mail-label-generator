@@ -8,21 +8,21 @@ import { OverlayProps } from "./overlay.types";
 import { Container } from "./overlay.styles";
 
 export const Overlay: FunctionComponent<OverlayProps> = ({
-    handleOutsideClick,
+  handleOutsideClick,
 }) => {
-    const scrollYWhenOpeningComponent = window.scrollY;
+  const scrollYWhenOpeningComponent = window.scrollY;
 
-    const handleScroll = useCallback(() => {
-        window.scrollTo({ top: scrollYWhenOpeningComponent });
-    }, [scrollYWhenOpeningComponent]);
+  const handleScroll = useCallback(() => {
+    window.scrollTo({ top: scrollYWhenOpeningComponent });
+  }, [scrollYWhenOpeningComponent]);
 
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [handleScroll]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
-    return <Container className="pdg-overlay" onClick={handleOutsideClick} />;
+  return <Container className="pdg-overlay" onClick={handleOutsideClick} />;
 };

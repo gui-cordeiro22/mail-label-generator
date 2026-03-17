@@ -20,25 +20,25 @@ import { lineHeights } from "./typography/line-heights";
 import { mediaQueries } from "./media-queries";
 
 const theme = {
-    palette: {
-        colors,
-    },
-    system: {
-        radii,
-        shadows,
-        space,
-        durations,
-        opacities,
-        borders,
-    },
-    typography: {
-        fontSizes,
-        fontWeights,
-        fonts,
-        letterSpacings,
-        lineHeights,
-    },
-    mediaQueries,
+  palette: {
+    colors,
+  },
+  system: {
+    radii,
+    shadows,
+    space,
+    durations,
+    opacities,
+    borders,
+  },
+  typography: {
+    fontSizes,
+    fontWeights,
+    fonts,
+    letterSpacings,
+    lineHeights,
+  },
+  mediaQueries,
 };
 
 type Theme = typeof theme;

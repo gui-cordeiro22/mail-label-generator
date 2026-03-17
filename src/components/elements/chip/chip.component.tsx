@@ -8,5 +8,5 @@ import { Container } from "./chip.styles";
 import { ChipProps } from "./chip.types";
 
 export const Chip: FunctionComponent<ChipProps> = ({ labelElement }) => {
-    return <Container>{labelElement}</Container>;
+  return <Container>{labelElement}</Container>;
 };

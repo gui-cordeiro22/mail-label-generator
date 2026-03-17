@@ -11,48 +11,48 @@ import { Container, ContentWrapper } from "./card.styles";
 import { CardProps } from "./card.types";
 
 export const Card: FunctionComponent<CardProps> = ({
-    content,
-    labelElement,
-    iconElement,
-    variant,
+  content,
+  labelElement,
+  iconElement,
+  variant,
 }) => {
-    return (
-        <Fragment>
-            <ConditionallyRender
-                shouldRender={variant === "report"}
-                content={
-                    <Container>
-                        <ContentWrapper>
-                            {content}
+  return (
+    <Fragment>
+      <ConditionallyRender
+        shouldRender={variant === "report"}
+        content={
+          <Container>
+            <ContentWrapper>
+              {content}
 
-                            {labelElement}
-                        </ContentWrapper>
-
-                        <ConditionallyRender
-                            shouldRender={!!iconElement}
-                            content={iconElement}
-                        />
-                    </Container>
-                }
-            />
+              {labelElement}
+            </ContentWrapper>
 
             <ConditionallyRender
-                shouldRender={variant === "input"}
-                content={
-                    <Container>
-                        <ContentWrapper>
-                            {labelElement}
-
-                            {content}
-                        </ContentWrapper>
-
-                        <ConditionallyRender
-                            shouldRender={!!iconElement}
-                            content={iconElement}
-                        />
-                    </Container>
-                }
+              shouldRender={!!iconElement}
+              content={iconElement}
             />
-        </Fragment>
-    );
+          </Container>
+        }
+      />
+
+      <ConditionallyRender
+        shouldRender={variant === "input"}
+        content={
+          <Container>
+            <ContentWrapper>
+              {labelElement}
+
+              {content}
+            </ContentWrapper>
+
+            <ConditionallyRender
+              shouldRender={!!iconElement}
+              content={iconElement}
+            />
+          </Container>
+        }
+      />
+    </Fragment>
+  );
 };

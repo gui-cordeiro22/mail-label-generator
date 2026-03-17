@@ -5,14 +5,14 @@ import { Fragment, FunctionComponent } from "react";
 import { HomePageProps } from "./home.types";
 
 export const HomePage: FunctionComponent<HomePageProps> = ({
-    headerSectionCompositions,
-    dashboardSectionCompositions,
+  headerSectionCompositions,
+  dashboardSectionCompositions,
 }) => {
-    return (
-        <Fragment>
-            {headerSectionCompositions}
+  return (
+    <Fragment>
+      {headerSectionCompositions}
 
-            {dashboardSectionCompositions}
-        </Fragment>
-    );
+      {dashboardSectionCompositions}
+    </Fragment>
+  );
 };

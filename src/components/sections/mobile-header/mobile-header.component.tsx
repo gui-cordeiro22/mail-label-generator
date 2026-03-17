@@ -8,18 +8,18 @@ import { Container, ContentWrapper } from "./mobile-header.styles";
 import { MobileHeaderProps } from "./mobile-header.types";
 
 export const MobileHeader: FunctionComponent<MobileHeaderProps> = ({
-    logoElement,
-    navigationLinksCompositions,
+  logoElement,
+  navigationLinksCompositions,
 }) => {
-    return (
-        <Container>
-            <ContentWrapper>
-                {logoElement}
+  return (
+    <Container>
+      <ContentWrapper>
+        {logoElement}
 
-                <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
-                    {navigationLinksCompositions}
-                </div>
-            </ContentWrapper>
-        </Container>
-    );
+        <div style={{ display: "flex", flexDirection: "row", gap: 16 }}>
+          {navigationLinksCompositions}
+        </div>
+      </ContentWrapper>
+    </Container>
+  );
 };

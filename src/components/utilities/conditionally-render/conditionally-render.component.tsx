@@ -9,29 +9,29 @@ import { useWindowDimensions } from "@/hooks/window-dimensions/window-dimensions
 import { getShouldRemoveContent } from "./conditionally-render.helpers";
 
 export const ConditionallyRender: FunctionComponent<
-    ConditionallyRenderProps
+  ConditionallyRenderProps
 > = ({
-    shouldRender = true,
-    minimumBreakpoint,
-    maximumBreakpoint,
-    content,
+  shouldRender = true,
+  minimumBreakpoint,
+  maximumBreakpoint,
+  content,
 }) => {
-    const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
-    const shouldRemoveContent = useMemo(
-        () =>
-            getShouldRemoveContent(
-                windowWidth,
-                shouldRender,
-                minimumBreakpoint,
-                maximumBreakpoint,
-            ),
-        [windowWidth, shouldRender, minimumBreakpoint, maximumBreakpoint],
-    );
+  const shouldRemoveContent = useMemo(
+    () =>
+      getShouldRemoveContent(
+        windowWidth,
+        shouldRender,
+        minimumBreakpoint,
+        maximumBreakpoint,
+      ),
+    [windowWidth, shouldRender, minimumBreakpoint, maximumBreakpoint],
+  );
 
-    if (shouldRemoveContent) {
-        return null;
-    }
+  if (shouldRemoveContent) {
+    return null;
+  }
 
-    return <Fragment>{content}</Fragment>;
+  return <Fragment>{content}</Fragment>;
 };

@@ -11,50 +11,46 @@ import { DefaultLayoutProps } from "./default-layout.types";
 
 // Styles
 import {
-    Container,
-    PageContentWrapper,
-    SidebarAndPageWrapper,
+  Container,
+  PageContentWrapper,
+  SidebarAndPageWrapper,
 } from "./default-layout.styles";
 
 export const DefaultLayout: FunctionComponent<DefaultLayoutProps> = ({
-    isSidebarOpened,
-    sidebarSection,
-    mobileHeaderSection,
-    pageContent,
-    handleSidebarOutsideClick,
+  isSidebarOpened,
+  sidebarSection,
+  mobileHeaderSection,
+  pageContent,
+  handleSidebarOutsideClick,
 }) => {
-    return (
-        <Container>
-            <ScreenWidthRender
+  return (
+    <Container>
+      <ScreenWidthRender
+        renderingWidth={1280}
+        actionAfterRenderingWidth="hide"
+        content={mobileHeaderSection}
+      />
+
+      <SidebarAndPageWrapper>
+        {sidebarSection}
+
+        <PageContentWrapper isSidebarOpened={isSidebarOpened}>
+          <ConditionallyRender
+            shouldRender={isSidebarOpened}
+            content={
+              <ScreenWidthRender
                 renderingWidth={1280}
                 actionAfterRenderingWidth="hide"
-                content={mobileHeaderSection}
-            />
+                content={
+                  <Overlay handleOutsideClick={handleSidebarOutsideClick} />
+                }
+              />
+            }
+          />
 
-            <SidebarAndPageWrapper>
-                {sidebarSection}
-
-                <PageContentWrapper isSidebarOpened={isSidebarOpened}>
-                    <ConditionallyRender
-                        shouldRender={isSidebarOpened}
-                        content={
-                            <ScreenWidthRender
-                                renderingWidth={1280}
-                                actionAfterRenderingWidth="hide"
-                                content={
-                                    <Overlay
-                                        handleOutsideClick={
-                                            handleSidebarOutsideClick
-                                        }
-                                    />
-                                }
-                            />
-                        }
-                    />
-
-                    {pageContent}
-                </PageContentWrapper>
-            </SidebarAndPageWrapper>
-        </Container>
-    );
+          {pageContent}
+        </PageContentWrapper>
+      </SidebarAndPageWrapper>
+    </Container>
+  );
 };

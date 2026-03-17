@@ -1,10 +1,10 @@
 // Utils
 import {
-    Images,
-    ImageVariants,
-    Icons,
-    IconVariants,
-    IconSpinType,
+  Images,
+  ImageVariants,
+  Icons,
+  IconVariants,
+  IconSpinType,
 } from "./assets.types";
 
 // Data

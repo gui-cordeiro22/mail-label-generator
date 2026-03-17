@@ -17,18 +17,18 @@ import { ReactComponent as customersList } from "./icons/customers-list";
 import { ReactComponent as searchIcon } from "./icons/list-magnifying-glass";
 
 export const images: Images = {
-    brandLogo: logo,
-    searchingOnFolders: searchingOnFolders,
+  brandLogo: logo,
+  searchingOnFolders: searchingOnFolders,
 };
 
 export const icons: Icons = {
-    whatsappIcon: { source: whatsappIcon },
-    spinner: { source: spinner },
-    caretLeft: { source: caretLeft },
-    caretRight: { source: caretRight },
-    mobileMenu: { source: mobileMenu },
-    dotsThreeVertical: { source: dotsThreeVertical },
-    mapPin: { source: mapPin },
-    customersList: { source: customersList },
-    searchIcon: { source: searchIcon },
+  whatsappIcon: { source: whatsappIcon },
+  spinner: { source: spinner },
+  caretLeft: { source: caretLeft },
+  caretRight: { source: caretRight },
+  mobileMenu: { source: mobileMenu },
+  dotsThreeVertical: { source: dotsThreeVertical },
+  mapPin: { source: mapPin },
+  customersList: { source: customersList },
+  searchIcon: { source: searchIcon },
 };
