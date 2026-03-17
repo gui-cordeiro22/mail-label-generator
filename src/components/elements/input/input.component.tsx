@@ -23,6 +23,7 @@ export const Input: FunctionComponent<InputProps> = ({
   iconElement,
   errorMessageElement,
   labelElement,
+  handleChange,
   ...defaultProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -45,6 +46,7 @@ export const Input: FunctionComponent<InputProps> = ({
             type="text"
             placeholder={placeholder}
             disabled={isDisabled}
+            onChange={handleChange}
             {...(!isDisabled && {
               onFocus: (event) => {
                 setIsFocused(true);

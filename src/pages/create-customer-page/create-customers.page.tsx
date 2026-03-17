@@ -50,7 +50,7 @@ export const CreateCustomers: FunctionComponent = () => {
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -66,6 +66,8 @@ export const CreateCustomers: FunctionComponent = () => {
     customerData: CreateCustomerCustomerData,
   ) => {
     await createCustomer(customerData);
+
+    reset();
   };
 
   useEffect(() => {
