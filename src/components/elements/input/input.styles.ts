@@ -20,7 +20,6 @@ export const ContentWrapper = styled.div`
     width: 100%;
     max-width: 1440px;
     gap: ${theme.system.space.nano};
-    overflow: hidden;
 `;
 
 type InputElementWrapperStyleProps = {
@@ -32,6 +31,7 @@ export const InputElementWrapper = styled.div<InputElementWrapperStyleProps>`
     flex-direction: row;
     align-items: stretch;
     justify-content: space-between;
+    position: relative;
     background-color: #fff;
     gap: ${theme.system.space["xxxxs"]};
     border-radius: ${theme.system.radii["md"]};
@@ -49,6 +49,26 @@ export const InputElementWrapper = styled.div<InputElementWrapperStyleProps>`
         !hasError &&
         css`
             border: 1px solid ${theme.palette.colors["gray200"]};
+        `}
+`;
+
+type LabelWrapperStyleProps = {
+    isFocused: boolean;
+    isDisabled: boolean;
+};
+
+export const LabelWrapper = styled.div<LabelWrapperStyleProps>`
+    position: absolute;
+    left: 12px;
+    top: -12px;
+    padding: 0 ${({ theme }) => theme.system.space.nano};
+    background-color: ${({ theme }) => theme.palette.colors.white};
+
+    ${({ isFocused, isDisabled }) =>
+        !isFocused &&
+        !!isDisabled &&
+        css`
+            display: none;
         `}
 `;
 

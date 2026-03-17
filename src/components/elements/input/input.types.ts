@@ -3,11 +3,13 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 export type InputData = Partial<InputHTMLAttributes<HTMLInputElement>> & {
     placeholder: string;
+    isDisabled?: boolean;
 };
 
 export type InputElements = {
     errorMessageElement?: ReactNode;
     iconElement?: ReactNode;
+    labelElement?: ReactNode;
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

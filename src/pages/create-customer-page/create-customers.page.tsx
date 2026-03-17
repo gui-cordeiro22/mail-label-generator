@@ -13,6 +13,7 @@ import { MobileHeader } from "@/components/sections/mobile-header";
 import { Headline } from "@/components/sections/headline";
 import { Icon } from "@/components/elements/icon";
 import { Chip } from "@/components/elements/chip";
+import { Input } from "@/components/elements/input";
 
 // Assets
 import { images } from "@/assets";
@@ -184,7 +185,16 @@ export const CreateCustomers: FunctionComponent = () => {
                         />
                     }
                     registrationFormSection={
-                        <h2>Seção do formulário de cadastro de clientes</h2>
+                        <Input
+                            placeholder="Nome do cliente"
+                            labelElement={
+                                <Typography
+                                    text="Nome do cliente"
+                                    color="gray500"
+                                    variant="microcopy"
+                                />
+                            }
+                        />
                     }
                 />
             }
