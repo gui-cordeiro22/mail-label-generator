@@ -27,6 +27,9 @@ import { createCustomersPageData } from "./create-customers.mock";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
+import { Form } from "@/components/compositions/form";
+import { RegistrationForm } from "@/components/sections/registration-form";
+import { Button } from "@/components/elements/button";
 
 export const CreateCustomers: FunctionComponent = () => {
     const navigate = useNavigate();
@@ -185,13 +188,91 @@ export const CreateCustomers: FunctionComponent = () => {
                         />
                     }
                     registrationFormSection={
-                        <Input
-                            placeholder="Nome do cliente"
-                            labelElement={
-                                <Typography
-                                    text="Nome do cliente"
-                                    color="gray500"
-                                    variant="microcopy"
+                        <RegistrationForm
+                            formCompositions={
+                                <Form
+                                    inputsElements={
+                                        <Fragment>
+                                            <Input
+                                                placeholder="Nome do cliente"
+                                                labelElement={
+                                                    <Typography
+                                                        text="Nome do cliente"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+
+                                            <Input
+                                                placeholder="Endereço"
+                                                labelElement={
+                                                    <Typography
+                                                        text="Endereço"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+
+                                            <Input
+                                                placeholder="CEP"
+                                                labelElement={
+                                                    <Typography
+                                                        text="CEP"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+
+                                            <Input
+                                                placeholder="Bairro"
+                                                labelElement={
+                                                    <Typography
+                                                        text="Bairro"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+
+                                            <Input
+                                                placeholder="Cidade"
+                                                labelElement={
+                                                    <Typography
+                                                        text="Cidade"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+
+                                            <Input
+                                                placeholder="Estado"
+                                                labelElement={
+                                                    <Typography
+                                                        text="Estado"
+                                                        color="gray300"
+                                                        variant="microcopy"
+                                                    />
+                                                }
+                                            />
+                                        </Fragment>
+                                    }
+                                    submitButtonElement={
+                                        <Button
+                                            labelElement={
+                                                <Typography
+                                                    text="Cadastrar novo cliente"
+                                                    color="white"
+                                                    variant="labelSmall"
+                                                />
+                                            }
+                                            variant="dark-cta"
+                                            isComingSoon={false}
+                                        />
+                                    }
                                 />
                             }
                         />

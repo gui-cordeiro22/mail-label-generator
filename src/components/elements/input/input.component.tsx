@@ -24,9 +24,14 @@ export const Input: FunctionComponent<InputProps> = ({
     errorMessageElement,
     labelElement,
     handleChange,
+    value,
     ...defaultProps
 }) => {
     const [isFocused, setIsFocused] = useState(false);
+    const [internalValue, setInternalValue] = useState("");
+
+    const isControlled = value !== undefined;
+    const formattedInputValue = isControlled ? value : internalValue;
 
     return (
         <Container>
@@ -35,28 +40,33 @@ export const Input: FunctionComponent<InputProps> = ({
                     <InputElement
                         type="text"
                         placeholder={placeholder}
-                        onChange={handleChange}
+                        value={formattedInputValue}
+                        disabled={isDisabled}
+                        onChange={(event) => {
+                            if (!isControlled) {
+                                setInternalValue(event.target.value);
+                            }
+
+                            handleChange?.(event);
+                        }}
                         {...(!isDisabled && {
                             onFocus: (event) => {
                                 setIsFocused(true);
-
-                                if (defaultProps.onFocus) {
-                                    defaultProps.onFocus(event);
-                                }
+                                defaultProps.onFocus?.(event);
                             },
                             onBlur: (event) => {
                                 setIsFocused(false);
-
-                                if (defaultProps.onBlur) {
-                                    defaultProps.onBlur(event);
-                                }
+                                defaultProps.onBlur?.(event);
                             },
                         })}
                         {...defaultProps}
                     />
 
                     <ConditionallyRender
-                        shouldRender={!!labelElement}
+                        shouldRender={
+                            !!labelElement &&
+                            (isFocused || !!formattedInputValue)
+                        }
                         content={
                             <LabelWrapper
                                 isFocused={isFocused}
