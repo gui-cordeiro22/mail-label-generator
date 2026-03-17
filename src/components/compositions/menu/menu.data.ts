@@ -11,7 +11,7 @@ export const menuData = {
             {
                 label: "Cadastro",
                 path: "/cadastrar-cliente",
-                isComingSoon: true,
+                isComingSoon: false,
                 isExpandable: false,
             },
             {

@@ -9,6 +9,7 @@ import { RouteValidator } from "./route-validator";
 // Pages
 const Home = lazy(() => import("../pages/home-page"));
 const Customers = lazy(() => import("../pages/customers-page"));
+const CreateCustomers = lazy(() => import("../pages/create-customer-page"));
 
 export const ApplicationRoutes: FunctionComponent = () => {
     return (
@@ -19,6 +20,11 @@ export const ApplicationRoutes: FunctionComponent = () => {
                 <Route
                     path="/clientes"
                     element={<RouteValidator component={Customers} />}
+                />
+
+                <Route
+                    path="/cadastrar-cliente"
+                    element={<RouteValidator component={CreateCustomers} />}
                 />
 
                 <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
