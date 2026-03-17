@@ -30,7 +30,12 @@ export const Container = styled.button<ContainerStyleProps>`
     !isCommingSoon &&
     variant === "dark-cta" &&
     css`
-      background-color: ${theme.palette.colors["warning500"]};
+      background-color: ${theme.palette.colors["warning300"]};
       color: ${theme.palette.colors["white"]};
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: ${theme.palette.colors["warning400"]};
+      }
     `};
 `;

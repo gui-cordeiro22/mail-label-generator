@@ -1,6 +1,7 @@
 // Dependencies
 import { Fragment, FunctionComponent, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 // Components
 import { DefaultLayout } from "@/components/layout/default-layout";
@@ -21,6 +22,9 @@ import { Button } from "@/components/elements/button";
 // Assets
 import { images } from "@/assets";
 
+// Types
+import { CreateCustomerCustomerData } from "./create-customers.types";
+
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
 
@@ -40,6 +44,22 @@ export const CreateCustomers: FunctionComponent = () => {
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+
+  const { register, handleSubmit } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      address: "",
+      cep: "",
+      neighborhood: "",
+      city: "",
+      uf: "",
+    },
+  });
+
+  const handleCustomerCreate = async (data: CreateCustomerCustomerData) => {
+    console.log(data);
+  };
 
   useEffect(() => {
     return clearState;
@@ -174,9 +194,12 @@ export const CreateCustomers: FunctionComponent = () => {
             <RegistrationForm
               formCompositions={
                 <Form
+                  handleSubmitForm={handleSubmit(handleCustomerCreate)}
                   inputsElements={
                     <Fragment>
                       <Input
+                        {...register("name")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm
                             .nameInputLabel
@@ -194,6 +217,8 @@ export const CreateCustomers: FunctionComponent = () => {
                       />
 
                       <Input
+                        {...register("address")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm
                             .addressInputLabel
@@ -211,6 +236,8 @@ export const CreateCustomers: FunctionComponent = () => {
                       />
 
                       <Input
+                        {...register("cep")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm.cepInputLabel
                         }
@@ -227,6 +254,8 @@ export const CreateCustomers: FunctionComponent = () => {
                       />
 
                       <Input
+                        {...register("neighborhood")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm
                             .neighborhoodInputLabel
@@ -244,6 +273,8 @@ export const CreateCustomers: FunctionComponent = () => {
                       />
 
                       <Input
+                        {...register("city")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm
                             .cityInputLabel
@@ -261,6 +292,8 @@ export const CreateCustomers: FunctionComponent = () => {
                       />
 
                       <Input
+                        {...register("uf")}
+                        type="text"
                         placeholder={
                           createCustomersPageData.registrationForm.ufInputLabel
                         }
@@ -279,13 +312,14 @@ export const CreateCustomers: FunctionComponent = () => {
                   }
                   submitButtonElement={
                     <Button
+                      type="submit"
                       labelElement={
                         <Typography
                           text={
                             createCustomersPageData.registrationForm.buttonLabel
                           }
                           color="white"
-                          variant="labelSmall"
+                          variant="labelMedium"
                         />
                       }
                       variant="dark-cta"

@@ -1,5 +1,5 @@
 // Dependencies
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, useRef } from "react";
 
 // Components
 import { ConditionallyRender } from "@/components/utilities/conditionally-render";
@@ -23,32 +23,28 @@ export const Input: FunctionComponent<InputProps> = ({
   iconElement,
   errorMessageElement,
   labelElement,
-  handleChange,
-  value,
   ...defaultProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [internalValue, setInternalValue] = useState("");
+  const inputParentRef = useRef(null);
 
-  const isControlled = value !== undefined;
-  const formattedInputValue = isControlled ? value : internalValue;
+  // eslint-disable-next-line react-hooks/refs, @typescript-eslint/no-explicit-any
+  const inputValue = (inputParentRef.current as any)?.querySelector(
+    "input",
+  )?.value;
 
   return (
     <Container>
       <ContentWrapper>
-        <InputElementWrapper hasError={!!errorMessageElement}>
+        <InputElementWrapper
+          hasError={!!errorMessageElement}
+          ref={inputParentRef}
+        >
           <InputElement
+            {...defaultProps}
             type="text"
             placeholder={placeholder}
-            value={formattedInputValue}
             disabled={isDisabled}
-            onChange={(event) => {
-              if (!isControlled) {
-                setInternalValue(event.target.value);
-              }
-
-              handleChange?.(event);
-            }}
             {...(!isDisabled && {
               onFocus: (event) => {
                 setIsFocused(true);
@@ -59,13 +55,10 @@ export const Input: FunctionComponent<InputProps> = ({
                 defaultProps.onBlur?.(event);
               },
             })}
-            {...defaultProps}
           />
 
           <ConditionallyRender
-            shouldRender={
-              !!labelElement && (isFocused || !!formattedInputValue)
-            }
+            shouldRender={!!labelElement && (isFocused || !!inputValue)}
             content={
               <LabelWrapper isFocused={isFocused} isDisabled={!!isDisabled}>
                 {labelElement}

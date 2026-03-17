@@ -2,7 +2,7 @@
 import { FunctionComponent } from "react";
 
 // Styles
-import { Container, ContentWrapper } from "./form.styles";
+import { Container } from "./form.styles";
 
 // Types
 import { FormProps } from "./form.types";
@@ -10,10 +10,11 @@ import { FormProps } from "./form.types";
 export const Form: FunctionComponent<FormProps> = ({
   inputsElements,
   submitButtonElement,
+  handleSubmitForm,
 }) => {
   return (
-    <Container>
-      <ContentWrapper>{inputsElements}</ContentWrapper>
+    <Container onSubmit={handleSubmitForm}>
+      {inputsElements}
 
       {submitButtonElement}
     </Container>
