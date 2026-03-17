@@ -8,21 +8,21 @@ export type CreateCustomerCustomerData = {
   uf: string;
 };
 
-export type CustomersListData<T> = {
+export type CreateCustomerData<T> = {
   data?: T;
   isLoading: boolean;
 };
 
-export type CustomersListState = {
-  customersListData: CustomersListData<CreateCustomerCustomerData[]>;
+export type CreateCustomerState = {
+  customerData: CreateCustomerData<CreateCustomerCustomerData>;
 };
 
-export type CustomersListActions = {
+export type CreateCustomerActions = {
   clearState: () => void;
-  fetchCustomers: (data?: CreateCustomerCustomerData[]) => Promise<boolean>;
+  createCustomer: (data?: CreateCustomerCustomerData) => Promise<boolean>;
 };
 
-export type CustomersListStore = {
-  state: CustomersListState;
-  actions: CustomersListActions;
+export type CreateCustomerStore = {
+  state: CreateCustomerState;
+  actions: CreateCustomerActions;
 };

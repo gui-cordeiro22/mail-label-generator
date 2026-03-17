@@ -7,55 +7,54 @@ import { db } from "@/database";
 
 // Types
 import {
-  CustomersListState,
-  CustomersListActions,
-  CustomersListStore,
+  CreateCustomerState,
+  CreateCustomerActions,
+  CreateCustomerStore,
 } from "./create-customers.types";
 
 const defaultState = {
-  customersListData: {
+  customerData: {
     data: undefined,
     isLoading: true,
   },
 };
 
-export const useCustomersListStores = (): CustomersListStore => {
-  const [state, setState] = useImmer<CustomersListState>(defaultState);
+export const useCreateCustomerStores = (): CreateCustomerStore => {
+  const [state, setState] = useImmer<CreateCustomerState>(defaultState);
 
-  const clearState: CustomersListActions["clearState"] = useCallback(() => {
+  const clearState: CreateCustomerActions["clearState"] = useCallback(() => {
     setState(defaultState);
   }, [setState]);
 
-  const fetchCustomers: CustomersListActions["fetchCustomers"] =
-    useCallback(async () => {
+  const createCustomer: CreateCustomerActions["createCustomer"] = useCallback(
+    async (customerData) => {
       try {
-        setState((draft: CustomersListState) => {
-          draft.customersListData.isLoading = true;
+        setState((draft: CreateCustomerState) => {
+          draft.customerData.isLoading = true;
         });
 
-        const response = await db.clients.toArray();
-
-        setState((draft: CustomersListState) => {
-          draft.customersListData.data = response;
-        });
+        if (customerData) {
+          await db.clients.add(customerData);
+        }
 
         return true;
       } catch (error) {
-        console.error("error: ", error);
+        console.error(error);
 
-        setState((draft: CustomersListState) => {
-          draft.customersListData.isLoading = false;
+        setState((draft: CreateCustomerState) => {
+          draft.customerData.isLoading = false;
         });
 
         return false;
       }
-    }, [setState]);
-
+    },
+    [setState],
+  );
   return {
     state,
     actions: {
       clearState,
-      fetchCustomers,
+      createCustomer,
     },
   };
 };

@@ -27,6 +27,7 @@ import { CreateCustomerCustomerData } from "./create-customers.types";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
+import { useCreateCustomerStores } from "./create-customers.stores";
 
 // Utils
 import { menuData } from "@/components/compositions/menu/menu.data";
@@ -41,6 +42,10 @@ export const CreateCustomers: FunctionComponent = () => {
 
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
+
+  const { actions: createCustomerActions } = useCreateCustomerStores();
+
+  const { createCustomer } = createCustomerActions;
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
@@ -57,8 +62,10 @@ export const CreateCustomers: FunctionComponent = () => {
     },
   });
 
-  const handleCustomerCreate = async (data: CreateCustomerCustomerData) => {
-    console.log(data);
+  const handleCustomerCreate = async (
+    customerData: CreateCustomerCustomerData,
+  ) => {
+    await createCustomer(customerData);
   };
 
   useEffect(() => {
