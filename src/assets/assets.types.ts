@@ -1,3 +1,6 @@
+// Dependencies
+import { FunctionComponent, SVGProps } from "react";
+
 export type ImageVariants = "brandLogo" | "searchingOnFolders";
 
 export type Images = {
@@ -9,8 +12,17 @@ export type IconVariants =
     | "spinner"
     | "caretLeft"
     | "caretRight"
-    | "mobileMenuIcon";
+    | "mobileMenu"
+    | "dotsThreeVertical"
+    | "mapPin"
+    | "customersList"
+    | "searchIcon";
+export type Icon = {
+    source: FunctionComponent<SVGProps<SVGSVGElement>>;
+};
+
+export type IconSpinType = "none" | "swivel";
 
 export type Icons = {
-    [key in IconVariants]: string;
+    [key in IconVariants]: Icon;
 };

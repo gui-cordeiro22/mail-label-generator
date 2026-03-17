@@ -1,4 +1,4 @@
-export const data = {
+export const menuData = {
     menus: {
         label: "Menu",
         links: [
@@ -17,7 +17,7 @@ export const data = {
             {
                 label: "Clientes",
                 path: "/clientes",
-                isComingSoon: true,
+                isComingSoon: false,
                 isExpandable: false,
             },
             {
@@ -26,17 +26,6 @@ export const data = {
                 isComingSoon: true,
                 isExpandable: false,
             },
-        ],
-    },
-
-    clients: {
-        report: [
-            { uf: "RJ", clients: 50 },
-            { uf: "SP", clients: 35 },
-            { uf: "MG", clients: 15 },
-            { uf: "RS", clients: 10 },
-            { uf: "MS", clients: 6 },
-            { uf: "AC", clients: 1 },
         ],
     },
 

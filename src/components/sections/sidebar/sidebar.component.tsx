@@ -22,6 +22,7 @@ import { ConditionallyRender } from "@/components/utilities/conditionally-render
 export const Sidebar: FunctionComponent<SidebarProps> = ({
     isOpened,
     statusIconElement,
+    handleClick,
     logoImageElement,
     menusCompositions,
     footerMenusCompositions,
@@ -35,7 +36,7 @@ export const Sidebar: FunctionComponent<SidebarProps> = ({
                         actionAfterRenderingWidth="show"
                         content={
                             <ImageElementsWrapper isOpened={isOpened}>
-                                <StatusIconWrapper>
+                                <StatusIconWrapper onClick={handleClick}>
                                     {statusIconElement}
                                 </StatusIconWrapper>
 

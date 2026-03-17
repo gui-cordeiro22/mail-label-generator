@@ -1,10 +1,10 @@
 // Dependencies
 import { ReactNode } from "react";
 
-export type HeaderElement = {
+export type HeadlineElements = {
     titleElement: ReactNode;
     subtitleElement: ReactNode;
     networkSectionCompositions?: ReactNode;
 };
 
-export type HeaderProps = HeaderElement;
+export type HeadlineProps = HeadlineElements;

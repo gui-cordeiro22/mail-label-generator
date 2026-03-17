@@ -1,4 +1,4 @@
 export const fonts = {
-    heading: "Space Grotesk, sans-serif",
-    default: "Ubuntu, sans-serif",
+    heading: "Roboto, sans-serif",
+    default: "Nunito Sans, sans-serif",
 };

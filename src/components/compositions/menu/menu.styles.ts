@@ -17,6 +17,7 @@ type MenuItemContainerStyleProps = {
     isSelected: boolean;
     isSidebarOpened: boolean;
     isExpandable: boolean;
+    isComingSoon: boolean;
 };
 
 export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
@@ -29,6 +30,8 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
 
     transition: all 200ms ease;
 
+    user-select: none;
+
     ${({ isSidebarOpened, theme }) =>
         isSidebarOpened &&
         css`
@@ -40,7 +43,7 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
                 ${theme.system.space.xs} ${theme.system.space.md};
         `}
 
-    ${({ isSelected, theme, isExpandable }) => {
+    ${({ isSelected, theme, isExpandable, isComingSoon }) => {
         if (isSelected && isExpandable) {
             return css`
                 background-color: unset;
@@ -50,9 +53,18 @@ export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
         if (isSelected) {
             return css`
                 border-left: ${theme.system.space.xxxxs} solid;
-                background-color: ${theme.palette.colors.gray100};
+                //background-color: ${theme.palette.colors.gray100};
 
-                border-left-color: ${theme.palette.colors.info300};
+                border-left-color: ${theme.palette.colors.warning300};
+            `;
+        }
+
+        if (isComingSoon) {
+            return css`
+                border-left: ${theme.system.space.xxxxs} solid;
+                border-left-color: ${theme.palette.colors["gray300"]};
+
+                cursor: not-allowed;
             `;
         }
 
@@ -130,7 +142,7 @@ export const IndicatorIconWrapper = styled.div<IndicatorIconWrapperStyleProps>`
     border-radius: ${({ theme }) => theme.system.radii.full};
     background-color: ${({ isSelected, theme }) =>
         isSelected
-            ? theme.palette.colors.info200
+            ? theme.palette.colors.warning200
             : theme.palette.colors.gray100};
 
     ${({ theme }) => css`

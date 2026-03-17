@@ -8,18 +8,20 @@ import { DefaultLayout } from "@/components/layout/default-layout";
 import { Sidebar } from "@/components/sections/sidebar";
 import { Menu, MenuItem } from "@/components/compositions/menu";
 import { HomePage } from "@/components/pages/home-page";
-import { Header } from "@/components/sections/header";
+import { Headline } from "@/components/sections/headline";
 import { Typography } from "@/components/utilities/typography";
 import { MobileHeader } from "@/components/sections/mobile-header";
 import { DashboardSection } from "@/components/sections/dashboard";
 import { CustomerChart } from "@/components/compositions/customer-chart";
 import { CustomerChartEmptyState } from "@/components/compositions/customer-chart-empty-state";
+import { Icon } from "@/components/elements/icon";
+import { Chip } from "@/components/elements/chip";
 
 // Assets
-import { images, icons } from "@/assets";
+import { images } from "@/assets";
 
 // Utils
-import { data } from "./home.mocks";
+import { menuData } from "@/components/compositions/menu/menu.data";
 
 // Stores
 import { useDefaultLayoutStore } from "@/components/layout/default-layout/default-layout.store";
@@ -86,19 +88,23 @@ export const Home: FunctionComponent = () => {
                         <Fragment>
                             <ConditionallyRender
                                 shouldRender={windowWidth > 768}
-                                content={data.menus.links.map((item, index) => (
-                                    <Typography
-                                        key={`navigation-link-${index}`}
-                                        text={item.label}
-                                        color="black"
-                                        variant="bodyMedium"
-                                    />
-                                ))}
+                                content={menuData.menus.links.map(
+                                    (item, index) => (
+                                        <Typography
+                                            key={`navigation-link-${index}`}
+                                            text={item.label}
+                                            color="black"
+                                            variant="bodyMedium"
+                                        />
+                                    ),
+                                )}
                             />
 
                             <ConditionallyRender
                                 shouldRender={windowWidth <= 768}
-                                content={<img src={icons.mobileMenuIcon} />}
+                                content={
+                                    <Icon variant="mobileMenu" color="black" />
+                                }
                             />
                         </Fragment>
                     }
@@ -107,38 +113,47 @@ export const Home: FunctionComponent = () => {
             sidebarSection={
                 <Sidebar
                     isOpened={sidebarStatus}
+                    handleClick={handleSidebarStatus}
                     logoImageElement={
                         <img className="pdg-logo" src={images.brandLogo} />
                     }
                     statusIconElement={
-                        sidebarStatus ? (
-                            <img
-                                className="pdg-status-icon"
-                                src={icons.caretLeft}
-                                onClick={handleSidebarStatus}
-                            />
-                        ) : (
-                            <img
-                                className="pdg-status-icon"
-                                src={icons.caretRight}
-                                onClick={handleSidebarStatus}
-                            />
-                        )
+                        <Icon
+                            hasCursorPointer
+                            variant={sidebarStatus ? "caretLeft" : "caretRight"}
+                            color="warning500"
+                            size={16}
+                        />
                     }
                     menusCompositions={
                         <Menu
                             isSidebarOpened={sidebarStatus}
-                            label={data.menus.label}
-                            menuItemCompositions={data.menus.links.map(
+                            label={menuData.menus.label}
+                            menuItemCompositions={menuData.menus.links.map(
                                 (item, index) => (
                                     <MenuItem
                                         key={`menu-item-${index}`}
                                         isSidebarOpened={sidebarStatus}
                                         label={item.label}
                                         isComingSoon={item.isComingSoon}
-                                        navigationSource={item.path}
+                                        navigationSource={
+                                            !item.isComingSoon
+                                                ? item.path
+                                                : undefined
+                                        }
                                         isSelected={
                                             location.pathname === item.path
+                                        }
+                                        chipElement={
+                                            <Chip
+                                                labelElement={
+                                                    <Typography
+                                                        text="Em breve..."
+                                                        variant="microcopy"
+                                                        color="gray300"
+                                                    />
+                                                }
+                                            />
                                         }
                                         {...(windowWidth < 1280 &&
                                             !item.isComingSoon && {
@@ -157,7 +172,7 @@ export const Home: FunctionComponent = () => {
                     }
                     footerMenusCompositions={
                         <Typography
-                            text={data.footer.message}
+                            text={menuData.footer.message}
                             color="black"
                             variant="bodySmall"
                         />
@@ -167,7 +182,7 @@ export const Home: FunctionComponent = () => {
             pageContent={
                 <HomePage
                     headerSectionCompositions={
-                        <Header
+                        <Headline
                             titleElement={
                                 <Typography
                                     text="Página inicial"
@@ -177,7 +192,7 @@ export const Home: FunctionComponent = () => {
                             }
                             subtitleElement={
                                 <Typography
-                                    text="Confira abaixo um relatório de todos os seus clientes cadastrados"
+                                    text="Confira abaixo um relatório completo com todos os clientes cadastrados em seu sistema,nesta seção você poderá visualizar de forma organizada as informações registradas, facilitando a análise, o acompanhamento e o controle dos dados dos seus clientes."
                                     color="black"
                                     variant="bodyMedium"
                                 />
@@ -189,7 +204,7 @@ export const Home: FunctionComponent = () => {
                             customersChartCompositions={
                                 <Fragment>
                                     <ConditionallyRender
-                                        shouldRender={!!chartData?.data}
+                                        shouldRender={!!chartData?.data?.length}
                                         content={
                                             <CustomerChart
                                                 data={chartData?.data ?? []}
@@ -198,7 +213,7 @@ export const Home: FunctionComponent = () => {
                                     />
 
                                     <ConditionallyRender
-                                        shouldRender={!chartData?.data}
+                                        shouldRender={!chartData?.data?.length}
                                         content={
                                             <CustomerChartEmptyState
                                                 illustrationSource={
