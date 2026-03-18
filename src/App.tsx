@@ -1,5 +1,6 @@
 // Dependencies
 import { Fragment } from "react/jsx-runtime";
+import { ToastContainer } from "react-toastify";
 
 // Styles
 import { GlobalStyle } from "./styles/global";
@@ -11,6 +12,7 @@ function App() {
   return (
     <Fragment>
       <GlobalStyle />
+      <ToastContainer theme="light" position="bottom-right" limit={1} />
       <ApplicationRoutes />
     </Fragment>
   );

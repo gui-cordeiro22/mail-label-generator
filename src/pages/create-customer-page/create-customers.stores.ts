@@ -1,6 +1,7 @@
 // Dependenciess
 import { useCallback } from "react";
 import { useImmer } from "use-immer";
+import { toast } from "react-toastify";
 
 // Database
 import { db } from "@/database";
@@ -11,6 +12,9 @@ import {
   CreateCustomerActions,
   CreateCustomerStore,
 } from "./create-customers.types";
+
+// Helpers
+import { formatMessage } from "@/utils/helpers/format-message";
 
 const defaultState = {
   customerData: {
@@ -37,9 +41,15 @@ export const useCreateCustomerStores = (): CreateCustomerStore => {
           await db.clients.add(customerData);
         }
 
+        const successMessage = formatMessage.success("create");
+
+        toast.success(successMessage);
+
         return true;
       } catch (error) {
-        console.error(error);
+        const errorMessage = formatMessage.errors(error);
+
+        toast.error(errorMessage);
 
         setState((draft: CreateCustomerState) => {
           draft.customerData.isLoading = false;
