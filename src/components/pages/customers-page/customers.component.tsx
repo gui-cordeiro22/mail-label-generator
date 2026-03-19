@@ -5,14 +5,14 @@ import { Fragment, FunctionComponent } from "react";
 import { CustomersPageProps } from "./customers.types";
 
 export const CustomersPage: FunctionComponent<CustomersPageProps> = ({
-    headlineCompositions,
-    clientsListSection,
+  headlineCompositions,
+  clientsListSection,
 }) => {
-    return (
-        <Fragment>
-            {headlineCompositions}
+  return (
+    <Fragment>
+      {headlineCompositions}
 
-            {clientsListSection}
-        </Fragment>
-    );
+      {clientsListSection}
+    </Fragment>
+  );
 };

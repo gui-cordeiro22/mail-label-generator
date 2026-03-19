@@ -8,11 +8,11 @@ import { Container, ContentWrapper } from "./dashboard.styles";
 import { DashboardSectionProps } from "./dashboard.types";
 
 export const DashboardSection: FunctionComponent<DashboardSectionProps> = ({
-    customersChartCompositions,
+  customersChartCompositions,
 }) => {
-    return (
-        <Container>
-            <ContentWrapper>{customersChartCompositions}</ContentWrapper>
-        </Container>
-    );
+  return (
+    <Container>
+      <ContentWrapper>{customersChartCompositions}</ContentWrapper>
+    </Container>
+  );
 };

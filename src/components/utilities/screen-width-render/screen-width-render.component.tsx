@@ -8,19 +8,18 @@ import { ScreenWidthRenderProps } from "./screen-width-render.types";
 import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 export const ScreenWidthRender: FunctionComponent<ScreenWidthRenderProps> = ({
-    actionAfterRenderingWidth,
-    renderingWidth,
-    content,
+  actionAfterRenderingWidth,
+  renderingWidth,
+  content,
 }) => {
-    const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
-    if (
-        (actionAfterRenderingWidth === "hide" &&
-            windowWidth >= renderingWidth) ||
-        (actionAfterRenderingWidth === "show" && windowWidth < renderingWidth)
-    ) {
-        return null;
-    }
+  if (
+    (actionAfterRenderingWidth === "hide" && windowWidth >= renderingWidth) ||
+    (actionAfterRenderingWidth === "show" && windowWidth < renderingWidth)
+  ) {
+    return null;
+  }
 
-    return <Fragment>{content}</Fragment>;
+  return <Fragment>{content}</Fragment>;
 };

@@ -3,8 +3,8 @@ import { CustomersList, CustomersListItem } from "./customers-list.component";
 
 // Types
 import {
-    CustomersListProps,
-    CustomersListItemProps,
+  CustomersListProps,
+  CustomersListItemProps,
 } from "./customers-list.types";
 
 export { CustomersList, CustomersListItem };

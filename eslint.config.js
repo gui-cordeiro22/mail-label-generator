@@ -6,33 +6,33 @@ import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            js.configs.recommended,
-            tseslint.configs.recommended,
-            reactHooks.configs.flat.recommended,
-            reactRefresh.configs.vite,
-        ],
-        languageOptions: {
-            ecmaVersion: 2020,
-            globals: globals.browser,
-        },
-        rules: {
-            indent: ["error", 4],
-            semi: ["error", "always"],
-            quotes: ["error", "double"],
-
-            "no-unused-vars": "off",
-            "@typescript-eslint/no-unused-vars": [
-                "error",
-                {
-                    vars: "all",
-                    args: "after-used",
-                    ignoreRestSiblings: false,
-                },
-            ],
-        },
+  globalIgnores(["dist"]),
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
+    rules: {
+      indent: ["error", 2],
+      semi: ["error", "always"],
+      quotes: ["error", "double"],
+
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          vars: "all",
+          args: "after-used",
+          ignoreRestSiblings: false,
+        },
+      ],
+    },
+  },
 ]);

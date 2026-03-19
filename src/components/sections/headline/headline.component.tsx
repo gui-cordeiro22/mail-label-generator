@@ -8,29 +8,29 @@ import { Container, ContentWrapper, TextWraper } from "./headline.styles";
 import { HeadlineProps } from "./headline.types";
 
 export const Headline: FunctionComponent<HeadlineProps> = ({
-    titleElement,
-    subtitleElement,
-    networkSectionCompositions,
+  titleElement,
+  subtitleElement,
+  networkSectionCompositions,
 }) => {
-    return (
-        <Container>
-            <ContentWrapper>
-                <TextWraper>
-                    {titleElement}
+  return (
+    <Container>
+      <ContentWrapper>
+        <TextWraper>
+          {titleElement}
 
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "6px",
-                        }}
-                    >
-                        {subtitleElement}
-                    </div>
-                </TextWraper>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "6px",
+            }}
+          >
+            {subtitleElement}
+          </div>
+        </TextWraper>
 
-                {networkSectionCompositions}
-            </ContentWrapper>
-        </Container>
-    );
+        {networkSectionCompositions}
+      </ContentWrapper>
+    </Container>
+  );
 };

@@ -31,218 +31,193 @@ import { useCustomersChartDataStores } from "./home.stores";
 import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 export const Home: FunctionComponent = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const { state, actions } = useDefaultLayoutStore();
+  const { state, actions } = useDefaultLayoutStore();
 
-    const {
-        state: customersChartDataState,
-        actions: customersChartDataActions,
-    } = useCustomersChartDataStores();
+  const { state: customersChartDataState, actions: customersChartDataActions } =
+    useCustomersChartDataStores();
 
-    const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
-    const { sidebarIsOpened, sidebarIsExpanded } = state;
-    const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+  const { sidebarIsOpened, sidebarIsExpanded } = state;
+  const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
-    const { chartData } = customersChartDataState;
-    const { fetchCustomersData } = customersChartDataActions;
+  const { chartData } = customersChartDataState;
+  const { fetchCustomersData } = customersChartDataActions;
 
-    useEffect(() => {
-        fetchCustomersData();
-    }, []);
+  useEffect(() => {
+    fetchCustomersData();
+  }, []);
 
-    useEffect(() => {
-        return clearState;
-    }, [clearState]);
+  useEffect(() => {
+    return clearState;
+  }, [clearState]);
 
-    const sidebarStatus =
-        windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
+  const sidebarStatus =
+    windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
 
-    const handleMenuClick = (path: string) => {
-        if (windowWidth < 1280) {
-            setSidebarIsOpened(false);
-        }
+  const handleMenuClick = (path: string) => {
+    if (windowWidth < 1280) {
+      setSidebarIsOpened(false);
+    }
 
-        navigate(path);
-    };
+    navigate(path);
+  };
 
-    const handleSidebarStatus = () => {
-        if (windowWidth < 1280) {
-            setSidebarIsOpened(!sidebarIsOpened);
-        } else {
-            setSidebarIsExpanded(!sidebarIsExpanded);
-        }
-    };
+  const handleSidebarStatus = () => {
+    if (windowWidth < 1280) {
+      setSidebarIsOpened(!sidebarIsOpened);
+    } else {
+      setSidebarIsExpanded(!sidebarIsExpanded);
+    }
+  };
 
-    return (
-        <DefaultLayout
-            isSidebarOpened={sidebarStatus}
-            mobileHeaderSection={
-                <MobileHeader
-                    logoElement={
-                        <img className="pdg-logo" src={images.brandLogo} />
-                    }
-                    navigationLinksCompositions={
-                        <Fragment>
-                            <ConditionallyRender
-                                shouldRender={windowWidth > 768}
-                                content={menuData.menus.links.map(
-                                    (item, index) => (
-                                        <Typography
-                                            key={`navigation-link-${index}`}
-                                            text={item.label}
-                                            color="black"
-                                            variant="bodyMedium"
-                                        />
-                                    ),
-                                )}
-                            />
+  return (
+    <DefaultLayout
+      isSidebarOpened={sidebarStatus}
+      mobileHeaderSection={
+        <MobileHeader
+          logoElement={<img className="pdg-logo" src={images.brandLogo} />}
+          navigationLinksCompositions={
+            <Fragment>
+              <ConditionallyRender
+                shouldRender={windowWidth > 768}
+                content={menuData.menus.links.map((item, index) => (
+                  <Typography
+                    key={`navigation-link-${index}`}
+                    text={item.label}
+                    color="black"
+                    variant="bodyMedium"
+                  />
+                ))}
+              />
 
-                            <ConditionallyRender
-                                shouldRender={windowWidth <= 768}
-                                content={
-                                    <Icon variant="mobileMenu" color="black" />
-                                }
-                            />
-                        </Fragment>
-                    }
-                />
-            }
-            sidebarSection={
-                <Sidebar
-                    isOpened={sidebarStatus}
-                    handleClick={handleSidebarStatus}
-                    logoImageElement={
-                        <img className="pdg-logo" src={images.brandLogo} />
-                    }
-                    statusIconElement={
-                        <Icon
-                            hasCursorPointer
-                            variant={sidebarStatus ? "caretLeft" : "caretRight"}
-                            color="warning500"
-                            size={16}
-                        />
-                    }
-                    menusCompositions={
-                        <Menu
-                            isSidebarOpened={sidebarStatus}
-                            label={menuData.menus.label}
-                            menuItemCompositions={menuData.menus.links.map(
-                                (item, index) => (
-                                    <MenuItem
-                                        key={`menu-item-${index}`}
-                                        isSidebarOpened={sidebarStatus}
-                                        label={item.label}
-                                        isComingSoon={item.isComingSoon}
-                                        navigationSource={
-                                            !item.isComingSoon
-                                                ? item.path
-                                                : undefined
-                                        }
-                                        isSelected={
-                                            location.pathname === item.path
-                                        }
-                                        chipElement={
-                                            <Chip
-                                                labelElement={
-                                                    <Typography
-                                                        text="Em breve..."
-                                                        variant="microcopy"
-                                                        color="gray300"
-                                                    />
-                                                }
-                                            />
-                                        }
-                                        {...(windowWidth < 1280 &&
-                                            !item.isComingSoon && {
-                                            handleClick: () =>
-                                                handleMenuClick(item.path),
-                                        })}
-                                        {...(windowWidth >= 1280 &&
-                                            !item.isComingSoon &&
-                                            !item.isExpandable && {
-                                            navigationSource: item.path,
-                                        })}
-                                    />
-                                ),
-                            )}
-                        />
-                    }
-                    footerMenusCompositions={
-                        <Typography
-                            text={menuData.footer.message}
-                            color="black"
-                            variant="bodySmall"
-                        />
-                    }
-                />
-            }
-            pageContent={
-                <HomePage
-                    headerSectionCompositions={
-                        <Headline
-                            titleElement={
-                                <Typography
-                                    text="Página inicial"
-                                    color="black"
-                                    variant="titleLarge"
-                                />
-                            }
-                            subtitleElement={
-                                <Typography
-                                    text="Confira abaixo um relatório completo com todos os clientes cadastrados em seu sistema,nesta seção você poderá visualizar de forma organizada as informações registradas, facilitando a análise, o acompanhamento e o controle dos dados dos seus clientes."
-                                    color="black"
-                                    variant="bodyMedium"
-                                />
-                            }
-                        />
-                    }
-                    dashboardSectionCompositions={
-                        <DashboardSection
-                            customersChartCompositions={
-                                <Fragment>
-                                    <ConditionallyRender
-                                        shouldRender={!!chartData?.data?.length}
-                                        content={
-                                            <CustomerChart
-                                                data={chartData?.data ?? []}
-                                            />
-                                        }
-                                    />
-
-                                    <ConditionallyRender
-                                        shouldRender={!chartData?.data?.length}
-                                        content={
-                                            <CustomerChartEmptyState
-                                                illustrationSource={
-                                                    images.searchingOnFolders
-                                                }
-                                                titleElement={
-                                                    <Typography
-                                                        text="Nenhum resultado encontrado por aqui..."
-                                                        color="info300"
-                                                        variant="labelLarge"
-                                                    />
-                                                }
-                                                descriptionElement={
-                                                    <Typography
-                                                        text="Ao cadastrar clientes, será exibido um dashboard nesta seção."
-                                                        color="info300"
-                                                        variant="bodySmall"
-                                                    />
-                                                }
-                                            />
-                                        }
-                                    />
-                                </Fragment>
-                            }
-                        />
-                    }
-                />
-            }
-            handleSidebarOutsideClick={handleSidebarStatus}
+              <ConditionallyRender
+                shouldRender={windowWidth <= 768}
+                content={<Icon variant="mobileMenu" color="black" />}
+              />
+            </Fragment>
+          }
         />
-    );
+      }
+      sidebarSection={
+        <Sidebar
+          isOpened={sidebarStatus}
+          handleClick={handleSidebarStatus}
+          logoImageElement={<img className="pdg-logo" src={images.brandLogo} />}
+          statusIconElement={
+            <Icon
+              hasCursorPointer
+              variant={sidebarStatus ? "caretLeft" : "caretRight"}
+              color="warning500"
+              size={16}
+            />
+          }
+          menusCompositions={
+            <Menu
+              isSidebarOpened={sidebarStatus}
+              label={menuData.menus.label}
+              menuItemCompositions={menuData.menus.links.map((item, index) => (
+                <MenuItem
+                  key={`menu-item-${index}`}
+                  isSidebarOpened={sidebarStatus}
+                  label={item.label}
+                  isComingSoon={item.isComingSoon}
+                  navigationSource={!item.isComingSoon ? item.path : undefined}
+                  isSelected={location.pathname === item.path}
+                  chipElement={
+                    <Chip
+                      labelElement={
+                        <Typography
+                          text="Em breve..."
+                          variant="microcopy"
+                          color="gray300"
+                        />
+                      }
+                    />
+                  }
+                  {...(windowWidth < 1280 &&
+                    !item.isComingSoon && {
+                    handleClick: () => handleMenuClick(item.path),
+                  })}
+                  {...(windowWidth >= 1280 &&
+                    !item.isComingSoon &&
+                    !item.isExpandable && {
+                    navigationSource: item.path,
+                  })}
+                />
+              ))}
+            />
+          }
+          footerMenusCompositions={
+            <Typography
+              text={menuData.footer.message}
+              color="black"
+              variant="bodySmall"
+            />
+          }
+        />
+      }
+      pageContent={
+        <HomePage
+          headerSectionCompositions={
+            <Headline
+              titleElement={
+                <Typography
+                  text="Página inicial"
+                  color="black"
+                  variant="titleLarge"
+                />
+              }
+              subtitleElement={
+                <Typography
+                  text="Confira abaixo um relatório completo com todos os clientes cadastrados em seu sistema,nesta seção você poderá visualizar de forma organizada as informações registradas, facilitando a análise, o acompanhamento e o controle dos dados dos seus clientes."
+                  color="black"
+                  variant="bodyMedium"
+                />
+              }
+            />
+          }
+          dashboardSectionCompositions={
+            <DashboardSection
+              customersChartCompositions={
+                <Fragment>
+                  <ConditionallyRender
+                    shouldRender={!!chartData?.data?.length}
+                    content={<CustomerChart data={chartData?.data ?? []} />}
+                  />
+
+                  <ConditionallyRender
+                    shouldRender={!chartData?.data?.length}
+                    content={
+                      <CustomerChartEmptyState
+                        illustrationSource={images.searchingOnFolders}
+                        titleElement={
+                          <Typography
+                            text="Nenhum resultado encontrado por aqui..."
+                            color="info300"
+                            variant="labelLarge"
+                          />
+                        }
+                        descriptionElement={
+                          <Typography
+                            text="Ao cadastrar clientes, será exibido um dashboard nesta seção."
+                            color="info300"
+                            variant="bodySmall"
+                          />
+                        }
+                      />
+                    }
+                  />
+                </Fragment>
+              }
+            />
+          }
+        />
+      }
+      handleSidebarOutsideClick={handleSidebarStatus}
+    />
+  );
 };
