@@ -42,6 +42,7 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 // Helpers
 import { formattedCepBuilder } from "./customers.helpers";
+import { Button } from "@/components/elements/button";
 
 export const Customers: FunctionComponent = () => {
   const [queryState, setQueryState] = useState("");
@@ -58,7 +59,7 @@ export const Customers: FunctionComponent = () => {
     useCustomersListStores();
 
   const { customersListData } = customersListState;
-  const { fetchCustomers } = customersListActions;
+  const { fetchCustomers, deleteCustomer } = customersListActions;
 
   const customersListLenght = (customersListData.data ?? []).filter(
     (customer) =>
@@ -68,9 +69,13 @@ export const Customers: FunctionComponent = () => {
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
+  const handleDeleteCustomer = async (id: number) => {
+    await deleteCustomer(id);
+  };
+
   useEffect(() => {
     fetchCustomers();
-  }, []);
+  }, [customersListData.data]);
 
   useEffect(() => {
     return clearState;
@@ -307,19 +312,40 @@ export const Customers: FunctionComponent = () => {
                         variant="microcopy"
                       />
                     }
-                    contextMenuIconElement={
-                      <Icon
-                        variant="dotsThreeVertical"
-                        color="gray300"
-                        size={32}
-                        handleClick={(event) => {
-                          event?.stopPropagation();
+                    actionMenuElement={
+                      <Fragment>
+                        <Button
+                          labelElement={
+                            <Typography
+                              text="Editar"
+                              color="info300"
+                              variant="labelMedium"
+                            />
+                          }
+                          variant="link"
+                          handleClick={(e?: Event) => {
+                            e?.stopPropagation();
 
-                          console.log(
-                            "Botão que abrirá o menu de contexto de um determinado cliente, onde oferecerá as opções de: Editar ou excluir esse cliente.",
-                          );
-                        }}
-                      />
+                            navigate(`/editar-cliente/${item.id}`);
+                          }}
+                        />
+
+                        <Button
+                          labelElement={
+                            <Typography
+                              text="Excluir"
+                              color="danger300"
+                              variant="labelMedium"
+                            />
+                          }
+                          variant="link"
+                          handleClick={(e?: Event) => {
+                            e?.stopPropagation();
+
+                            handleDeleteCustomer(Number(item.id));
+                          }}
+                        />
+                      </Fragment>
                     }
                   />
                 ))}

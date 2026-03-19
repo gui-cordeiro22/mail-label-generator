@@ -11,6 +11,8 @@ import {
   CustomersListActions,
   CustomersListStore,
 } from "./customers.types";
+import { formatMessage } from "@/utils/helpers/format-message";
+import { toast } from "react-toastify";
 
 const defaultState = {
   customersListData: {
@@ -51,11 +53,41 @@ export const useCustomersListStores = (): CustomersListStore => {
       }
     }, [setState]);
 
+  const deleteCustomer: CustomersListActions["deleteCustomer"] = useCallback(
+    async (id) => {
+      try {
+        setState((draft: CustomersListState) => {
+          draft.customersListData.isLoading = true;
+        });
+
+        await db.clients.delete(id);
+
+        const successMessage = formatMessage.success("delete");
+
+        toast.success(successMessage);
+
+        return true;
+      } catch (error) {
+        const errorMessage = formatMessage.errors(error);
+
+        toast.error(errorMessage);
+
+        setState((draft: CustomersListState) => {
+          draft.customersListData.isLoading = true;
+        });
+
+        return false;
+      }
+    },
+    [setState],
+  );
+
   return {
     state,
     actions: {
       clearState,
       fetchCustomers,
+      deleteCustomer,
     },
   };
 };

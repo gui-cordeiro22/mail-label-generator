@@ -4,18 +4,18 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 export type ButtonVariants = "light-cta" | "dark-cta" | "link";
 
 export type ButtonData = ButtonHTMLAttributes<HTMLButtonElement> & {
-    isActive?: boolean;
-    isComingSoon?: boolean;
-    variant: ButtonVariants;
-    hasHoverEffect?: boolean;
+  isActive?: boolean;
+  isComingSoon?: boolean;
+  variant: ButtonVariants;
+  hasHoverEffect?: boolean;
 };
 
 export type ButtonElement = {
-    labelElement: ReactNode;
+  labelElement: ReactNode;
 };
 
 export type ButtonAction = {
-    handleClick?: () => void;
+  handleClick?: (e?: Event) => void;
 };
 
 export type ButtonProps = ButtonData & ButtonElement & ButtonAction;
