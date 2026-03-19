@@ -23,7 +23,7 @@ export const menuData = {
       {
         label: "Gerar etiqueta",
         path: "/gerar-etiqueta",
-        isComingSoon: true,
+        isComingSoon: false,
         isExpandable: false,
       },
     ],
