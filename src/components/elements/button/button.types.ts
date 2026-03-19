@@ -1,5 +1,5 @@
 // Dependencies
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode, MouseEvent } from "react";
 
 export type ButtonVariants = "light-cta" | "dark-cta" | "link";
 
@@ -15,7 +15,7 @@ export type ButtonElement = {
 };
 
 export type ButtonAction = {
-  handleClick?: (e?: Event) => void;
+  handleClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type ButtonProps = ButtonData & ButtonElement & ButtonAction;

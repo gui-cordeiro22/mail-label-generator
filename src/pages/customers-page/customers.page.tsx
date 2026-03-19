@@ -25,6 +25,7 @@ import { Icon } from "@/components/elements/icon";
 import { Card } from "@/components/compositions/card";
 import { Input } from "@/components/elements/input";
 import { Chip } from "@/components/elements/chip";
+import { Button } from "@/components/elements/button";
 
 // Assets
 import { images } from "@/assets";
@@ -42,7 +43,6 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 // Helpers
 import { formattedCepBuilder } from "./customers.helpers";
-import { Button } from "@/components/elements/button";
 
 export const Customers: FunctionComponent = () => {
   const [queryState, setQueryState] = useState("");
@@ -292,10 +292,12 @@ export const Customers: FunctionComponent = () => {
                   item.name.toLowerCase().includes(queryState.toLowerCase()),
                 )
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .map((item, index) => (
+                .map((item) => (
                   <CustomersListItem
-                    key={`customer-list-item-${index}`}
-                    handleClick={() => navigate(`/editar-cliente/${item.id}`)}
+                    key={`customer-list-item-${item.id}`}
+                    handleClick={() => {
+                      navigate(`/editar-cliente/${item.id}`);
+                    }}
                     customerNameElement={
                       <Typography
                         element="p"
@@ -323,7 +325,7 @@ export const Customers: FunctionComponent = () => {
                             />
                           }
                           variant="link"
-                          handleClick={(e?: Event) => {
+                          handleClick={(e) => {
                             e?.stopPropagation();
 
                             navigate(`/editar-cliente/${item.id}`);
@@ -339,7 +341,7 @@ export const Customers: FunctionComponent = () => {
                             />
                           }
                           variant="link"
-                          handleClick={(e?: Event) => {
+                          handleClick={(e) => {
                             e?.stopPropagation();
 
                             handleDeleteCustomer(Number(item.id));
