@@ -48,14 +48,16 @@ export const CreateCustomers: FunctionComponent = () => {
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
 
-  const { actions: createCustomerActions } = useCreateCustomerStores();
+  const { state: createCustomerState, actions: createCustomerActions } =
+    useCreateCustomerStores();
 
-  const { createCustomer } = createCustomerActions;
+  const { createCustomer, fetchCustomerById, editCustomer } =
+    createCustomerActions;
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, setValue } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -69,17 +71,65 @@ export const CreateCustomers: FunctionComponent = () => {
 
   const isEditing = !!id;
 
-  const handleCustomerCreate = async (
+  const handleSaveCustomer = async (
     customerData: CreateCustomerCustomerData,
   ) => {
-    await createCustomer(customerData);
+    if (!isEditing) {
+      await createCustomer(customerData);
+
+      navigate("/clientes");
+    } else {
+      editCustomer(Number(id), customerData);
+
+      navigate("/clientes");
+    }
 
     reset();
   };
 
   useEffect(() => {
-    // if(!!isEditing && createCustomer)
-  });
+    if (isEditing) {
+      fetchCustomerById(Number(id));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (isEditing && !!createCustomerState.customerData.data) {
+      setValue("name", createCustomerState.customerData.data?.name, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("address", createCustomerState.customerData.data?.address, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("cep", createCustomerState.customerData.data?.cep, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue(
+        "neighborhood",
+        createCustomerState.customerData.data?.neighborhood,
+        {
+          shouldValidate: true,
+          shouldDirty: true,
+        },
+      );
+
+      setValue("city", createCustomerState.customerData.data?.city, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+
+      setValue("uf", createCustomerState.customerData.data?.uf, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
+  }, [id, createCustomerState.customerData.data]);
 
   useEffect(() => {
     return clearState;
@@ -222,7 +272,7 @@ export const CreateCustomers: FunctionComponent = () => {
             <RegistrationForm
               formCompositions={
                 <Form
-                  handleSubmitForm={handleSubmit(handleCustomerCreate)}
+                  handleSubmitForm={handleSubmit(handleSaveCustomer)}
                   inputsElements={
                     <Fragment>
                       <Input
