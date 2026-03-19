@@ -290,7 +290,7 @@ export const Customers: FunctionComponent = () => {
                 .map((item, index) => (
                   <CustomersListItem
                     key={`customer-list-item-${index}`}
-                    handleClick={() => navigate(`/clientes/${item.id}`)}
+                    handleClick={() => navigate(`/editar-cliente/${item.id}`)}
                     customerNameElement={
                       <Typography
                         element="p"

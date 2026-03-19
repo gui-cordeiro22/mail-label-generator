@@ -12,3 +12,12 @@ export const createCustomersPageData = {
     buttonLabel: "Cadastrar novo cliente",
   },
 };
+
+export const editCustomersPageData = {
+  title: "Edição de Clientes",
+  description:
+    "Atualize as informações do cliente preenchendo o formulário abaixo, certifique-se de revisar e corrigir os dados conforme necessário para manter sua base sempre organizada e precisa, garantindo facilidade em consultas futuras, edições e no gerenciamento completo das informações de cada cliente.",
+  registrationForm: {
+    buttonLabel: "Editar cliente",
+  },
+};

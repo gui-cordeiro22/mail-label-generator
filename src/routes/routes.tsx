@@ -27,6 +27,11 @@ export const ApplicationRoutes: FunctionComponent = () => {
           element={<RouteValidator component={CreateCustomers} />}
         />
 
+        <Route
+          path="/editar-cliente/:id"
+          element={<RouteValidator component={CreateCustomers} />}
+        />
+
         <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
       </Routes>
     </BrowserRouter>

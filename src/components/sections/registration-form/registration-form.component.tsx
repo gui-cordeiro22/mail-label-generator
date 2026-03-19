@@ -2,7 +2,11 @@
 import { FunctionComponent } from "react";
 
 // Styles
-import { Container, ContentWrapper } from "./registration-form.styles";
+import {
+  Container,
+  ContentWrapper,
+  FormCompositionsWrapper,
+} from "./registration-form.styles";
 
 // Types
 import { RegistrationFormProps } from "./registration-form.types";
@@ -12,7 +16,9 @@ export const RegistrationForm: FunctionComponent<RegistrationFormProps> = ({
 }) => {
   return (
     <Container>
-      <ContentWrapper>{formCompositions}</ContentWrapper>
+      <ContentWrapper>
+        <FormCompositionsWrapper>{formCompositions}</FormCompositionsWrapper>
+      </ContentWrapper>
     </Container>
   );
 };

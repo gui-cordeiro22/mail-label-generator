@@ -1,6 +1,6 @@
 // Dependencies
 import { Fragment, FunctionComponent, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 // Components
@@ -31,7 +31,10 @@ import { useCreateCustomerStores } from "./create-customers.stores";
 
 // Utils
 import { menuData } from "@/components/compositions/menu/menu.data";
-import { createCustomersPageData } from "./create-customers.mock";
+import {
+  createCustomersPageData,
+  editCustomersPageData,
+} from "./create-customers.mock";
 
 // Hooks
 import { useWindowDimensions } from "@/hooks/window-dimensions";
@@ -39,6 +42,8 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 export const CreateCustomers: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { id } = useParams();
 
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
@@ -62,6 +67,8 @@ export const CreateCustomers: FunctionComponent = () => {
     },
   });
 
+  const isEditing = !!id;
+
   const handleCustomerCreate = async (
     customerData: CreateCustomerCustomerData,
   ) => {
@@ -69,6 +76,10 @@ export const CreateCustomers: FunctionComponent = () => {
 
     reset();
   };
+
+  useEffect(() => {
+    // if(!!isEditing && createCustomer)
+  });
 
   useEffect(() => {
     return clearState;
@@ -184,7 +195,11 @@ export const CreateCustomers: FunctionComponent = () => {
             <Headline
               titleElement={
                 <Typography
-                  text={createCustomersPageData.title}
+                  text={
+                    isEditing
+                      ? editCustomersPageData.title
+                      : createCustomersPageData.title
+                  }
                   color="black"
                   variant="titleLarge"
                 />
@@ -192,7 +207,11 @@ export const CreateCustomers: FunctionComponent = () => {
               subtitleElement={
                 <Typography
                   element="p"
-                  text={createCustomersPageData.description}
+                  text={
+                    isEditing
+                      ? editCustomersPageData.description
+                      : createCustomersPageData.description
+                  }
                   color="black"
                   variant="bodyMedium"
                 />
@@ -325,7 +344,11 @@ export const CreateCustomers: FunctionComponent = () => {
                       labelElement={
                         <Typography
                           text={
-                            createCustomersPageData.registrationForm.buttonLabel
+                            isEditing
+                              ? editCustomersPageData.registrationForm
+                                .buttonLabel
+                              : createCustomersPageData.registrationForm
+                                .buttonLabel
                           }
                           color="white"
                           variant="labelMedium"
