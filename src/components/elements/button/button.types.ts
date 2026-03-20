@@ -3,10 +3,18 @@ import { ButtonHTMLAttributes, ReactNode, MouseEvent } from "react";
 
 export type ButtonVariants = "light-cta" | "dark-cta" | "link";
 
+export type ButtonSizeVariants =
+  | "small"
+  | "medium"
+  | "large"
+  | "immense"
+  | "fullyAdaptative";
+
 export type ButtonData = ButtonHTMLAttributes<HTMLButtonElement> & {
   isActive?: boolean;
   isComingSoon?: boolean;
   variant: ButtonVariants;
+  sizeVariant?: ButtonSizeVariants;
   hasHoverEffect?: boolean;
 };
 

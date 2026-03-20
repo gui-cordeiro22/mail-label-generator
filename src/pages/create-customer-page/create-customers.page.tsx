@@ -290,6 +290,9 @@ export const CreateCustomers: FunctionComponent = () => {
                   submitButtonElement={
                     <Button
                       type="submit"
+                      sizeVariant={
+                        windowWidth >= 768 ? "medium" : "fullyAdaptative"
+                      }
                       labelElement={
                         <Typography
                           text={

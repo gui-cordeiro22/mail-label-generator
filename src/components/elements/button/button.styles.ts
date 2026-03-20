@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 
 // Types
-import { ButtonVariants } from "./button.types";
+import { ButtonSizeVariants, ButtonVariants } from "./button.types";
 
 // Styles
 import { theme } from "@/styles/theme";
@@ -12,6 +12,7 @@ type ContainerStyleProps = {
   isActive: boolean;
   isComingSoon: boolean;
   hasHoverEffect?: boolean;
+  sizeVariant?: ButtonSizeVariants;
 };
 
 export const Container = styled.button<ContainerStyleProps>`
@@ -48,4 +49,34 @@ export const Container = styled.button<ContainerStyleProps>`
       transition: all 0.3s ease-in-out;
       padding: ${({ theme }) => theme.system.space["quarck"]};
     `};
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "fullyAdaptative" &&
+    css`
+      width: 100%;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "immense" &&
+    css`
+      width: 540px;
+    `}
+  
+  ${({ sizeVariant }) =>
+    sizeVariant === "large" &&
+    css`
+      width: 360px;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "medium" &&
+    css`
+      width: 240px;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "small" &&
+    css`
+      width: 160px;
+    `}
 `;

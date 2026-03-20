@@ -11,6 +11,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
   labelElement,
   handleClick,
   variant,
+  sizeVariant,
   isActive,
   isComingSoon,
   hasHoverEffect,
@@ -21,6 +22,7 @@ export const Button: FunctionComponent<ButtonProps> = ({
       {...(!isComingSoon && { onClick: handleClick })}
       {...defaultProps}
       variant={variant}
+      sizeVariant={sizeVariant}
       isActive={!!isActive}
       isComingSoon={!!isComingSoon}
       hasHoverEffect={!!hasHoverEffect}
