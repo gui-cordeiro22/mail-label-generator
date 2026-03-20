@@ -9,4 +9,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    watch: {
+      usePolling: false,
+      ignored: ["**/node_modules/**", "**/.git/**"],
+    },
+    hmr: {
+      overlay: false,
+    },
+  },
 });

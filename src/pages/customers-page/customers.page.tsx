@@ -55,15 +55,20 @@ export const Customers: FunctionComponent = () => {
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
 
-  const { state: customersListState, actions: customersListActions } =
-    useCustomersListStores();
+  const customersListData = useCustomersListStores(
+    (state) => state.customersListData.data,
+  );
 
-  const { customersListData } = customersListState;
-  const { fetchCustomers, deleteCustomer } = customersListActions;
+  const deleteCustomer = useCustomersListStores(
+    (state) => state.deleteCustomer,
+  );
 
-  const customersListLenght = (customersListData.data ?? []).filter(
-    (customer) =>
-      customer.name.toLowerCase().includes(queryState.toLowerCase()),
+  const fetchCustomers = useCustomersListStores(
+    (state) => state.fetchCustomers,
+  );
+
+  const customersListLenght = (customersListData ?? []).filter((customer) =>
+    customer.name.toLowerCase().includes(queryState.toLowerCase()),
   ).length;
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
@@ -75,7 +80,7 @@ export const Customers: FunctionComponent = () => {
 
   useEffect(() => {
     fetchCustomers();
-  }, [customersListData.data]);
+  }, [customersListData]);
 
   useEffect(() => {
     return clearState;
@@ -289,7 +294,7 @@ export const Customers: FunctionComponent = () => {
                   />
                 </Fragment>
               }
-              customersListItemComposition={(customersListData.data ?? [])
+              customersListItemComposition={(customersListData ?? [])
                 .filter((item) =>
                   item.name.toLowerCase().includes(queryState.toLowerCase()),
                 )

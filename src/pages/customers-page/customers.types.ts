@@ -24,6 +24,9 @@ export type CustomersListActions = {
 };
 
 export type CustomersListStore = {
-  state: CustomersListState;
-  actions: CustomersListActions;
+  customersListData: CustomersListData<CustomersListListData[]>;
+
+  clearState: () => void;
+  fetchCustomers: () => Promise<boolean>;
+  deleteCustomer: (id: number) => Promise<boolean>;
 };

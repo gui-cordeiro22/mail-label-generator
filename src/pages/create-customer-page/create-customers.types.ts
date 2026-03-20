@@ -17,16 +17,6 @@ export type CreateCustomerState = {
   customerData: CreateCustomerData<CreateCustomerCustomerData>;
 };
 
-export type CreateCustomerActions = {
-  clearState: () => void;
-  createCustomer: (data?: CreateCustomerCustomerData) => Promise<boolean>;
-  fetchCustomerById: (id?: number) => Promise<boolean>;
-  editCustomer: (
-    id: number,
-    data: CreateCustomerCustomerData,
-  ) => Promise<boolean>;
-};
-
 export type CreateCustomerStore = {
   customerData: CreateCustomerData<CreateCustomerCustomerData>;
 
