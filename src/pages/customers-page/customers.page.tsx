@@ -150,7 +150,9 @@ export const Customers: FunctionComponent = () => {
                   isSidebarOpened={sidebarStatus}
                   label={item.label}
                   isComingSoon={item.isComingSoon}
-                  navigationSource={!item.isComingSoon ? item.path : undefined}
+                  handleClick={() =>
+                    !item.isComingSoon ? navigate(item.path) : undefined
+                  }
                   isSelected={location.pathname === item.path}
                   chipElement={
                     <Chip

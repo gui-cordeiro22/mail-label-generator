@@ -20,7 +20,7 @@ type MenuItemContainerStyleProps = {
   isComingSoon: boolean;
 };
 
-export const MenuItemContainer = styled.a<MenuItemContainerStyleProps>`
+export const MenuItemContainer = styled.p<MenuItemContainerStyleProps>`
   width: 100%;
 
   display: flex;

@@ -2,48 +2,48 @@
 import { ReactNode } from "react";
 
 export type MenuData = {
-    label: string;
-    isSidebarOpened: boolean;
+  label: string;
+  isSidebarOpened: boolean;
 };
 
 export type MenuElements = {
-    menuItemCompositions: ReactNode;
+  menuItemCompositions: ReactNode;
 };
 
 export type MenuProps = MenuData & MenuElements;
 
 export type MenuItemData = {
-    label: string;
-    navigationSource?: string;
-    isSidebarOpened: boolean;
-    isSelected?: boolean;
-    isComingSoon?: boolean;
-    isExpandable?: boolean;
-    hasClampLines?: boolean;
+  label: string;
+  navigationSource?: string;
+  isSidebarOpened: boolean;
+  isSelected?: boolean;
+  isComingSoon?: boolean;
+  isExpandable?: boolean;
+  hasClampLines?: boolean;
 };
 
 export type MenuItemElements = {
-    indicatorIconElement?: ReactNode;
-    actionIconElement?: ReactNode;
-    menuExpandableItemCompositions?: ReactNode;
-    chipElement?: ReactNode;
+  indicatorIconElement?: ReactNode;
+  actionIconElement?: ReactNode;
+  menuExpandableItemCompositions?: ReactNode;
+  chipElement?: ReactNode;
 };
 
 export type MenuItemActions = {
-    handleClick?: () => void;
+  handleClick?: () => void;
 };
 
 export type MenuItemProps = MenuItemData & MenuItemElements & MenuItemActions;
 
 export type ExpandableMenuItemData = {
-    label: string;
-    isSelected?: boolean;
-    hasIndicator?: boolean;
-    hasOverflow?: boolean;
+  label: string;
+  isSelected?: boolean;
+  hasIndicator?: boolean;
+  hasOverflow?: boolean;
 };
 export type ExpandableMenuItemActions = {
-    handleClick: () => void;
+  handleClick: () => void;
 };
 
 export type ExpandableMenuItemProps = ExpandableMenuItemData &
-    ExpandableMenuItemActions;
+  ExpandableMenuItemActions;
