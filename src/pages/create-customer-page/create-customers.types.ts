@@ -28,6 +28,13 @@ export type CreateCustomerActions = {
 };
 
 export type CreateCustomerStore = {
-  state: CreateCustomerState;
-  actions: CreateCustomerActions;
+  customerData: CreateCustomerData<CreateCustomerCustomerData>;
+
+  clearState: () => void;
+  createCustomer: (data?: CreateCustomerCustomerData) => Promise<boolean>;
+  fetchCustomerById: (id?: number) => Promise<boolean>;
+  editCustomer: (
+    id: number,
+    data: CreateCustomerCustomerData,
+  ) => Promise<boolean>;
 };

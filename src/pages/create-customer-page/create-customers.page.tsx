@@ -42,22 +42,31 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 export const CreateCustomers: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const { id } = useParams();
 
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
 
-  const { state: createCustomerState, actions: createCustomerActions } =
-    useCreateCustomerStores();
+  const customerData = useCreateCustomerStores((state) => state.customerData);
 
-  const { createCustomer, fetchCustomerById, editCustomer } =
-    createCustomerActions;
+  const fetchCustomerById = useCreateCustomerStores(
+    (state) => state.fetchCustomerById,
+  );
+
+  const createCustomer = useCreateCustomerStores(
+    (state) => state.createCustomer,
+  );
+
+  const editCustomer = useCreateCustomerStores((state) => state.editCustomer);
+
+  const clearCustomerState = useCreateCustomerStores(
+    (state) => state.clearState,
+  );
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
-  const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+  const { setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
-  const { register, handleSubmit, reset, setValue } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     mode: "onChange",
     defaultValues: {
       name: "",
@@ -71,72 +80,40 @@ export const CreateCustomers: FunctionComponent = () => {
 
   const isEditing = !!id;
 
-  const handleSaveCustomer = async (
-    customerData: CreateCustomerCustomerData,
-  ) => {
+  // ✅ salvar cliente
+  const handleSaveCustomer = async (formData: CreateCustomerCustomerData) => {
     if (!isEditing) {
-      await createCustomer(customerData);
-
-      navigate("/clientes");
+      await createCustomer(formData);
     } else {
-      editCustomer(Number(id), customerData);
-
-      navigate("/clientes");
+      await editCustomer(Number(id), formData);
     }
 
+    navigate("/clientes");
     reset();
   };
 
+  // ✅ buscar cliente ao entrar em modo edição
   useEffect(() => {
     if (isEditing) {
       fetchCustomerById(Number(id));
     }
-  }, [id]);
+  }, [id, isEditing, fetchCustomerById]);
 
+  // ✅ preencher formulário (melhor forma)
   useEffect(() => {
-    if (isEditing && !!createCustomerState.customerData.data) {
-      setValue("name", createCustomerState.customerData.data?.name, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("address", createCustomerState.customerData.data?.address, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("cep", createCustomerState.customerData.data?.cep, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue(
-        "neighborhood",
-        createCustomerState.customerData.data?.neighborhood,
-        {
-          shouldValidate: true,
-          shouldDirty: true,
-        },
-      );
-
-      setValue("city", createCustomerState.customerData.data?.city, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("uf", createCustomerState.customerData.data?.uf, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
+    if (isEditing && customerData.data) {
+      reset(customerData.data);
     }
-  }, [id, createCustomerState.customerData.data]);
+  }, [isEditing, customerData.data, reset]);
 
+  // ✅ limpar estado ao sair da página
   useEffect(() => {
-    return clearState;
-  }, [clearState]);
+    return () => clearCustomerState();
+  }, [clearCustomerState]);
 
   const sidebarStatus =
     windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
+
   const handleMenuClick = (path: string) => {
     if (windowWidth < 1280) {
       setSidebarIsOpened(false);
@@ -278,114 +255,34 @@ export const CreateCustomers: FunctionComponent = () => {
                       <Input
                         {...register("name")}
                         type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm
-                            .nameInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .nameInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
+                        placeholder="Nome"
                       />
 
                       <Input
                         {...register("address")}
                         type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm
-                            .addressInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .addressInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
+                        placeholder="Endereço"
                       />
 
                       <Input
                         {...register("cep")}
                         type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm.cepInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .cepInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
+                        placeholder="CEP"
                       />
 
                       <Input
                         {...register("neighborhood")}
                         type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm
-                            .neighborhoodInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .neighborhoodInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
+                        placeholder="Bairro"
                       />
 
                       <Input
                         {...register("city")}
                         type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm
-                            .cityInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .cityInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
+                        placeholder="Cidade"
                       />
 
-                      <Input
-                        {...register("uf")}
-                        type="text"
-                        placeholder={
-                          createCustomersPageData.registrationForm.ufInputLabel
-                        }
-                        labelElement={
-                          <Typography
-                            text={
-                              createCustomersPageData.registrationForm
-                                .ufInputLabel
-                            }
-                            color="gray300"
-                            variant="microcopy"
-                          />
-                        }
-                      />
+                      <Input {...register("uf")} type="text" placeholder="UF" />
                     </Fragment>
                   }
                   submitButtonElement={
