@@ -1,21 +1,29 @@
 // Dependencies
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode, MouseEvent } from "react";
 
 export type ButtonVariants = "light-cta" | "dark-cta" | "link";
 
+export type ButtonSizeVariants =
+  | "small"
+  | "medium"
+  | "large"
+  | "immense"
+  | "fullyAdaptative";
+
 export type ButtonData = ButtonHTMLAttributes<HTMLButtonElement> & {
-    isActive?: boolean;
-    isComingSoon?: boolean;
-    variant: ButtonVariants;
-    hasHoverEffect?: boolean;
+  isActive?: boolean;
+  isComingSoon?: boolean;
+  variant: ButtonVariants;
+  sizeVariant?: ButtonSizeVariants;
+  hasHoverEffect?: boolean;
 };
 
 export type ButtonElement = {
-    labelElement: ReactNode;
+  labelElement: ReactNode;
 };
 
 export type ButtonAction = {
-    handleClick?: () => void;
+  handleClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type ButtonProps = ButtonData & ButtonElement & ButtonAction;

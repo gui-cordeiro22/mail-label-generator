@@ -42,48 +42,54 @@ import { useWindowDimensions } from "@/hooks/window-dimensions";
 export const CreateCustomers: FunctionComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const { id } = useParams();
 
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
 
-  const { state: createCustomerState, actions: createCustomerActions } =
-    useCreateCustomerStores();
+  const customerData = useCreateCustomerStores((state) => state.customerData);
 
-  const { createCustomer, fetchCustomerById, editCustomer } =
-    createCustomerActions;
+  const fetchCustomerById = useCreateCustomerStores(
+    (state) => state.fetchCustomerById,
+  );
+
+  const createCustomer = useCreateCustomerStores(
+    (state) => state.createCustomer,
+  );
+
+  const editCustomer = useCreateCustomerStores((state) => state.editCustomer);
+
+  const clearCustomerState = useCreateCustomerStores(
+    (state) => state.clearState,
+  );
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
-  const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
+  const { setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
-  const { register, handleSubmit, reset, setValue } = useForm({
+  const defaultValues = {
+    name: "",
+    address: "",
+    cep: "",
+    neighborhood: "",
+    city: "",
+    uf: "",
+  };
+
+  const { register, handleSubmit, reset } = useForm({
     mode: "onChange",
-    defaultValues: {
-      name: "",
-      address: "",
-      cep: "",
-      neighborhood: "",
-      city: "",
-      uf: "",
-    },
+    defaultValues,
   });
 
   const isEditing = !!id;
 
-  const handleSaveCustomer = async (
-    customerData: CreateCustomerCustomerData,
-  ) => {
+  const handleSaveCustomer = async (formData: CreateCustomerCustomerData) => {
     if (!isEditing) {
-      await createCustomer(customerData);
-
-      navigate("/clientes");
+      await createCustomer(formData);
     } else {
-      editCustomer(Number(id), customerData);
-
-      navigate("/clientes");
+      await editCustomer(Number(id), formData);
     }
 
+    navigate("/clientes");
     reset();
   };
 
@@ -91,52 +97,19 @@ export const CreateCustomers: FunctionComponent = () => {
     if (isEditing) {
       fetchCustomerById(Number(id));
     }
-  }, [id]);
+  }, [id, isEditing, fetchCustomerById]);
 
   useEffect(() => {
-    if (isEditing && !!createCustomerState.customerData.data) {
-      setValue("name", createCustomerState.customerData.data?.name, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("address", createCustomerState.customerData.data?.address, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("cep", createCustomerState.customerData.data?.cep, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue(
-        "neighborhood",
-        createCustomerState.customerData.data?.neighborhood,
-        {
-          shouldValidate: true,
-          shouldDirty: true,
-        },
-      );
-
-      setValue("city", createCustomerState.customerData.data?.city, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-
-      setValue("uf", createCustomerState.customerData.data?.uf, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
-  }, [id, createCustomerState.customerData.data]);
+    reset(!!isEditing && customerData.data ? customerData.data : defaultValues);
+  }, [isEditing, customerData.data, reset]);
 
   useEffect(() => {
-    return clearState;
-  }, [clearState]);
+    return () => clearCustomerState();
+  }, [clearCustomerState]);
 
   const sidebarStatus =
     windowWidth < 1280 ? sidebarIsOpened : sidebarIsExpanded;
+
   const handleMenuClick = (path: string) => {
     if (windowWidth < 1280) {
       setSidebarIsOpened(false);
@@ -204,7 +177,9 @@ export const CreateCustomers: FunctionComponent = () => {
                   isSidebarOpened={sidebarStatus}
                   label={item.label}
                   isComingSoon={item.isComingSoon}
-                  navigationSource={!item.isComingSoon ? item.path : undefined}
+                  handleClick={() =>
+                    !item.isComingSoon ? navigate(item.path) : undefined
+                  }
                   isSelected={location.pathname === item.path}
                   chipElement={
                     <Chip
@@ -391,6 +366,9 @@ export const CreateCustomers: FunctionComponent = () => {
                   submitButtonElement={
                     <Button
                       type="submit"
+                      sizeVariant={
+                        windowWidth >= 768 ? "medium" : "fullyAdaptative"
+                      }
                       labelElement={
                         <Typography
                           text={

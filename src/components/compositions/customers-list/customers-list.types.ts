@@ -2,22 +2,23 @@
 import { ReactNode } from "react";
 
 export type CustomersListElement = {
-    cardsReportCompositions?: ReactNode;
-    customersListItemComposition: ReactNode;
+  cardsReportCompositions?: ReactNode;
+  customersListItemComposition: ReactNode;
 };
 
 export type CustomersListProps = CustomersListElement;
 
 export type CustomersListItemElements = {
-    customerNameElement: ReactNode;
-    customerAddressElement: ReactNode;
-    iconElement?: ReactNode;
-    contextMenuIconElement?: ReactNode;
+  customerNameElement: ReactNode;
+  customerAddressElement: ReactNode;
+  iconElement?: ReactNode;
+  contextMenuIconElement?: ReactNode;
+  actionMenuElement?: ReactNode;
 };
 
 export type CustomersListItemAction = {
-    handleClick?: () => void;
+  handleClick?: () => void;
 };
 
 export type CustomersListItemProps = CustomersListItemElements &
-    CustomersListItemAction;
+  CustomersListItemAction;
