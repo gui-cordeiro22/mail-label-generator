@@ -66,21 +66,22 @@ export const CreateCustomers: FunctionComponent = () => {
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
+  const defaultValues = {
+    name: "",
+    address: "",
+    cep: "",
+    neighborhood: "",
+    city: "",
+    uf: "",
+  };
+
   const { register, handleSubmit, reset } = useForm({
     mode: "onChange",
-    defaultValues: {
-      name: "",
-      address: "",
-      cep: "",
-      neighborhood: "",
-      city: "",
-      uf: "",
-    },
+    defaultValues,
   });
 
   const isEditing = !!id;
 
-  // ✅ salvar cliente
   const handleSaveCustomer = async (formData: CreateCustomerCustomerData) => {
     if (!isEditing) {
       await createCustomer(formData);
@@ -92,21 +93,16 @@ export const CreateCustomers: FunctionComponent = () => {
     reset();
   };
 
-  // ✅ buscar cliente ao entrar em modo edição
   useEffect(() => {
     if (isEditing) {
       fetchCustomerById(Number(id));
     }
   }, [id, isEditing, fetchCustomerById]);
 
-  // ✅ preencher formulário (melhor forma)
   useEffect(() => {
-    if (isEditing && customerData.data) {
-      reset(customerData.data);
-    }
+    reset(!!isEditing && customerData.data ? customerData.data : defaultValues);
   }, [isEditing, customerData.data, reset]);
 
-  // ✅ limpar estado ao sair da página
   useEffect(() => {
     return () => clearCustomerState();
   }, [clearCustomerState]);
@@ -257,34 +253,114 @@ export const CreateCustomers: FunctionComponent = () => {
                       <Input
                         {...register("name")}
                         type="text"
-                        placeholder="Nome"
+                        placeholder={
+                          createCustomersPageData.registrationForm
+                            .nameInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .nameInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
                       />
 
                       <Input
                         {...register("address")}
                         type="text"
-                        placeholder="Endereço"
+                        placeholder={
+                          createCustomersPageData.registrationForm
+                            .addressInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .addressInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
                       />
 
                       <Input
                         {...register("cep")}
                         type="text"
-                        placeholder="CEP"
+                        placeholder={
+                          createCustomersPageData.registrationForm.cepInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .cepInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
                       />
 
                       <Input
                         {...register("neighborhood")}
                         type="text"
-                        placeholder="Bairro"
+                        placeholder={
+                          createCustomersPageData.registrationForm
+                            .neighborhoodInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .neighborhoodInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
                       />
 
                       <Input
                         {...register("city")}
                         type="text"
-                        placeholder="Cidade"
+                        placeholder={
+                          createCustomersPageData.registrationForm
+                            .cityInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .cityInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
                       />
 
-                      <Input {...register("uf")} type="text" placeholder="UF" />
+                      <Input
+                        {...register("uf")}
+                        type="text"
+                        placeholder={
+                          createCustomersPageData.registrationForm.ufInputLabel
+                        }
+                        labelElement={
+                          <Typography
+                            text={
+                              createCustomersPageData.registrationForm
+                                .ufInputLabel
+                            }
+                            color="gray300"
+                            variant="microcopy"
+                          />
+                        }
+                      />
                     </Fragment>
                   }
                   submitButtonElement={
