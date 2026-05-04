@@ -1,6 +1,5 @@
-// Dependenciess
-import { useCallback } from "react";
-import { useImmer } from "use-immer";
+// Dependencies
+import { create } from "zustand";
 import { toast } from "react-toastify";
 
 // Database
@@ -9,7 +8,6 @@ import { db } from "@/database";
 // Types
 import {
   CreateCustomerState,
-  CreateCustomerActions,
   CreateCustomerStore,
 } from "./create-customers.types";
 
@@ -17,123 +15,116 @@ import {
 import { formatMessage } from "@/utils/helpers/format-message";
 
 const defaultState = {
-  customerData: {
-    data: undefined,
-    isLoading: true,
+  data: undefined,
+  isLoading: true,
+};
+
+export const useCreateCustomerStores = create<CreateCustomerStore>((set) => ({
+  customerData: defaultState,
+
+  clearState: () =>
+    set({
+      customerData: defaultState,
+    }),
+
+  createCustomer: async (customerData) => {
+    try {
+      set((state: CreateCustomerState) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: true,
+        },
+      }));
+
+      if (customerData) {
+        await db.clients.add(customerData);
+      }
+
+      toast.success(formatMessage.success("create"));
+
+      return true;
+    } catch (error) {
+      toast.error(formatMessage.errors(error));
+
+      set((state) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: false,
+        },
+      }));
+
+      return false;
+    }
   },
-};
 
-export const useCreateCustomerStores = (): CreateCustomerStore => {
-  const [state, setState] = useImmer<CreateCustomerState>(defaultState);
+  fetchCustomerById: async (id) => {
+    try {
+      set((state) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: true,
+        },
+      }));
 
-  const clearState: CreateCustomerActions["clearState"] = useCallback(() => {
-    setState(defaultState);
-  }, [setState]);
+      const response = await db.clients.get(id);
 
-  const createCustomer: CreateCustomerActions["createCustomer"] = useCallback(
-    async (customerData) => {
-      try {
-        setState((draft: CreateCustomerState) => {
-          draft.customerData.isLoading = true;
-        });
+      set({
+        customerData: {
+          data: response,
+          isLoading: false,
+        },
+      });
 
-        if (customerData) {
-          await db.clients.add(customerData);
-        }
+      return true;
+    } catch (error) {
+      toast.error(formatMessage.errors(error));
 
-        const successMessage = formatMessage.success("create");
+      set((state) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: false,
+        },
+      }));
 
-        toast.success(successMessage);
+      return false;
+    }
+  },
 
-        return true;
-      } catch (error) {
-        const errorMessage = formatMessage.errors(error);
+  editCustomer: async (id, customerData) => {
+    try {
+      set((state) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: true,
+        },
+      }));
 
-        toast.error(errorMessage);
+      const response = await db.clients.put({
+        id,
+        ...customerData,
+      });
 
-        setState((draft: CreateCustomerState) => {
-          draft.customerData.isLoading = false;
-        });
+      set({
+        customerData: {
+          data: response,
+          isLoading: false,
+        },
+      });
 
-        return false;
-      }
-    },
-    [setState],
-  );
+      toast.success(formatMessage.success("edit"));
 
-  const fetchCustomerById: CreateCustomerActions["fetchCustomerById"] =
-    useCallback(
-      async (id) => {
-        try {
-          setState((draft: CreateCustomerState) => {
-            draft.customerData.isLoading = true;
-          });
+      return true;
+    } catch (error) {
+      toast.error(formatMessage.errors(error));
 
-          const response = await db.clients.get(id);
+      set((state) => ({
+        customerData: {
+          ...state.customerData,
+          isLoading: false,
+        },
+      }));
 
-          setState((draft: CreateCustomerState) => {
-            draft.customerData.data = response;
-            draft.customerData.isLoading = false;
-          });
-
-          return true;
-        } catch (error) {
-          const errorMessage = formatMessage.errors(error);
-
-          toast.error(errorMessage);
-
-          setState((draft: CreateCustomerState) => {
-            draft.customerData.isLoading = false;
-          });
-
-          return false;
-        }
-      },
-      [setState],
-    );
-
-  const editCustomer: CreateCustomerActions["editCustomer"] = useCallback(
-    async (id, customerData) => {
-      try {
-        setState((draft: CreateCustomerState) => {
-          draft.customerData.isLoading = true;
-        });
-
-        const response = await db.clients.put({
-          id,
-          ...customerData,
-        });
-
-        setState((draft: CreateCustomerState) => {
-          draft.customerData.data = response;
-        });
-
-        const successMessage = formatMessage.success("edit");
-
-        toast.success(successMessage);
-
-        return true;
-      } catch (error) {
-        const errorMessage = formatMessage.errors(error);
-
-        toast.error(errorMessage);
-
-        setState((draft: CreateCustomerState) => {
-          draft.customerData.isLoading = false;
-        });
-
-        return false;
-      }
-    },
-    [setState],
-  );
-  return {
-    state,
-    actions: {
-      clearState,
-      createCustomer,
-      fetchCustomerById,
-      editCustomer,
-    },
-  };
-};
+      return false;
+    }
+  },
+}));

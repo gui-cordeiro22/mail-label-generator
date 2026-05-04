@@ -1,61 +1,92 @@
-// Dependenciess
-import { useCallback } from "react";
-import { useImmer } from "use-immer";
+// Dependencies
+import { create } from "zustand";
+import { toast } from "react-toastify";
 
 // Database
 import { db } from "@/database";
 
 // Types
-import {
-  CustomersListState,
-  CustomersListActions,
-  CustomersListStore,
-} from "./customers.types";
+import { CustomersListState, CustomersListStore } from "./customers.types";
+
+// Helpers
+import { formatMessage } from "@/utils/helpers/format-message";
 
 const defaultState = {
-  customersListData: {
-    data: undefined,
-    isLoading: true,
+  data: undefined,
+  isLoading: true,
+};
+
+export const useCustomersListStores = create<CustomersListStore>((set) => ({
+  customersListData: defaultState,
+
+  clearState: () =>
+    set({
+      customersListData: defaultState,
+    }),
+
+  fetchCustomers: async () => {
+    try {
+      set((state: CustomersListState) => ({
+        ...state,
+        isLoading: true,
+      }));
+
+      const response = await db.clients.toArray();
+
+      set((state: CustomersListState) => ({
+        ...state,
+        customersListData: {
+          data: response,
+          isLoading: false,
+        },
+      }));
+
+      return true;
+    } catch (error) {
+      const errorMessage = formatMessage.errors(error);
+
+      toast.error(errorMessage);
+
+      set((state: CustomersListState) => ({
+        ...state,
+        customersListData: {
+          isLoading: false,
+        },
+      }));
+
+      return false;
+    }
   },
-};
 
-export const useCustomersListStores = (): CustomersListStore => {
-  const [state, setState] = useImmer<CustomersListState>(defaultState);
+  deleteCustomer: async (id) => {
+    try {
+      set((state: CustomersListState) => ({
+        ...state,
+        customersListData: {
+          isLoading: true,
+        },
+      }));
 
-  const clearState: CustomersListActions["clearState"] = useCallback(() => {
-    setState(defaultState);
-  }, [setState]);
+      await db.clients.delete(id);
 
-  const fetchCustomers: CustomersListActions["fetchCustomers"] =
-    useCallback(async () => {
-      try {
-        setState((draft: CustomersListState) => {
-          draft.customersListData.isLoading = true;
-        });
+      const successMessage = formatMessage.success("delete");
 
-        const response = await db.clients.toArray();
+      toast.success(successMessage);
 
-        setState((draft: CustomersListState) => {
-          draft.customersListData.data = response;
-        });
+      return true;
+    } catch (error) {
+      const errorMessage = formatMessage.errors(error);
 
-        return true;
-      } catch (error) {
-        console.error("error: ", error);
+      toast.error(errorMessage);
 
-        setState((draft: CustomersListState) => {
-          draft.customersListData.isLoading = false;
-        });
+      set((state: CustomersListState) => ({
+        ...state,
+        customersListData: {
+          isLoading: false,
+        },
+      }));
 
-        return false;
-      }
-    }, [setState]);
-
-  return {
-    state,
-    actions: {
-      clearState,
-      fetchCustomers,
-    },
-  };
-};
+      return false;
+    }
+  },
+}));

@@ -25,6 +25,7 @@ import { Icon } from "@/components/elements/icon";
 import { Card } from "@/components/compositions/card";
 import { Input } from "@/components/elements/input";
 import { Chip } from "@/components/elements/chip";
+import { Button } from "@/components/elements/button";
 
 // Assets
 import { images } from "@/assets";
@@ -54,23 +55,32 @@ export const Customers: FunctionComponent = () => {
   const { state, actions } = useDefaultLayoutStore();
   const { width: windowWidth } = useWindowDimensions();
 
-  const { state: customersListState, actions: customersListActions } =
-    useCustomersListStores();
+  const customersListData = useCustomersListStores(
+    (state) => state.customersListData.data,
+  );
 
-  const { customersListData } = customersListState;
-  const { fetchCustomers } = customersListActions;
+  const deleteCustomer = useCustomersListStores(
+    (state) => state.deleteCustomer,
+  );
 
-  const customersListLenght = (customersListData.data ?? []).filter(
-    (customer) =>
-      customer.name.toLowerCase().includes(queryState.toLowerCase()),
+  const fetchCustomers = useCustomersListStores(
+    (state) => state.fetchCustomers,
+  );
+
+  const customersListLenght = (customersListData ?? []).filter((customer) =>
+    customer.name.toLowerCase().includes(queryState.toLowerCase()),
   ).length;
 
   const { sidebarIsOpened, sidebarIsExpanded } = state;
   const { clearState, setSidebarIsOpened, setSidebarIsExpanded } = actions;
 
+  const handleDeleteCustomer = async (id: number) => {
+    await deleteCustomer(id);
+  };
+
   useEffect(() => {
     fetchCustomers();
-  }, []);
+  }, [customersListData]);
 
   useEffect(() => {
     return clearState;
@@ -145,7 +155,9 @@ export const Customers: FunctionComponent = () => {
                   isSidebarOpened={sidebarStatus}
                   label={item.label}
                   isComingSoon={item.isComingSoon}
-                  navigationSource={!item.isComingSoon ? item.path : undefined}
+                  handleClick={() =>
+                    !item.isComingSoon ? navigate(item.path) : undefined
+                  }
                   isSelected={location.pathname === item.path}
                   chipElement={
                     <Chip
@@ -282,15 +294,17 @@ export const Customers: FunctionComponent = () => {
                   />
                 </Fragment>
               }
-              customersListItemComposition={(customersListData.data ?? [])
+              customersListItemComposition={(customersListData ?? [])
                 .filter((item) =>
                   item.name.toLowerCase().includes(queryState.toLowerCase()),
                 )
                 .sort((a, b) => a.name.localeCompare(b.name))
-                .map((item, index) => (
+                .map((item) => (
                   <CustomersListItem
-                    key={`customer-list-item-${index}`}
-                    handleClick={() => navigate(`/editar-cliente/${item.id}`)}
+                    key={`customer-list-item-${item.id}`}
+                    handleClick={() => {
+                      navigate(`/editar-cliente/${item.id}`);
+                    }}
                     customerNameElement={
                       <Typography
                         element="p"
@@ -307,19 +321,40 @@ export const Customers: FunctionComponent = () => {
                         variant="microcopy"
                       />
                     }
-                    contextMenuIconElement={
-                      <Icon
-                        variant="dotsThreeVertical"
-                        color="gray300"
-                        size={32}
-                        handleClick={(event) => {
-                          event?.stopPropagation();
+                    actionMenuElement={
+                      <Fragment>
+                        <Button
+                          labelElement={
+                            <Typography
+                              text="Editar"
+                              color="info300"
+                              variant="labelMedium"
+                            />
+                          }
+                          variant="link"
+                          handleClick={(e) => {
+                            e?.stopPropagation();
 
-                          console.log(
-                            "Botão que abrirá o menu de contexto de um determinado cliente, onde oferecerá as opções de: Editar ou excluir esse cliente.",
-                          );
-                        }}
-                      />
+                            navigate(`/editar-cliente/${item.id}`);
+                          }}
+                        />
+
+                        <Button
+                          labelElement={
+                            <Typography
+                              text="Excluir"
+                              color="danger300"
+                              variant="labelMedium"
+                            />
+                          }
+                          variant="link"
+                          handleClick={(e) => {
+                            e?.stopPropagation();
+
+                            handleDeleteCustomer(Number(item.id));
+                          }}
+                        />
+                      </Fragment>
                     }
                   />
                 ))}

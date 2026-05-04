@@ -13,6 +13,7 @@ import {
   AddressWrapper,
   CardsReportCompositionsWrapper,
   CustomerInformationWrapper,
+  ActionButtonsWrapper,
 } from "./customers-list.styles";
 
 // Types
@@ -43,6 +44,7 @@ export const CustomersListItem: FunctionComponent<CustomersListItemProps> = ({
   customerAddressElement,
   iconElement,
   contextMenuIconElement,
+  actionMenuElement,
   handleClick,
 }) => {
   return (
@@ -52,12 +54,19 @@ export const CustomersListItem: FunctionComponent<CustomersListItemProps> = ({
           {customerNameElement}
 
           <AddressWrapper>
+            {customerAddressElement}
+
+            <ActionButtonsWrapper>
+              <ConditionallyRender
+                shouldRender={!!actionMenuElement}
+                content={actionMenuElement}
+              />
+            </ActionButtonsWrapper>
+
             <ConditionallyRender
               shouldRender={!!iconElement}
               content={iconElement}
             />
-
-            {customerAddressElement}
           </AddressWrapper>
         </CustomerInformationWrapper>
 

@@ -2,7 +2,7 @@
 import styled, { css } from "styled-components";
 
 // Types
-import { ButtonVariants } from "./button.types";
+import { ButtonSizeVariants, ButtonVariants } from "./button.types";
 
 // Styles
 import { theme } from "@/styles/theme";
@@ -12,30 +12,71 @@ type ContainerStyleProps = {
   isActive: boolean;
   isComingSoon: boolean;
   hasHoverEffect?: boolean;
+  sizeVariant?: ButtonSizeVariants;
 };
 
 export const Container = styled.button<ContainerStyleProps>`
   background-color: inherit;
   padding: ${theme.system.space.xxxxs};
-  border-radius: ${theme.system.radii.full};
 
   ${({ isComingSoon: isCommingSoon }) =>
     !!isCommingSoon &&
     css`
       background-color: ${theme.palette.colors["gray200"]};
+      border-radius: ${theme.system.radii.full};
       color: ${theme.palette.colors["gray500"]};
     `};
 
-  ${({ isComingSoon: isCommingSoon, variant }) =>
-    !isCommingSoon &&
+  ${({ isComingSoon, variant }) =>
+    !isComingSoon &&
     variant === "dark-cta" &&
     css`
       background-color: ${theme.palette.colors["warning300"]};
       color: ${theme.palette.colors["white"]};
       transition: all 0.3s ease-in-out;
+      border-radius: ${theme.system.radii.full};
 
       &:hover {
         background-color: ${theme.palette.colors["warning400"]};
       }
     `};
+
+  ${({ isComingSoon, variant }) =>
+    !isComingSoon &&
+    variant === "link" &&
+    css`
+      background-color: transparent;
+      transition: all 0.3s ease-in-out;
+      padding: ${({ theme }) => theme.system.space["quarck"]};
+    `};
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "fullyAdaptative" &&
+    css`
+      width: 100%;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "immense" &&
+    css`
+      width: 540px;
+    `}
+  
+  ${({ sizeVariant }) =>
+    sizeVariant === "large" &&
+    css`
+      width: 360px;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "medium" &&
+    css`
+      width: 240px;
+    `}
+
+  ${({ sizeVariant }) =>
+    sizeVariant === "small" &&
+    css`
+      width: 160px;
+    `}
 `;
