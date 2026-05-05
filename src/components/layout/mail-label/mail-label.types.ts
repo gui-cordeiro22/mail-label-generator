@@ -1,24 +1,32 @@
+// Dependencies
+import { ReactNode } from "react";
+
 export type MailLabelData = {
   nameLabel: string;
   addressLabel: string;
   cepLabel: string;
   neighborhoodLabel: string;
   cityLabel: string;
-  ufLabel: string;
 
   customerName: string;
   customerAddress: string;
   customerCep: string;
-  customerneighborhood: string;
+  customerNeighborhood: string;
   customerCity: string;
   customerUf: string;
 
   senderName: string;
   senderAddress: string;
   senderCep: string;
-  senderneighborhood: string;
+  senderNeighborhood: string;
   senderCity: string;
   senderUf: string;
 };
 
-export type MailLabelProps = MailLabelData;
+export type MailLabelElements = {
+  customerSectionIcon: ReactNode;
+  senderSectionIcon: ReactNode;
+  scissorIconElement: ReactNode;
+};
+
+export type MailLabelProps = MailLabelData & MailLabelElements;

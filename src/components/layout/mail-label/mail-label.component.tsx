@@ -1,15 +1,23 @@
-// Ddependencies
+// Dependencies
 import { FunctionComponent } from "react";
 
 // Styles
 import {
   Container,
-  CustomerInformationsWrapper,
+  ContentWrapper,
   Divider,
+  DividerWrapper,
+  InformationLabel,
+  InformationsWrapper,
+  InformationValue,
 } from "./mail-label.styles";
 
 // Types
 import { MailLabelProps } from "./mail-label.types";
+
+// Helpers
+import { formattedCepBuilder } from "@/utils/helpers/format-cep";
+import { formatAddressBuilder } from "@/utils/helpers/format-address";
 
 export const MailLabelLayout: FunctionComponent<MailLabelProps> = ({
   nameLabel,
@@ -17,63 +25,103 @@ export const MailLabelLayout: FunctionComponent<MailLabelProps> = ({
   cepLabel,
   neighborhoodLabel,
   cityLabel,
-  ufLabel,
   customerName,
   customerAddress,
   customerCep,
   customerCity,
   customerUf,
-  customerneighborhood,
+  customerNeighborhood,
   senderName,
   senderAddress,
   senderCep,
-  senderneighborhood,
+  senderNeighborhood,
   senderCity,
   senderUf,
+  customerSectionIcon,
+  senderSectionIcon,
+  scissorIconElement,
 }) => {
   return (
     <Container>
-      <CustomerInformationsWrapper>
-        <p>
-          {nameLabel} {customerName}
-        </p>
+      <ContentWrapper>
+        {customerSectionIcon}
 
-        <p>
-          {addressLabel} {customerAddress}
-        </p>
+        <InformationsWrapper>
+          <InformationLabel>{nameLabel}</InformationLabel>
 
-        <p>
-          {cepLabel} {customerCep}
-        </p>
+          <InformationValue>{customerName}</InformationValue>
+        </InformationsWrapper>
 
-        <p>
-          {neighborhoodLabel} {customerneighborhood}
-        </p>
+        <InformationsWrapper>
+          <InformationLabel>{addressLabel}</InformationLabel>
 
-        <p>
-          {cityLabel} {customerCity}
-        </p>
+          <InformationValue>{customerAddress}</InformationValue>
+        </InformationsWrapper>
 
-        <p>
-          {ufLabel} {customerUf}
-        </p>
-      </CustomerInformationsWrapper>
+        <InformationsWrapper>
+          <InformationLabel>{cepLabel}</InformationLabel>
 
-      <Divider />
+          <InformationValue>
+            {formattedCepBuilder(customerCep)}
+          </InformationValue>
+        </InformationsWrapper>
 
-      <CustomerInformationsWrapper>
-        <p>Nome: {senderName}</p>
+        <InformationsWrapper>
+          <InformationLabel>{neighborhoodLabel}</InformationLabel>
 
-        <p>Endereço: {senderAddress}</p>
+          <InformationValue>{customerNeighborhood}</InformationValue>
+        </InformationsWrapper>
 
-        <p>CEP: {senderCep}</p>
+        <InformationsWrapper>
+          <InformationLabel>{cityLabel}</InformationLabel>
 
-        <p>Bairro: {senderneighborhood}</p>
+          <InformationValue>
+            {formatAddressBuilder(customerCity, customerUf)}
+          </InformationValue>
+        </InformationsWrapper>
+      </ContentWrapper>
 
-        <p>Cidade: {senderCity}</p>
+      <DividerWrapper>
+        {scissorIconElement}
 
-        <p>Estado: {senderUf}</p>
-      </CustomerInformationsWrapper>
+        <Divider />
+      </DividerWrapper>
+
+      <ContentWrapper>
+        {senderSectionIcon}
+
+        <InformationsWrapper>
+          <InformationLabel>{nameLabel}</InformationLabel>
+
+          <InformationValue>{senderName}</InformationValue>
+        </InformationsWrapper>
+
+        <InformationsWrapper>
+          <InformationLabel>{addressLabel}</InformationLabel>
+
+          <InformationValue>{senderAddress}</InformationValue>
+        </InformationsWrapper>
+
+        <InformationsWrapper>
+          <InformationLabel>{cepLabel}</InformationLabel>
+
+          <InformationValue>{formattedCepBuilder(senderCep)}</InformationValue>
+        </InformationsWrapper>
+
+        <InformationsWrapper>
+          <InformationLabel>{neighborhoodLabel}</InformationLabel>
+
+          <InformationValue>{senderNeighborhood}</InformationValue>
+        </InformationsWrapper>
+
+        <InformationsWrapper>
+          <InformationLabel>{cityLabel}</InformationLabel>
+
+          <InformationValue>
+            {formatAddressBuilder(senderCity, senderUf)}
+          </InformationValue>
+        </InformationsWrapper>
+      </ContentWrapper>
     </Container>
   );
 };

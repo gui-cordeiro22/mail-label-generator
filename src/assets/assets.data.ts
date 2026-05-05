@@ -15,6 +15,9 @@ import { ReactComponent as whatsappIcon } from "./icons/whatsapp";
 import { ReactComponent as mapPin } from "./icons/map-pin";
 import { ReactComponent as customersList } from "./icons/customers-list";
 import { ReactComponent as searchIcon } from "./icons/list-magnifying-glass";
+import { ReactComponent as scissorsIcon } from "./icons/scissors";
+import { ReactComponent as truck } from "./icons/truck";
+import { ReactComponent as closedPackage } from "./icons/package";
 
 export const images: Images = {
   brandLogo: logo,
@@ -31,4 +34,7 @@ export const icons: Icons = {
   mapPin: { source: mapPin },
   customersList: { source: customersList },
   searchIcon: { source: searchIcon },
+  scissorsIcon: { source: scissorsIcon },
+  truck: { source: truck },
+  closedPackage: { source: closedPackage },
 };

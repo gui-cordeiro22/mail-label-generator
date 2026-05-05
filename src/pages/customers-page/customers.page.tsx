@@ -42,7 +42,7 @@ import { customersPageData } from "./customers.mock";
 import { useWindowDimensions } from "@/hooks/window-dimensions";
 
 // Helpers
-import { formattedCepBuilder } from "./customers.helpers";
+import { formattedCepBuilder } from "@/utils/helpers/format-cep";
 
 export const Customers: FunctionComponent = () => {
   const [queryState, setQueryState] = useState("");
