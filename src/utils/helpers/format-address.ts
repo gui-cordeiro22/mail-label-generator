@@ -1,3 +1,5 @@
 export const formatAddressBuilder = (city: string, uf: string) => {
-  return `${city} - ${uf.toUpperCase()}`;
+  const formattedAddress = `${city} - ${uf.toUpperCase()}`;
+
+  return formattedAddress;
 };
